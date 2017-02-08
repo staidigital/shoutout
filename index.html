@@ -21,8 +21,10 @@
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script>
+    // Dette er koblingen til serveren
     var socket = io();
 
+    // får nytt spørsmål fra serveren og legger til liste
     function addToList(question)
     {
       $('#questions').append($('<li id="' + question.id + '">')
@@ -32,6 +34,7 @@
       .append('<span class=votespan id="vote' + question.id + '" >' + question.votes + ' </span>'));
     }
 
+    // gir stemmefunksjonalitet til knappene
     function buttonPressed(button, id){
       var vote = { 'id': id };
       if($(button).attr('class') === 'voteButton minusButton') {vote.vote = 'minus';}
@@ -39,6 +42,7 @@
       socket.emit('vote', JSON.stringify(vote));
     }
 
+    // skrive inn nytt spørsmål og sende til serveren
     $('form').submit(function(){
       if($('#inputfield').val() === '') return false;
       socket.emit('new question', $('#inputfield').val()); //sender til serveren, type action og action-data
@@ -46,15 +50,18 @@
       return false;
     });
 
+    // tar inn nytt spørsmål fra serveren
     socket.on('new question', function(q){
       addToList(JSON.parse(q));
     });
 
+    // tar inn ny stemme fra serveren
     socket.on('vote', function(q){
       var q = JSON.parse(q);
        $('#vote' + q.id).text(q.votes);
     });
 
+    // legger til allerede-eksisterende spørsmål til nye brukere
     socket.on('all questions', function(questions)
     {
       var questions = JSON.parse(questions);
