@@ -1,3 +1,4 @@
+// deklarerer variabler
 var app = require('express')(); //webserveren
 var http = require('http').Server(app);
 var webSocket = require('socket.io')(http);
@@ -6,15 +7,17 @@ var _ = require('lodash');
 var questions = [];
 var id = 0;
 
+// setter opp get-funksjon mot nettsiden
 app.get('/', function(req,res){
   res.sendFile(__dirname+'/index.html');
 });
 
+// bestemmer port
 http.listen(3000,function(){
   console.log('Listening on 3000');
 });
 
-//nå klient kobler seg på
+//når klient kobler seg på
 webSocket.on('connection',function(socket){
   console.log('new connection');
   //laste inn tidligere stilte spørsmål
