@@ -4,7 +4,7 @@
   <title>ShoutOut</title>
   <link rel="stylesheet" type="text/css" href="style.css">
   <style>
-    
+
   </style>
 </head>
 <body>
@@ -26,7 +26,7 @@
     // får nytt spørsmål fra serveren og legger til liste
     function addToList(question)
     {
-      $('#questions').append($('<li id="' + question.id + '">')
+      $('#questions').prepend($('<li id="' + question.id + '">')
       .text(question.text)
       .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="voteButton minusButton" >-</button>')
       .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="voteButton plusButton" >+</button>')
