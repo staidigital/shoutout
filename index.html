@@ -6,19 +6,19 @@
   <style>
   .voteButton{
         border:2px black solid;
-        padding: 5%;
-        margin: 2px;
+        padding: 2%;
     }
-  .minusButton{
-      padding:5%;
-      background: rgb(200,20,20);
-      margin: 2px;
-  }
+
+
   .plusButton{
-      padding 5%;
       background: rgb(20,200,20);
-      margin: 2px;
+      margin: 10px;
+      padding: 5%;
+      border-radius: 10px;
   }
+
+
+
   .votespan{
       padding: 5%;
       margin: 2px;
@@ -60,6 +60,7 @@
       margin: 0 auto;
     }
     .inputfield {
+      margin: 2px;
   }
   header{
     width: 100%;
@@ -78,6 +79,11 @@
     position: fixed;
     bottom: 0;
     z-index: 10;
+  }
+
+  form {
+
+    
   }
   </style>
 </head>
@@ -111,7 +117,6 @@
     {
       $('#questions').prepend($('<li id="' + question.id + '">')
       .text(question.text)
-      .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="voteButton minusButton" >-</button>')
       .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="voteButton plusButton" >+</button>')
       .append('<span class=votespan id="vote' + question.id + '" >' + question.votes + ' </span>'));
     }
