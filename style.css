@@ -8,3 +8,13 @@
   background: rgb(20,200,20);
 }
 .votespan{}
+ul{
+  list-style-type: none;
+}
+li{
+  display: block;
+  list-style:none;
+}
+body{
+  background-color: red;
+}
