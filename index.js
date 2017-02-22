@@ -13,8 +13,8 @@ app.get('/', function(req,res){
 });
 
 // bestemmer port
-http.listen(3000,function(){
-  console.log('Listening on 3000');
+http.listen(80,function(){
+  console.log('Listening on 80');
 });
 
 //når klient kobler seg på
