@@ -7,6 +7,7 @@ var _ = require('lodash');
 var path = require('path');
 
 var questions = [];
+var voteids = [];
 var id = 0;
 
 // setter opp get-funksjon mot nettsiden
@@ -19,6 +20,7 @@ http.listen(3001,function(){
 
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
+  var address = socket.handshake.address;
   console.log('new connection');
   //laste inn tidligere stilte spørsmål
   socket.emit('all questions', JSON.stringify(questions));
@@ -49,8 +51,16 @@ webSocket.on('connection',function(socket){
       console.log('question not found');
       return;
     }
+    var addressCheck = _.find(voteids, {
+      'address' : address,
+      'voteid' : vote.id
+    });
+    if(addressCheck != null) {
+      return;
+    }
+    var addressobj = {'address' : address, 'voteid' : vote.id};
+    voteids.push(addressobj);
     if(vote.vote == 'plus') q.votes++;
-    else q.votes--;
     console.log('sending vote');
     webSocket.emit('vote', JSON.stringify(q));
   });
