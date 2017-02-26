@@ -3,19 +3,25 @@
 <head>
   <title>ShoutOut</title>
   <link rel="stylesheet" type="text/css" href="style.css">
-  <style>
-
-  </style>
 </head>
 <body>
-  <h1>Shoutout</h1>
-  <ul id=questions>
-  </ul>
-  <form>
-    <input id=inputfield autocomplete=off></input>
-    <button>Send </button>
-  </form>
+  <div id="main">
+    <header>
+      <h1>Shoutout</h1>
+    </header>
+    <div id="content">
 
+      <ul id=questions>
+      </ul>
+
+    </div>
+  </div>
+  <footer>
+    <form>
+      <input id=inputfield autocomplete=off></input>
+      <button>Send </button>
+    </form>
+  </footer>
 
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -28,7 +34,6 @@
     {
       $('#questions').prepend($('<li id="' + question.id + '">')
       .text(question.text)
-      .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="voteButton minusButton" >-</button>')
       .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="voteButton plusButton" >+</button>')
       .append('<span class=votespan id="vote' + question.id + '" >' + question.votes + ' </span>'));
     }

@@ -1,20 +1,20 @@
 // deklarerer variabler
-var app = require('express')(); //webserveren
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var webSocket = require('socket.io')(http);
 var _ = require('lodash');
+var path = require('path');
 
 var questions = [];
 var id = 0;
 
 // setter opp get-funksjon mot nettsiden
-app.get('/', function(req,res){
-  res.sendFile(__dirname+'/index.html');
-});
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 // bestemmer port
-http.listen(80,function(){
-  console.log('Listening on 80');
+http.listen(3001,function(){
+  console.log('Listening on 3001');
 });
 
 //når klient kobler seg på
