@@ -18,11 +18,13 @@ li{
   text-align: center;
 }
 
-.inputfield {
-  margin: 2px;
+#inputfield {
+  margin: 5px auto;
+  border-radius: 15px;
 }
 #inputform{
   margin: 5px auto 5px auto;
+  width: 50%;
 }
 
 footer{

@@ -13,6 +13,7 @@ var id = 0;
 // setter opp get-funksjon mot nettsiden
 app.use('/', express.static(path.join(__dirname, 'public')));
 
+var roomnumber = 1;
 // bestemmer port
 http.listen(3001,function(){
   console.log('Listening on 3001');
@@ -21,6 +22,8 @@ http.listen(3001,function(){
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
+  socket.join("room-"+roomnumber);
+  webSocket.sockets.in("room-"+roomnumber).emit('connectToRoom', "You are in room no. "+roomnumber);
   console.log('new connection');
   //laste inn tidligere stilte spørsmål
   socket.emit('all questions', JSON.stringify(questions));
