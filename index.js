@@ -43,7 +43,7 @@ webSocket.on('connection',function(socket){
     if(checkRoom != null){
       socket.join(data);
       console.log('room joined');
-      webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i'+data);
+      webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+data);
     }
   });
   //når det kommer et nytt spørsmål fra klient
