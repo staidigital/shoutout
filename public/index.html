@@ -40,7 +40,7 @@
 
     function createRoom(){
       myroom = $('#fagkode').val();
-      socket.emit('create room', $('#fagkode').val());
+      socket.emit('create room', myroom);
     }
     socket.on('created room', function(data){
       $('#createdRoom').text('rom: '+myroom);

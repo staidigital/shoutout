@@ -33,10 +33,10 @@ webSocket.on('connection',function(socket){
   }
   socket.on('create room', function(data){
     console.log('room created');
-    var roomobj = {'name' : 'langsom ku'};
+    var roomobj = {'name' : data};
     rooms.push(roomobj);
-    socket.join(newroomname.name);
-    webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i langsom ku');
+    socket.join(roomobj.name);
+    webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i '+data);
     socket.emit('created room', 'du er nå i: langsom ku');
   });
   socket.on('join room', function(data){
