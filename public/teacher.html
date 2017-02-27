@@ -15,11 +15,7 @@
       <h1>Shoutout</h1>
     </div>
     <div>
-      <label>Fagkode: </label>
-      <input type="text" id ="fagkode" placeholder="e.g. tdt4140"></input>
-      <button onclick="createRoom()" class="btn btn-danger" role=button>Lag et nytt room</button>
-      <div id=createdRoom></div>
-    </div>
+
     <div class="questioncontainer">
       <ul id=questions>
       </ul>
@@ -38,15 +34,7 @@
   <script>
     // Dette er koblingen til serveren
     var socket = io();
-    var myroom = '';
-
-    function createRoom(){
-      myroom = $('#fagkode').val());
-      socket.emit('create room', $('#fagkode').val());
-    }
-    socket.on('created room', function(data){
-      $('#createdRoom').text('rom: '+myroom);
-    });
+    
     // får nytt spørsmål fra serveren og legger til liste
     function addToList(question)
     {
