@@ -27,18 +27,16 @@ webSocket.on('connection',function(socket){
   //laste inn tidligere stilte spørsmål
   socket.emit('all questions', JSON.stringify(questions));
 
-  function createRoom(){
-
-    return roomobj;
-  }
   socket.on('create room', function(data){
     console.log('room created');
-    var roomobj = {'name' : 'langsom ku'};
+    var roomobj = {'name' : data};
+    console.log('room: '+roomobj.name)
     rooms.push(roomobj);
-    socket.join(newroomname.name);
-    webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i langsom ku');
-    socket.emit('created room', 'du er nå i: langsom ku');
+    socket.join(roomobj.name);
+    webSocket.sockets.in(roomobj.name).emit('connectToRoom', 'Du er nå i '+roomobj.name);
+    socket.emit('created room', roomobj.room);
   });
+
   socket.on('join room', function(data){
     var checkRoom = null;
     var checkRoom = _.find(rooms,{'name':'langsom ku'});
@@ -47,7 +45,7 @@ webSocket.on('connection',function(socket){
       console.log('room joined');
       webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i langsom ku');
     }
-  })
+  });
   //når det kommer et nytt spørsmål fra klient
   socket.on('new question', function(question){
     var q =
