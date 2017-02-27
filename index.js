@@ -39,11 +39,11 @@ webSocket.on('connection',function(socket){
 
   socket.on('join room', function(data){
     var checkRoom = null;
-    var checkRoom = _.find(rooms,{'name':'langsom ku'});
+    var checkRoom = _.find(rooms,{'name':data});
     if(checkRoom != null){
-      socket.join('langsom ku');
+      socket.join(data);
       console.log('room joined');
-      webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i langsom ku');
+      webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i'+data);
     }
   });
   //når det kommer et nytt spørsmål fra klient
