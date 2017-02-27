@@ -15,9 +15,10 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 var roomnumber = 1;
 // bestemmer port
+
 http.listen(3001,function(){
   console.log('Listening on 3001');
-});
+    });
 
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
