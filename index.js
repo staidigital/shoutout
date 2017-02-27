@@ -28,13 +28,13 @@ webSocket.on('connection',function(socket){
   socket.emit('all questions', JSON.stringify(questions));
 
   function createRoom(){
-    var roomobj = {'name' : 'langsom ku'};
-    rooms.push(roomobj)
+
     return roomobj;
   }
-  socket.on('create room', function(){
+  socket.on('create room', function(data){
     console.log('room created');
-    var newroomname = createRoom();
+    var roomobj = {'name' : 'langsom ku'};
+    rooms.push(roomobj);
     socket.join(newroomname.name);
     webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i langsom ku');
     socket.emit('created room', 'du er nå i: langsom ku');
