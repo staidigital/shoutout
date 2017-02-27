@@ -76,7 +76,6 @@ webSocket.on('connection',function(socket){
     }
     q.answered=true;
     webSocket.emit('q', JSON.stringify(q))
-    console.log(q)
   });
 
   //ny stemme
@@ -99,7 +98,7 @@ webSocket.on('connection',function(socket){
     }
     var addressobj = {'address' : address, 'voteid' : vote.id};
     voteids.push(addressobj);
-    if(vote.vote == 'plus') q.votes++;
+    q.votes++;
     console.log('sending vote');
     webSocket.emit('vote', JSON.stringify(q));
   });
