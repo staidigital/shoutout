@@ -45,7 +45,7 @@
     {
       $('#questions').prepend($('<li class=jumbotron id="' + question.id + '">')
       .text(question.text)
-      .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="btn btn-success btn-lg" role=button >+</button>')
+      .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="btn btn-success btn-lg" role=button >answer</button>')
       .append('<span class=votespan id="vote' + question.id + '" >' + question.votes + ' </span>'));
     };
 

@@ -63,7 +63,7 @@ webSocket.on('connection',function(socket){
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
 
-  //svar på spørsmål
+  //når foreleseren svarer på et spørsmål
   socket.on('answer',function(answer){
     console.log('question answered');
     var answer=JSON.parse(answer);
@@ -98,7 +98,7 @@ webSocket.on('connection',function(socket){
     }
     var addressobj = {'address' : address, 'voteid' : vote.id};
     voteids.push(addressobj);
-    q.votes++;
+    if (vote.vote=='plus')q.votes++;
     console.log('sending vote');
     webSocket.emit('vote', JSON.stringify(q));
   });
