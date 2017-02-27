@@ -63,6 +63,22 @@ webSocket.on('connection',function(socket){
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
 
+  //svar på spørsmål
+  socket.on('answer',function(answer){
+    console.log('question answered');
+    var answer=JSON.parse(answer);
+    var q=_.find(questions,function(q){
+      return q.id==answer.id;
+    });
+    if(q==null){
+      console.log('question not found');
+      return;
+    }
+    q.answered=true;
+    webSocket.emit('q', JSON.stringify(q))
+    console.log(q)
+  });
+
   //ny stemme
   socket.on('vote', function(vote){
     console.log('vote received');

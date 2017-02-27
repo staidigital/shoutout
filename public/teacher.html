@@ -56,12 +56,10 @@
       .append('<span class=votespan id="vote' + question.id + '" >' + question.votes + ' </span>'));
     };
 
-    // gir stemmefunksjonalitet til knappene
+    // gir svarfunksjon til knappen
     function buttonPressed(button, id){
-      var vote = { 'id': id };
-      if($(button).attr('class') === 'voteButton minusButton') {vote.vote = 'minus';}
-      else {vote.vote = 'plus';}
-      socket.emit('vote', JSON.stringify(vote));
+      var answer = { 'id': id };
+      socket.emit('answer', JSON.stringify(answer));
     };
 
     // skrive inn nytt spørsmål og sende til serveren
