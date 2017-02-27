@@ -22,10 +22,9 @@ http.listen(3001,function(){
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
-
+  var myroom = null;
   console.log('new connection');
   //laste inn tidligere stilte spørsmål
-  socket.emit('all questions', JSON.stringify(questions));
 
   socket.on('create room', function(data){
     console.log('room created');
@@ -33,6 +32,7 @@ webSocket.on('connection',function(socket){
     console.log('room: '+roomobj.name)
     rooms.push(roomobj);
     socket.join(roomobj.name);
+    myroom = roomobj.name;
     webSocket.sockets.in(roomobj.name).emit('connectToRoom', 'Du er nå i '+roomobj.name);
     socket.emit('created room', roomobj.room);
   });
@@ -43,7 +43,9 @@ webSocket.on('connection',function(socket){
     if(checkRoom != null){
       socket.join(data);
       console.log('room joined');
+      myroom = data;
       webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+data);
+      webSocket.sockets.in(data).emit('all questions', JSON.stringify(questions));
     }
   });
   //når det kommer et nytt spørsmål fra klient
@@ -54,12 +56,11 @@ webSocket.on('connection',function(socket){
       'id': id,
       'votes': 0,
       'answered': false,
-      'room' : null
+      'room' : myroom
     }
-
     id++;
     questions.push(q);
-    webSocket.emit('new question', JSON.stringify(q));
+    webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
 
   //ny stemme
