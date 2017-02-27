@@ -9,11 +9,10 @@ var path = require('path');
 var questions = [];
 var voteids = [];
 var id = 0;
+var rooms = [];
 
 // setter opp get-funksjon mot nettsiden
 app.use('/', express.static(path.join(__dirname, 'public')));
-
-var roomnumber = 1;
 // bestemmer port
 
 http.listen(3001,function(){
@@ -23,12 +22,32 @@ http.listen(3001,function(){
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
-  socket.join("room-"+roomnumber);
-  webSocket.sockets.in("room-"+roomnumber).emit('connectToRoom', "You are in room no. "+roomnumber);
+
   console.log('new connection');
   //laste inn tidligere stilte spørsmål
   socket.emit('all questions', JSON.stringify(questions));
 
+  function createRoom(){
+    var roomobj = {'name' : 'langsom ku'};
+    rooms.push(roomobj)
+    return roomobj;
+  }
+  socket.on('create room', function(){
+    console.log('room created');
+    var newroomname = createRoom();
+    socket.join(newroomname.name);
+    webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i langsom ku');
+    socket.emit('created room', 'du er nå i: langsom ku');
+  });
+  socket.on('join room', function(data){
+    var checkRoom = null;
+    var checkRoom = _.find(rooms,{'name':'langsom ku'});
+    if(checkRoom != null){
+      socket.join('langsom ku');
+      console.log('room joined');
+      webSocket.sockets.in('langsom ku').emit('connectToRoom', 'Du er nå i langsom ku');
+    }
+  })
   //når det kommer et nytt spørsmål fra klient
   socket.on('new question', function(question){
     var q =
@@ -36,7 +55,8 @@ webSocket.on('connection',function(socket){
       'text': question,
       'id': id,
       'votes': 0,
-      'answered': false
+      'answered': false,
+      'room' : null
     }
 
     id++;
