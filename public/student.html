@@ -55,8 +55,7 @@
     // gir stemmefunksjonalitet til knappene
     function buttonPressed(button, id){
       var vote = { 'id': id };
-      if($(button).attr('class') === 'voteButton minusButton') {vote.vote = 'minus';}
-      else {vote.vote = 'plus';}
+      vote.vote = 'plus';
       socket.emit('vote', JSON.stringify(vote));
     }
 

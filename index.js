@@ -45,16 +45,18 @@ webSocket.on('connection',function(socket){
       console.log('room joined');
       myroom = data;
       webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+myroom);
-      var allquestions = [];
-      for(var i=0;i<questions.length;i++){
-        if(questions[i].room === myroom){
-          allquestions.push(questions[i]);
-          console.log(questions[i].room);
-        }
-      }
-      webSocket.sockets.in(data).emit('all questions', JSON.stringify(allquestions));
+      emitAllQuestions();
     }
   });
+
+  function emitAllQuestions(){
+    for(var i=0;i<rooms.length;i++){
+      if(rooms[i].name === myroom){
+        webSocket.sockets.in(myroom).emit('all questions', JSON.stringify(rooms[i].questions));
+      }
+    }
+
+  }
   //når det kommer et nytt spørsmål fra klient
   socket.on('new question', function(question){
     var q =
@@ -62,12 +64,16 @@ webSocket.on('connection',function(socket){
       'text': question,
       'id': id,
       'votes': 0,
-      'answered': false,
-      'room' : myroom
+      'answered': false
     }
     id++;
     console.log(q.room);
-    questions.push(q);
+    for(var i = 0; i<rooms.length;i++){
+      if(rooms[i].name == myroom){
+        rooms[i].questions.push(q);
+        rooms[i].questions.sort();
+      }
+    };
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
 
@@ -90,9 +96,15 @@ webSocket.on('connection',function(socket){
   socket.on('vote', function(vote){
     console.log('vote received');
     var vote = JSON.parse(vote);
-    var q = _.find(questions, function(q){
-      return q.id == vote.id;
+    var rom = _.find(rooms, function(rom){
+      return rom.name == myroom;
     });
+    var q = null;
+    for(var i = 0; i<rom.questions.length;i++){
+      if(rom.questions[i].id == vote.id){
+        q = rom.questions[i];
+      }
+    }
     if(q == null) {
       console.log('question not found');
       return;
