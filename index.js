@@ -28,7 +28,7 @@ webSocket.on('connection',function(socket){
 
   socket.on('create room', function(data){
     console.log('room created');
-    var roomobj = {'name' : data};
+    var roomobj = {'name' : data, 'questions':[]};
     console.log('room: '+roomobj.name)
     rooms.push(roomobj);
     socket.join(roomobj.name);
@@ -44,8 +44,15 @@ webSocket.on('connection',function(socket){
       socket.join(data);
       console.log('room joined');
       myroom = data;
-      webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+data);
-      webSocket.sockets.in(data).emit('all questions', JSON.stringify(questions));
+      webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+myroom);
+      var allquestions = [];
+      for(var i=0;i<questions.length;i++){
+        if(questions[i].room === myroom){
+          allquestions.push(questions[i]);
+          console.log(questions[i].room);
+        }
+      }
+      webSocket.sockets.in(data).emit('all questions', JSON.stringify(allquestions));
     }
   });
   //når det kommer et nytt spørsmål fra klient
@@ -59,6 +66,7 @@ webSocket.on('connection',function(socket){
       'room' : myroom
     }
     id++;
+    console.log(q.room);
     questions.push(q);
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
