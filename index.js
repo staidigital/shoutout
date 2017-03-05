@@ -10,13 +10,14 @@ var questions = [];
 var voteids = [];
 var id = 0;
 var rooms = [];
+var port=3001
 
 // setter opp get-funksjon mot nettsiden
 app.use('/', express.static(path.join(__dirname, 'public')));
 // bestemmer port
 
-http.listen(3001,function(){
-  console.log('Listening on 3001');
+http.listen(port,function(){
+  console.log('Listening on '+port);
     });
 
 //når klient kobler seg på
