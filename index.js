@@ -57,11 +57,6 @@ webSocket.on('connection',function(socket){
     }
 
   }
-
-  //returner id
-  exports.get_id=function(){
-    return id;
-  }
   //når det kommer et nytt spørsmål fra klient
   socket.on('new question', function(question){
     var q =
