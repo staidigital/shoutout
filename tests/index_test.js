@@ -1,8 +1,10 @@
 var expect = require("chai").expect;
-var shotout=require("../index.js")
-var request=require("request")
+var app=require("../index.js");
+var request=require("request");
 
-var index=new(index);
+
+
+
 
 describe("http", function() {
     it("åpner nettsiden", function(done) {
@@ -41,8 +43,4 @@ describe("http", function() {
      it("lager et rom",function(){
 
      });
-
-
-
-
  })
