@@ -36,10 +36,12 @@
   <script>
     // Dette er koblingen til serveren
     var socket = io();
+    myStorage = localStorage;
 
     function joinRoom(){
       if($('#roomname').val() === '') return false;
       socket.emit('join room', $('#roomname').val());
+      localStorage.setItem('roomname', $('#roomname').val());
       $('#roomname').val('');
       return false;
     }
