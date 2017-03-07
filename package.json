@@ -15,6 +15,7 @@
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
     "request": "^2.80.0",
+    "socket-tester": "^1.2.1",
     "socket.io": "^1.7.2"
   }
 }
