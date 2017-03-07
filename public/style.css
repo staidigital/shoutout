@@ -29,7 +29,23 @@
     margin-bottom: 0 !important;
 }
 
+.btn {
+  margin: 10px;
+  align-self: flex-end;
+}
+
+
+.votespan {
+
+  color: green;
+  font-size: 20px;
+  align-self: flex-end;
+
+}
+
 li{
+
+  align-self: stretch;
   list-style-type: none;
   text-align: center;
 }
