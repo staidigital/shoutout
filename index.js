@@ -5,10 +5,14 @@ var http = require('http').Server(app);
 var webSocket = require('socket.io')(http);
 var _ = require('lodash');
 var path = require('path');
+var bodyParser = require('body-parser');
 
-var sqlite3 = require('sqlite3');
+var fs = require('fs');
+var file = 'db.sqlite3';
+var exists = fs.existsSync(file);
+var sqlite3 = require('sqlite3').verbose();
 var crypto = require('crypto');
-var db = new sqlite3.Database('./db.sqlite3');
+var db = new sqlite3.Database(file);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -16,10 +20,12 @@ var questions = [];
 var voteids = [];
 var id = 0;
 var rooms = [];
-var port=3001
+var port = 3001;
 
 // setter opp get-funksjon mot nettsiden
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 // bestemmer port
 
 http.listen(port,function(){
@@ -27,18 +33,44 @@ http.listen(port,function(){
     });
 
 // databasen
+
+
 function hashPassword(password, salt) {
   var hash = crypto.createHash('sha256');
   hash.update(password);
   hash.update(salt);
+  console.log('inside hashing alg: ',password, salt);
   return hash.digest('hex');
 }
 
+const newUser = function(username, password) {
+  const salt = crypto.randomBytes(64).toString('base64');
+  const hash = hashPassword(password, salt);
+  const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt) VALUES(?,?,?)');
+  newUserStatement.run(username, hash, salt);
+  newUserStatement.finalize();
+}
+
+db.serialize(function(){
+  if(!exists){
+    db.run('CREATE TABLE "users" (\
+        "id" INTEGER PRIMARY KEY AUTOINCREMENT,\
+        "username" TEXT,\
+        "hash" TEXT,\
+        "salt" TEXT\
+    )');
+    newUser('admin','admin');
+  }
+});
+
 passport.use(new LocalStrategy(function(username, password, done) {
+  console.log('staretring localstrat: ', username, password);
+
   db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
     if (!row) return done(null, false);
     var hash = hashPassword(password, row.salt);
-    db.get('SELECT username, id FROM users WHERE username = ? AND password = ?', username, hash, function(err, row) {
+    console.log('row: ', row);
+    db.get('SELECT username, id FROM users WHERE username = ? AND hash = ?', username, hash, function(err, row) {
       if (!row) return done(null, false);
       return done(null, row);
     });
@@ -81,11 +113,15 @@ webSocket.on('connection',function(socket){
     var checkRoom = _.find(rooms,{'name':data});
     if(checkRoom != null){
       socket.join(data);
-      console.log('room joined');
+      console.log('room joined', data);
       myroom = data;
-      webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+myroom);
-      emitAllQuestions();
+      //webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+myroom);
+      socket.emit('connectToRoom', 'Du er nå i'+myroom);
+      socket.emit('all questions', JSON.stringify(checkRoom.questions));
     }
+
+    // send ERROR
+    // socket.emit.
   });
 
   function emitAllQuestions(){
@@ -98,6 +134,9 @@ webSocket.on('connection',function(socket){
   }
   //når det kommer et nytt spørsmål fra klient
   socket.on('new question', function(question){
+    if(myroom == null){
+      return;
+    }
     var q =
     {
       'text': question,
@@ -106,13 +145,13 @@ webSocket.on('connection',function(socket){
       'answered': false
     }
     id++;
-    console.log(q.room);
+
     for(var i = 0; i<rooms.length;i++){
       if(rooms[i].name == myroom){
         rooms[i].questions.push(q);
-        rooms[i].questions.sort();
       }
     };
+    console.log('newquestioninroom', myroom);
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
 
@@ -158,6 +197,9 @@ webSocket.on('connection',function(socket){
     var addressobj = {'address' : address, 'voteid' : vote.id};
     voteids.push(addressobj);
     if (vote.vote=='plus')q.votes++;
+    rom.questions.sort(function(a,b){
+      return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
+    });
     console.log('sending vote');
     webSocket.emit('vote', JSON.stringify(q));
   });

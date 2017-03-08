@@ -9,6 +9,7 @@
   "author": "Sondre Stai",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "chai": "^3.5.0",
     "express": "^4.15.0",
     "loadash": "0.0.1",

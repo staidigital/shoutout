@@ -68,14 +68,6 @@
       socket.emit('answer', JSON.stringify(answer));
     };
 
-    // skrive inn nytt spørsmål og sende til serveren
-    $('form').submit(function(){
-      if($('#inputfield').val() === '') return false;
-      socket.emit('new question', $('#inputfield').val()); //sender til serveren, type action og action-data
-      $('#inputfield').val('');
-      return false;
-    });
-
     // tar inn nytt spørsmål fra serveren
     socket.on('new question', function(q){
       addToList(JSON.parse(q));
