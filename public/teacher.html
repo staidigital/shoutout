@@ -47,9 +47,16 @@
 
     function createRoom(){
       socket.emit('create room', $('#fagkode').val());
+      localStorage.setItem('roomname', $('#roomname').val());
     }
     socket.on('created room', function(data){
       $('#createdRoom').text('rom: '+myroom);
+    });
+    $( document ).ready(function() {
+      if(localStorage.roomname){
+        socket.emit('join room', localStorage.roomname);
+      }
+      return false;
     });
 
 
