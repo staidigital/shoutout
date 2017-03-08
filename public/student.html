@@ -36,7 +36,6 @@
   <script>
     // Dette er koblingen til serveren
     var socket = io();
-    myStorage = localStorage;
 
     function joinRoom(){
       if($('#roomname').val() === '') return false;
@@ -45,6 +44,12 @@
       $('#roomname').val('');
       return false;
     }
+    $( document ).ready(function() {
+      if(localStorage.roomname){
+        socket.emit('join room', localStorage.roomname);
+      }
+      return false;
+    });
     // får nytt spørsmål fra serveren og legger til liste
     function addToList(question)
     {
