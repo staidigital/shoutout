@@ -6,6 +6,12 @@ var webSocket = require('socket.io')(http);
 var _ = require('lodash');
 var path = require('path');
 
+var sqlite3 = require('sqlite3');
+var crypto = require('crypto');
+var db = new sqlite3.Database('./db.sqlite3');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 var questions = [];
 var voteids = [];
 var id = 0;
@@ -20,6 +26,38 @@ http.listen(port,function(){
   console.log('Listening on '+port);
     });
 
+// databasen
+function hashPassword(password, salt) {
+  var hash = crypto.createHash('sha256');
+  hash.update(password);
+  hash.update(salt);
+  return hash.digest('hex');
+}
+
+passport.use(new LocalStrategy(function(username, password, done) {
+  db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
+    if (!row) return done(null, false);
+    var hash = hashPassword(password, row.salt);
+    db.get('SELECT username, id FROM users WHERE username = ? AND password = ?', username, hash, function(err, row) {
+      if (!row) return done(null, false);
+      return done(null, row);
+    });
+  });
+}));
+
+passport.serializeUser(function(user, done) {
+  return done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  db.get('SELECT id, username FROM users WHERE id = ?', id, function(err, row) {
+    if (!row) return done(null, false);
+    return done(null, row);
+  });
+});
+
+app.post('/login', passport.authenticate('local', { successRedirect: '/good-login',
+                                                    failureRedirect: '/bad-login' }));
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
