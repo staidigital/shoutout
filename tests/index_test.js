@@ -1,15 +1,25 @@
 var expect = require("chai").expect;
-var app=require("../index.js");
 var request=require("request");
+var io     = require('socket.io-client');
+var SocketTester = require('socket-tester');
+var socket
+var app = require('../index');
+var socketUrl = 'http://localhost:3001';
 
 
+
+var options = {
+  transports: ['websocket'],
+  'force new connection': true
+};
+
+var socketTester = new SocketTester(io, socketUrl, options);
 
 
 
 describe("http", function() {
     it("åpner nettsiden", function(done) {
-      var url = "http://localhost:3001/"
-      request(url, function(error, response, body) {
+      request(socketUrl, function(error, response, body) {
           expect(response.statusCode).to.equal(200);
           done();
     });
@@ -39,8 +49,23 @@ describe("http", function() {
   });
 })
 
- describe("rooms",function(){
-     it("lager et rom",function(){
+ describe("spørsmål",function(){
+     it("sender spørsmål til et eksisterende rom",function(done){
+       var client1={
+         on:{
+           'new question':socketTester.shouldBeCalledWith('hei?')
+         },
+       emit: {
+         'create room':'tdt4180',
+       }
+     };
+     var client2={
+       emit:{
+       'join room' :'tdt4180',
+       'new question':'hei?'
+     }
+  };
 
+    socketTester.run([client1,client2],done);
      });
  })
