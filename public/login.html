@@ -14,10 +14,22 @@
     <div class="page-header">
       <h1>ShoutOut</h1>
     </div>
-      <a href="student.html"><button onclick="joinRoom()" class="btn btn-danger" role=button>Bli  med i rom</button></a>
-      <a href="login.html"><button onclick="createRoom()" class="btn btn-danger" role=button>Teacher</button></a>
-  </div>
-
+    <form action="/login" method="post">
+      <div>
+          <label>Username:</label>
+          <input type="text" name="username"/>
+      </div>
+      <div>
+          <label>Password:</label>
+          <input type="password" name="password"/>
+      </div>
+      <div>
+          <input type="submit" value="Log In"/>
+      </div>
+      <div>
+        <input type="submit" value="Create user"/>
+      </div>
+    </form>
   </div>
 
   <footer>

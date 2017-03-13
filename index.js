@@ -88,7 +88,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-app.post('/login', passport.authenticate('local', { successRedirect: '/good-login',
+app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
                                                     failureRedirect: '/bad-login' }));
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
