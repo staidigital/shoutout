@@ -9,7 +9,9 @@
   justify-content: center;
 
 }
-
+.form-control{
+  margin-bottom: 5px;
+}
 
 .page-header{
   width: 100%;
