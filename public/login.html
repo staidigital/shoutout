@@ -10,18 +10,20 @@
 
 </head>
 <body>
-  <div class="container">
+  <div class="containerLogin">
     <div class="page-header">
       <h1>ShoutOut</h1>
     </div>
     <form action="/login" method="post">
+      <div class="loginBox">
+        <div class="loginElements">
       <div>
-          <label>Username:</label>
-          <input type="text" name="username"/>
+          <label id="username">Username:</label>
+          <input id="usernameInput" type="text" name="username"/>
       </div>
       <div>
-          <label>Password:</label>
-          <input type="password" name="password"/>
+          <label id="password">Password:</label>
+          <input id="passwordInput" type="password" name="password"/>
       </div>
       <div>
           <input type="submit" value="Log In"/>
@@ -30,6 +32,8 @@
         <input type="submit" value="Create user"/>
       </div>
     </form>
+  </div>
+  </div>
   </div>
 
   <footer>
