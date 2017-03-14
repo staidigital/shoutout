@@ -13,6 +13,11 @@
   margin-bottom: 5px;
 }
 
+.buttonMeny{
+  display: flex;
+  justify-content: center;
+}
+
 .page-header{
   width: 100%;
   z-index: 10;
@@ -23,6 +28,10 @@
 #createdRoom{
   z-index:50;
   color:red;
+}
+
+#lagRom{
+  margin-left: inherit;
 }
 .questioncontainer{
   display: flex;
