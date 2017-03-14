@@ -3,6 +3,14 @@
 .containerLogin{
   justify-content: center;
 }
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+
+}
+
+
 .page-header{
   width: 100%;
   z-index: 10;
