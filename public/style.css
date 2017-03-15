@@ -42,12 +42,14 @@
 }
 
 
+.mybutton{
+  font-family: "Arial Bold", Gadget, sans-serif;
+  font-style: normal;
+  font-size: 18px ! important;
+  padding: 14px 26px !important;
+  margin: 5px !important;
 
-.btn {
-  margin: 10px;
-  align-self: flex-end;
 }
-
 
 .votespan {
 
@@ -96,3 +98,5 @@ footer{
 
 
 }
+
+
