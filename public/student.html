@@ -53,10 +53,23 @@
     // får nytt spørsmål fra serveren og legger til liste
     function addToList(question)
     {
-      $('#questions').prepend($('<li class=jumbotron id="' + question.id + '">')
-      .text(question.text)
-      .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="btn btn-default btn-lg" role=button >+</button>')
-      .append('<span class=votespan id="vote' + question.id + '" >' + question.votes + ' </span>'));
+      $('#questions').prepend($('<div class="box" id="' + question.id + '">')
+          .append('<div class="textBox">')
+          .text(question.text)
+          .append('</div>')
+          .append('<div class="buttonAndVoteContainer">')
+          .append('<div class="plussButton">')
+          .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="btn stud" role=button >+</button>')
+          .append('</div>')
+          .append('<div class="voteCount">')
+          .append('<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>')
+          .append('</div>')
+          .append('</div>')
+          .append('</div>')
+
+
+
+      );
     }
 
     // gir stemmefunksjonalitet til knappene
