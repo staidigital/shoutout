@@ -44,7 +44,7 @@
 .questions{
   padding: 0;
   align-self: center;
-  margin-left: 22%;
+  margin-left: 0%;
 }
 
 
@@ -89,13 +89,6 @@
   right: 0;
 }
 
-.votespan {
-
-  color: green;
-  font-size: 20px;
-  align-self: flex-end;
-
-}
 
 li{
 
@@ -137,9 +130,9 @@ footer{
 
 
 .box{
-  width: 50%;
-  height: 50%;
-  margin: 10px;
+  width: 80%;
+  height: 100%;
+  margin: 2%;
   padding: 10px;
   background-color: rgba(202,200,203,0.43);
   display: flex;
@@ -147,7 +140,10 @@ footer{
   border-color: black;
   border: solid 1px;
   border-radius: 10px;
-  align-self: center;
+  max-width: 600px;
+  min-width: 600px;
+  max-height: inherit;
+
 
 
 }
@@ -156,19 +152,18 @@ footer{
 
 
 .buttonAndVoteContainer{
-  background-color: lightblue !important;
-  width: 30%;
-  height: 30%;
+  width: 20%;
+  right: 0;
+  height: auto;
   display: flex;
-  align-content: center;
+  justify-content: space-between;
+  align-self: flex-end;
 
 }
 
 .plussButton{
-
-position: inherit;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  flex-grow: 4;
 
 
 }
@@ -177,20 +172,37 @@ position: inherit;
 
 
 .votespan{
-  position: relative;
+  font-size: large;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 .textBox{
-  margin: 20px !important;
-  height: 50%;
-  width: 50%;
+  margin: 5px !important;
+  height: 70%;
+  width: 70%;
   word-wrap: break-word;
 }
 
 .stud{
-  width: 100%;
-  height: 100%;
-  position: relative;
+  position: absolute;
+  height: inherit;
+  width: 70%;
+  right: 0;
+  bottom: 0;
+  border-style: solid;
+  border-color: green;
+  border-radius: 10%;
+  background-color: inherit;
+
+}
+
+.voteCount{
+  position:relative;
+  margin: 1%;
+  flex-grow: 1;
+
 }
 
 

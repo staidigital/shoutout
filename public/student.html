@@ -54,21 +54,17 @@
     function addToList(question)
     {
       $('#questions').prepend($('<div class="box" id="' + question.id + '">')
-          .append('<div class="textBox">' + question.text + '</div>' )
-          .append('<div class="buttonAndVoteContainer">'
-          + '<div class="plussButton">'
-                  + '<button onclick="buttonPressed(this, ' + question.id + ')" class="btn stud" role=button >+</button>'
+          .append('<div class="textBox">' + question.text + '</div>'
+                  + '<div class="buttonAndVoteContainer">'
+                  + '<div class="plussButton">'
+                  + '<button onclick="buttonPressed(this, ' + question.id + ')" class="stud" role=button >+</button>'
+                  + '</div>'
+                  + '<div class="voteCount">'
+                  + '<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>'
 
 
-
+              + '</div>'
               + '</div>')
-          .append('</div>')
-          .append('<div class="voteCount">')
-          .append('<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>')
-          .append('</div>')
-          .append('</div>')
-          .append('</div>')
-
 
 
       );
