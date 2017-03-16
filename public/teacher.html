@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="questioncontainer">
-      <ul id=questions>
+      <ul class="questions" id=questions>
       </ul>
     </div>
   </div>
@@ -53,19 +53,35 @@
 
 
     // får nytt spørsmål fra serveren og legger til liste
-    function addToList(question)
-    {
-      $('#questions').prepend($('<li class=jumbotron id="' + question.id + '">')
-      .text(question.text)
-      .append('<button onclick="buttonPressed(this, ' + question.id + ')" class="btn btn-success btn-lg" role=button >answer</button>')
-      .append('<span class=votespan id="vote' + question.id + '" >' + question.votes + ' </span>'));
-    };
+    function addToList(question) {
+        $('#questions').prepend($('<div class="box" id="' + question.id + '">')
+            .append('<div class="textBox">' + question.text + '</div>'
+                + '<div class="buttonAndVoteContainer">'
+                + '<div class="plussButton">'
+                + '<button onclick="buttonPressed(this, ' + question.id + ')" class="teach" id=" '+ question.id +'" type=button >Answer</button>'
+                + '</div>'
+                + '<div class="voteCount">'
+                + '<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>'
+
+
+                + '</div>'
+                + '</div>')
+        );
+    }
+
 
     // gir svarfunksjon til knappen
     function buttonPressed(button, id){
       var answer = { 'id': id };
       socket.emit('answer', JSON.stringify(answer));
+      var myId = id;
+        $("button").click(function() {
+            $(this).addClass('teach-clicked');
+            $(this).html('DONE');
+        });
+
     };
+
 
     // tar inn nytt spørsmål fra serveren
     socket.on('new question', function(q){

@@ -199,15 +199,42 @@ footer{
   max-height: inherit;
 }
 
+.teach{
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border-style: solid;
+  border-color: #4CAF50;
+  border-radius: 10%;
+  background-color: #4CAF50;
+  height: 35px;
+  width: 60px;
+  max-height: inherit;
+  color:white;
+
+}
+
 .stud:hover{
   background-color: #4CAF50;
   color: white;
 }
 
+.teach:hover{
+
+
+}
+
 .voteCount{
   position:relative;
   margin: 1%;
-  flex-grow: 1;
+  flex-grow: 0.5;
+
+}
+
+.teach-clicked  {
+  background: red;
+  color: white;
+  border-color: red;
 
 }
 
