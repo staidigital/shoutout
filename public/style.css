@@ -41,6 +41,12 @@
   align-items: center;
 }
 
+.questions{
+  padding: 0;
+  align-self: center;
+  margin-left: 22%;
+}
+
 
 .mybutton{
   display: inline-block;
@@ -131,8 +137,8 @@ footer{
 
 
 .box{
-  width: 300px;
-  height: 150px;
+  width: 50%;
+  height: 50%;
   margin: 10px;
   padding: 10px;
   background-color: rgba(202,200,203,0.43);
@@ -141,6 +147,7 @@ footer{
   border-color: black;
   border: solid 1px;
   border-radius: 10px;
+  align-self: center;
 
 
 }
@@ -149,12 +156,20 @@ footer{
 
 
 .buttonAndVoteContainer{
+  background-color: lightblue !important;
+  width: 30%;
+  height: 30%;
+  display: flex;
+  align-content: center;
 
 }
 
 .plussButton{
 
-position: fixed;
+position: inherit;
+  width: 100%;
+  height: 100%;
+
 
 }
 
@@ -167,11 +182,15 @@ position: fixed;
 
 .textBox{
   margin: 20px !important;
+  height: 50%;
+  width: 50%;
+  word-wrap: break-word;
 }
 
 .stud{
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 
