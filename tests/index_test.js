@@ -53,16 +53,19 @@ describe("http", function() {
      it("sender spørsmål til et eksisterende rom",function(done){
        var client1={
          on:{
-           'new question':socketTester.shouldBeCalledWith('hei?')
+           'new question':function(data){
+          text=JSON.parse(data).text;
+          expect(text).to.equal("Why should we use SCRUM?")
+           }
          },
        emit: {
-         'create room':'tdt4180',
+         'create room':'tdt4145',
        }
      };
      var client2={
        emit:{
-       'join room' :'tdt4180',
-       'new question':'hei?'
+       'join room' :'tdt4145',
+       'new question':'Why should we use SCRUM?'
      }
   };
 
