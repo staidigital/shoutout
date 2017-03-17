@@ -35,11 +35,9 @@ app.use(passport.session());
 // bestemmer port
 http.listen(port,function(){
   console.log('Listening on '+port);
-    });
+});
 
 // databasen
-
-
 function hashPassword(password, salt) {
   var hash = crypto.createHash('sha256');
   hash.update(password);
@@ -52,7 +50,14 @@ const newUser = function(username, password) {
   const salt = crypto.randomBytes(64).toString('base64');
   const hash = hashPassword(password, salt);
   const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt) VALUES(?,?,?)');
-  newUserStatement.run(username, hash, salt);
+
+  newUserStatement.run(username, hash, salt, function(err) {
+    if(err) {
+      if(err.code === 'SQLITE_CONSTRAINT') {
+        console.log('username taken');
+      }
+    }
+  });
   newUserStatement.finalize();
 }
 
@@ -62,7 +67,8 @@ db.serialize(function(){
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,\
         "username" TEXT,\
         "hash" TEXT,\
-        "salt" TEXT\
+        "salt" TEXT,\
+        UNIQUE (username)\
     )');
     newUser('admin','admin');
   }
@@ -95,6 +101,12 @@ passport.deserializeUser(function(id, done) {
 
 app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
                                                     failureRedirect: '/bad-login' }));
+app.post('/signup', function(req, res){
+  newUser(req.body.username, req.body.password);
+  // need some way to check if db transaction went OK
+  res.send('foo');
+});
+
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
@@ -208,4 +220,6 @@ webSocket.on('connection',function(socket){
     console.log('sending vote');
     webSocket.emit('vote', JSON.stringify(q));
   });
+
+
 });
