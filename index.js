@@ -6,6 +6,8 @@ var webSocket = require('socket.io')(http);
 var _ = require('lodash');
 var path = require('path');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var expressSession = require('express-session');
 
 var fs = require('fs');
 var file = 'db.sqlite3';
@@ -22,12 +24,15 @@ var id = 0;
 var rooms = [];
 var port = 3001;
 
-// setter opp get-funksjon mot nettsiden
-app.use(bodyParser.urlencoded({ extended: false}));
+// konfigurering
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(expressSession({ secret: 'cat', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
-// bestemmer port
+app.use(passport.session());
 
+// bestemmer port
 http.listen(port,function(){
   console.log('Listening on '+port);
     });
