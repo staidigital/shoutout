@@ -38,80 +38,85 @@ http.listen(port,function(){
 });
 
 // databasen
-function hashPassword(password, salt) {
-  var hash = crypto.createHash('sha256');
-  hash.update(password);
-  hash.update(salt);
-  console.log('inside hashing alg: ',password, salt);
-  return hash.digest('hex');
-}
 
-const newUser = function(username, password) {
-  const salt = crypto.randomBytes(64).toString('base64');
-  const hash = hashPassword(password, salt);
-  const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt) VALUES(?,?,?)');
-
-  newUserStatement.run(username, hash, salt, function(err) {
-    if(err) {
-      if(err.code === 'SQLITE_CONSTRAINT') {
-        console.log('username taken');
-      }
-    }
-  });
-  newUserStatement.finalize();
-}
-
-db.serialize(function(){
-  if(!exists){
-    db.run('CREATE TABLE "users" (\
-        "id" INTEGER PRIMARY KEY AUTOINCREMENT,\
-        "username" TEXT,\
-        "hash" TEXT,\
-        "salt" TEXT,\
-        UNIQUE (username)\
-    )');
-    newUser('admin','admin');
-  }
-});
-
-passport.use(new LocalStrategy(function(username, password, done) {
-  console.log('staretring localstrat: ', username, password);
-
-  db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
-    if (!row) return done(null, false);
-    var hash = hashPassword(password, row.salt);
-    console.log('row: ', row);
-    db.get('SELECT username, id FROM users WHERE username = ? AND hash = ?', username, hash, function(err, row) {
-      if (!row) return done(null, false);
-      return done(null, row);
-    });
-  });
-}));
-
-passport.serializeUser(function(user, done) {
-  return done(null, user.id);
-});
-
-passport.deserializeUser(function(id, done) {
-  db.get('SELECT id, username FROM users WHERE id = ?', id, function(err, row) {
-    if (!row) return done(null, false);
-    return done(null, row);
-  });
-});
-
-app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
-                                                    failureRedirect: '/bad-login' }));
-app.post('/signup', function(req, res){
-  newUser(req.body.username, req.body.password);
-  // need some way to check if db transaction went OK
-  res.send('foo');
-});
 
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
   var myroom = null;
   console.log('new connection');
+  function hashPassword(password, salt) {
+    var hash = crypto.createHash('sha256');
+    hash.update(password);
+    hash.update(salt);
+    console.log('inside hashing alg: ',password, salt);
+    return hash.digest('hex');
+  }
+
+  const newUser = function(username, password, res) {
+    const salt = crypto.randomBytes(64).toString('base64');
+    const hash = hashPassword(password, salt);
+    const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt) VALUES(?,?,?)');
+
+    newUserStatement.run(username, hash, salt, function(err) {
+      if(err) {
+        if(err.code === 'SQLITE_CONSTRAINT') {
+          console.log('username taken');
+          socket.emit('username taken', true);
+          if(res) res.sendFile(path.join(__dirname, './public', 'usernametaken.html'));
+        }
+      } else {
+        if(res) res.send('got');
+      }
+    });
+    newUserStatement.finalize();
+  }
+
+  db.serialize(function(){
+    if(!exists){
+      db.run('CREATE TABLE "users" (\
+          "id" INTEGER PRIMARY KEY AUTOINCREMENT,\
+          "username" TEXT,\
+          "hash" TEXT,\
+          "salt" TEXT,\
+          UNIQUE (username)\
+      )');
+      newUser('admin','admin');
+    }
+  });
+
+  passport.use(new LocalStrategy(function(username, password, done) {
+    console.log('staretring localstrat: ', username, password);
+
+    db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
+      if (!row) return done(null, false);
+      var hash = hashPassword(password, row.salt);
+      console.log('row: ', row);
+      db.get('SELECT username, id FROM users WHERE username = ? AND hash = ?', username, hash, function(err, row) {
+        if (!row) return done(null, false);
+        return done(null, row);
+      });
+    });
+  }));
+
+  passport.serializeUser(function(user, done) {
+    return done(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    db.get('SELECT id, username FROM users WHERE id = ?', id, function(err, row) {
+      if (!row) return done(null, false);
+      return done(null, row);
+    });
+  });
+
+  app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
+                                                      failureRedirect: '/bad-login' }));
+  app.post('/signup', function(req, res){
+    newUser(req.body.username, req.body.password, res);
+    // need some way to check if db transaction went OK
+
+  });
   //laste inn tidligere stilte spørsmål
 
   socket.on('create room', function(data){

@@ -235,9 +235,8 @@ footer{
   background: red;
   color: white;
   border-color: red;
-
 }
 
-
-
-
+#usernametaken{
+  color:red;
+}
