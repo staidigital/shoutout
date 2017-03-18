@@ -52,18 +52,18 @@ describe("http", function() {
  describe("spørsmål",function(){
      it("sender spørsmål til et eksisterende rom",function(done){
     client1={
-         on:{
-           'new question':function(data){
-          text=JSON.parse(data).text;
-          expect(text).to.equal("Why should we use SCRUM?")
-        },
-           'new question':socketTester.shouldBeCalledNTimes(1),
-         },
+         on:{'new question':socketTester.shouldBeCalledNTimes(1)},
        emit: {
          'create room':'tdt4145',
        }
      };
  client2={
+   on:{
+     'new question':function(data){
+    var text=JSON.parse(data).text;
+    expect(text).to.equal("Why should we use SCRUM?")
+  }
+},
        emit:{
        'join room' :'tdt4145',
        'new question':'Why should we use SCRUM?'
@@ -85,7 +85,7 @@ describe("http", function() {
       client2={
             emit:{
             'join room' :'tdt4105',
-            'new question':'Why should we use SCRU'
+            'new question':'Why should we use SCRUM?'
           }
         };
     socketTester.run([client1,client2],done);
@@ -95,6 +95,11 @@ describe("http", function() {
     it("stemmefunksjon",function(done){
       client1={
         on:{
+          'vote ':function(data){
+            var votes=JSON.parse(data).votes;
+            console.log(votes);
+            expect(votes).to.equal(2)
+          },
          'vote':socketTester.shouldBeCalledNTimes(1)
        },
        emit:{
@@ -102,6 +107,12 @@ describe("http", function() {
        }
      };
       client2={
+        on:{
+          'vote':function(data){
+            var votes=JSON.parse(data).votes;
+            expect(votes).to.equal(1);
+          }
+        },
         emit:{
           'join room':'tdt4145',
           'new question':'Why is software architecture so important?',
