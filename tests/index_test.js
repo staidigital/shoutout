@@ -2,7 +2,7 @@ var expect = require("chai").expect;
 var request=require("request");
 var io     = require('socket.io-client');
 var SocketTester = require('socket-tester');
-var client1,client2
+var client1,client2,client3
 var app = require('../index');
 var socketUrl = 'http://localhost:3001';
 
@@ -49,20 +49,6 @@ describe("http", function() {
   });
 })
 
-describe("rooms",function(){
-    it("lager et rom",function(done){
-    client1={
-      on:{
-        'created room':socketTester.shouldBeCalledNTimes(1)
-      },
-      emit:{
-        'create room':'tdt4145'
-      }
-    }
-    socketTester.run([client1],done);
-    });
-   });
-
  describe("spørsmål",function(){
      it("sender spørsmål til et eksisterende rom",function(done){
     client1={
@@ -103,6 +89,29 @@ describe("rooms",function(){
           }
         };
     socketTester.run([client1,client2],done);
-   });
+       });
+    })
+    describe("spørsmålsattributer",function(done){
+    it("stemmefunksjon",function(done){
+      client1={
+        on:{
+         'vote':socketTester.shouldBeCalledNTimes(1)
+       },
+       emit:{
+         'create room':'tdt4145'
+       }
+     };
+      client2={
+        emit:{
+          'join room':'tdt4145',
+          'new question':'Why is software architecture so important?',
+          'vote':JSON.stringify({"id":0,"votes":"plus"}),
+          'vote':JSON.stringify({"id":0,"votes":"plus"}),
+          'vote':JSON.stringify({"id":0,"votes":"plus"}),
+          'vote':JSON.stringify({"id":0,"votes":"plus"})
+        }
+      };
 
- })
+      socketTester.run([client1,client2],done);
+    });
+    })
