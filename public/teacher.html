@@ -52,6 +52,7 @@
     // Dette er koblingen til serveren
     var socket = io();
     var myroom = '';
+    var allquestions = [];
 
     function createRoom(){
       localStorage.setItem('roomname', $('#fagkode').val());
@@ -113,29 +114,56 @@
         });
 
     };
-
-
     // tar inn nytt spørsmål fra serveren
-    socket.on('new question', function(q){
-      addToList(JSON.parse(q));
+    socket.on('new question', function(question){
+      var q = JSON.parse(question);
+      console.log(q);
+      allquestions.push(q);
+      if(allquestions.length > 1){
+        allquestions.sort(function(a,b){
+          return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
+        });
+      }
+      $('#questions').text('');
+      allquestions.forEach(function(q)
+      {
+        addToList(q);
+      });
     });
 
     // tar inn ny stemme fra serveren
     socket.on('vote', function(q){
       var q = JSON.parse(q);
-       $('#vote' + q.id).text(q.votes);
+      for(i=0;i<allquestions.length;i++){
+        if(allquestions[i].id == q.id){
+          allquestions[i].votes++;
+        }
+      }
+      if(allquestions.length > 1){
+        allquestions.sort(function(a,b){
+          return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
+        });
+      }
+      $('#questions').text('');
+      allquestions.forEach(function(q)
+      {
+        addToList(q);
+      });
     });
 
     // legger til allerede-eksisterende spørsmål til nye brukere
-    socket.on('all questions', function(questions)
-    {
+    socket.on('all questions', function(questions) {
       var questions = JSON.parse(questions);
       questions.forEach(function(q)
       {
-
         addToList(q);
-
+        allquestions.push(q);
       });
+      if(allquestions.length > 1){
+        questions.sort(function(a,b){
+          return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
+        });
+      }
     });
     socket.on('connectToRoom',function(data){
             console.log(data);
