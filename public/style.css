@@ -27,9 +27,10 @@
 }
 #createdRoom{
   z-index:50;
-  position:relative;
-  top: -40px;;
   float: left;
+  word-wrap: break-word;
+  max-width: 20%;
+  width: 20%;
 }
 
 #lagRom{
