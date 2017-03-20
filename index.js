@@ -181,6 +181,7 @@ webSocket.on('connection',function(socket){
   socket.on('answer',function(answer){
     console.log('question answered');
     var answer=JSON.parse(answer);
+    console.log(answer);
     var q=_.find(questions,function(q){
       return q.id==answer.id;
     });
@@ -189,7 +190,7 @@ webSocket.on('connection',function(socket){
       return;
     }
     q.answered=true;
-    webSocket.emit('q', JSON.stringify(q))
+    webSocket.emit('answered', JSON.stringify(q))
   });
 
   //ny stemme
