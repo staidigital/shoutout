@@ -14,10 +14,13 @@
     <div class="page-header">
       <h1>ShoutOut</h1>
     </div>
-    <div class=jumbotron>
-      <div id=createdRoom class=jumbotron>
-        <p>Du er ikke med i et rom enda</p>
+    <div class="jumbo">
+      <div id=createdRoom>
       </div>
+    </div>
+    <div class="menyContainer">
+      <div class="menyContainer1">
+    <div class="meny">
       <div class="buttonMeny">
         <div>
       <input class="form-control" type="text" id ="fagkode" placeholder="e.g. tdt4140"></input>
@@ -28,6 +31,17 @@
     </div>
     <div class="questioncontainer">
       <ul class="questions" id=questions>
+      </ul>
+    </div>
+  </div>
+
+    <div class="archive">
+      <ul class="room-archive" id=room-archive>Archived lectures
+        <li class="recent"><button id="joinRecent" onclick="joinRecentSession()" class="btn btn-danger yo" role=button> tdt4100  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> tdt4140  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> tdt4145  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> afrika-studier  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> grøfteFyll 101 </button></li>
       </ul>
     </div>
   </div>
@@ -45,13 +59,13 @@
     }
     socket.on('created room', function(data){
       $('#createdRoom').text('');
-      $('#createdRoom').append('<p>Du er i rom: '+localStorage.roomname + '</p>');
+      $('#createdRoom').append('<p>Du er i rom: '+ localStorage.roomname + '</p>');
     });
     $( document ).ready(function() {
       if(localStorage.roomname){
         socket.emit('join room', localStorage.roomname);
         $('#createdRoom').text('');
-        $('#createdRoom').append('<p>Du er i rom: '+localStorage.roomname + '</p>');
+        $('#createdRoom').append('<p>Du er i rom: '+ localStorage.roomname + '</p>');
       }
       return false;
     });
