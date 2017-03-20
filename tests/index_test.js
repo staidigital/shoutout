@@ -116,10 +116,10 @@ describe("http", function() {
         emit:{
           'join room':'tdt4145',
           'new question':'Why is software architecture so important?',
-          'vote':JSON.stringify({"id":0,"votes":"plus"}),
-          'vote':JSON.stringify({"id":0,"votes":"plus"}),
-          'vote':JSON.stringify({"id":0,"votes":"plus"}),
-          'vote':JSON.stringify({"id":0,"votes":"plus"})
+          'vote':JSON.stringify({"id":0,"vote":"plus"}),
+          'vote':JSON.stringify({"id":0,"vote":"plus"}),
+          'vote':JSON.stringify({"id":0,"vote":"plus"}),
+          'vote':JSON.stringify({"id":0,"vote":"plus"})
         }
       };
 
