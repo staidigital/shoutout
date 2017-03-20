@@ -133,7 +133,7 @@ webSocket.on('connection',function(socket){
   socket.on('join room', function(data){
     var checkRoom = null;
     var checkRoom = _.find(rooms,{'name':data});
-    if(checkRoom != null){
+    if(checkRoom != null && myroom != data){
       socket.join(data);
       console.log('room joined', data);
       myroom = data;
