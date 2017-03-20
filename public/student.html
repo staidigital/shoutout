@@ -87,6 +87,7 @@
 
     // tar inn nytt spørsmål fra serveren
     socket.on('new question', function(q){
+      console.log(q.id);
       addToList(JSON.parse(q));
     });
 

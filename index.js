@@ -174,6 +174,7 @@ webSocket.on('connection',function(socket){
         rooms[i].questions.push(q);
       }
     };
+    console.log(q.id);
     console.log('newquestioninroom', myroom);
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
@@ -183,15 +184,20 @@ webSocket.on('connection',function(socket){
     console.log('question answered');
     var answer=JSON.parse(answer);
     console.log(answer);
-    var q=_.find(questions,function(q){
-      return q.id==answer.id;
-    });
+    for(var i = 0; i<rooms.length;i++){
+      if(rooms[i].name == answer.room){
+        var q =_.find(rooms[i].questions,function(q){
+          return q.id==answer.id;
+        });
+      }
+    };
+
     if(q==null){
       console.log('question not found');
       return;
     }
     q.answered=true;
-    webSocket.emit('answered', JSON.stringify(q))
+    webSocket.emit('answered', JSON.stringify(q));
   });
 
   //ny stemme
