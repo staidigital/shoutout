@@ -242,3 +242,16 @@ footer{
 #usernametaken{
   color:red;
 }
+
+
+
+
+
+.menyContainer{
+  display: flex;
+
+}
+
+.menyContainer1{
+  width: 80%;
+}
