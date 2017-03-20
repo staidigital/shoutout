@@ -27,7 +27,9 @@
 }
 #createdRoom{
   z-index:50;
-  color:red;
+  position:relative;
+  top: -40px;;
+  float: left;
 }
 
 #lagRom{
