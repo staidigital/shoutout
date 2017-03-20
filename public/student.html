@@ -14,7 +14,12 @@
     <div class="page-header">
       <h1>ShoutOut</h1>
     </div>
-    <div class=jumbotron>
+    <div>
+      <div class="jumbo">
+        <div id=createdRoom>
+          <p>Du er ikke i noe rom enda</p>
+        </div>
+      </div>
       <input  id=roomname type=text placeholder="e.g. tdt4140"></input>
       <button onclick="joinRoom()" class="btn btn-danger" role=button>Bli  med i rom</button>
     </div>
@@ -41,12 +46,16 @@
       if($('#roomname').val() === '') return false;
       socket.emit('join room', $('#roomname').val());
       localStorage.setItem('roomname', $('#roomname').val());
+      $('#createdRoom').text('');
+      $('#createdRoom').append('<p>Du er i rom: '+ localStorage.roomname + '</p>');
       $('#roomname').val('');
       return false;
     }
     $( document ).ready(function() {
       if(localStorage.roomname){
         socket.emit('join room', localStorage.roomname);
+        $('#createdRoom').text('');
+        $('#createdRoom').append('<p>Du er i rom: '+ localStorage.roomname + '</p>');
       }
       return false;
     });
@@ -87,6 +96,7 @@
 
     // tar inn nytt spørsmål fra serveren
     socket.on('new question', function(q){
+      console.log(q.id);
       addToList(JSON.parse(q));
     });
 

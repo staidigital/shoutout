@@ -116,13 +116,31 @@ describe("http", function() {
         emit:{
           'join room':'tdt4145',
           'new question':'Why is software architecture so important?',
-          'vote':JSON.stringify({"id":0,"votes":"plus"}),
-          'vote':JSON.stringify({"id":0,"votes":"plus"}),
-          'vote':JSON.stringify({"id":0,"votes":"plus"}),
-          'vote':JSON.stringify({"id":0,"votes":"plus"})
+          'vote':JSON.stringify({"id":0,"vote":"plus"}),
+          'vote':JSON.stringify({"id":0,"vote":"plus"}),
+          'vote':JSON.stringify({"id":0,"vote":"plus"}),
+          'vote':JSON.stringify({"id":0,"vote":"plus"})
         }
       };
 
       socketTester.run([client1,client2],done);
+    });
+    it("svarfunksjon",function(done){
+      client1={
+        on:{
+          'answered':socketTester.shouldBeCalledNTimes(1)
+        },
+        emit:{
+          'create room':'tdt4140',
+          'answer':JSON.stringify({"id":0})
+        }
+      };
+        client2={
+          emit:{
+            'join room':'tdt4140',
+            'new question':'what is the essence of SEMAT?'
+          }
+        };
+        socketTester.run([client1,client2],done);
     });
     })

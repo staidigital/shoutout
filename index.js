@@ -111,7 +111,7 @@ webSocket.on('connection',function(socket){
   });
 
   app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
-                                                      failureRedirect: '/bad-login' }));
+                                                      failureRedirect: '/login.html' }));
   app.post('/signup', function(req, res){
     newUser(req.body.username, req.body.password, res);
     // need some way to check if db transaction went OK
@@ -173,6 +173,7 @@ webSocket.on('connection',function(socket){
         rooms[i].questions.push(q);
       }
     };
+    console.log(q.id);
     console.log('newquestioninroom', myroom);
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
   });
@@ -181,15 +182,21 @@ webSocket.on('connection',function(socket){
   socket.on('answer',function(answer){
     console.log('question answered');
     var answer=JSON.parse(answer);
-    var q=_.find(questions,function(q){
-      return q.id==answer.id;
-    });
+    console.log(answer);
+    for(var i = 0; i<rooms.length;i++){
+      if(rooms[i].name == answer.room){
+        var q =_.find(rooms[i].questions,function(q){
+          return q.id==answer.id;
+        });
+      }
+    };
+
     if(q==null){
       console.log('question not found');
       return;
     }
     q.answered=true;
-    webSocket.emit('q', JSON.stringify(q))
+    webSocket.emit('answered', JSON.stringify(q));
   });
 
   //ny stemme

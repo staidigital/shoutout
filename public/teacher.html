@@ -14,18 +14,34 @@
     <div class="page-header">
       <h1>ShoutOut</h1>
     </div>
-    <div class=jumbotron>
+    <div class="menyContainer">
+      <div class="menyContainer1">
+    <div class="meny">
+      <div class="jumbo">
+        <div id=createdRoom>
+        </div>
+      </div>
       <div class="buttonMeny">
         <div>
       <input class="form-control" type="text" id ="fagkode" placeholder="e.g. tdt4140"></input>
       <button id="lagRom" onclick="createRoom()" class="btn btn-danger" role=button>Lag et nytt rom</button>
     </div>
     </div>
-      <div id=createdRoom>
-      </div>
+
     </div>
     <div class="questioncontainer">
       <ul class="questions" id=questions>
+      </ul>
+    </div>
+  </div>
+
+    <div class="archive">
+      <ul class="room-archive" id=room-archive>Archived lectures
+        <li class="recent"><button id="joinRecent" onclick="joinRecentSession()" class="btn btn-danger yo" role=button> tdt4100  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> tdt4140  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> tdt4145  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> afrika-studier  </button></li>
+        <li class="recent"><button id="joinRecent" onclick="createRoom()" class="btn btn-danger yo" role=button> grøfteFyll 101 </button></li>
       </ul>
     </div>
   </div>
@@ -38,15 +54,18 @@
     var myroom = '';
 
     function createRoom(){
+      localStorage.setItem('roomname', $('#fagkode').val());
       socket.emit('create room', $('#fagkode').val());
-      localStorage.setItem('roomname', $('#roomname').val());
     }
     socket.on('created room', function(data){
-      $('#createdRoom').text('rom: '+myroom);
+      $('#createdRoom').text('');
+      $('#createdRoom').append('<p>Du er i rom: '+ localStorage.roomname + '</p>');
     });
     $( document ).ready(function() {
       if(localStorage.roomname){
         socket.emit('join room', localStorage.roomname);
+        $('#createdRoom').text('');
+        $('#createdRoom').append('<p>Du er i rom: '+ localStorage.roomname + '</p>');
       }
       return false;
     });
@@ -54,6 +73,19 @@
 
     // får nytt spørsmål fra serveren og legger til liste
     function addToList(question) {
+      if(question.answered == true){
+        $('#questions').prepend($('<div class="box" id="' + question.id + '">')
+            .append('<div class="textBox">' + question.text + '</div>'
+                + '<div class="buttonAndVoteContainer">'
+                + '<div class="plussButton">'
+                + '<button onclick="buttonPressed(this, ' + question.id + ')" class="teach teach-clicked" id=" '+ question.id +'" type=button >DONE</button>'
+                + '</div>'
+                + '<div class="voteCount">'
+                + '<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>'
+                + '</div>'
+                + '</div>')
+        );
+      }else{
         $('#questions').prepend($('<div class="box" id="' + question.id + '">')
             .append('<div class="textBox">' + question.text + '</div>'
                 + '<div class="buttonAndVoteContainer">'
@@ -62,22 +94,22 @@
                 + '</div>'
                 + '<div class="voteCount">'
                 + '<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>'
-
-
                 + '</div>'
                 + '</div>')
         );
+      }
     }
 
 
     // gir svarfunksjon til knappen
     function buttonPressed(button, id){
-      var answer = { 'id': id };
-      socket.emit('answer', JSON.stringify(answer));
+      var answer = { 'id': id, 'room': localStorage.roomname};
+      console.log(answer.id);
       var myId = id;
-        $("button").click(function() {
+      $("button").click(function() {
             $(this).addClass('teach-clicked');
             $(this).html('DONE');
+            socket.emit('answer', JSON.stringify(answer));
         });
 
     };
@@ -100,7 +132,9 @@
       var questions = JSON.parse(questions);
       questions.forEach(function(q)
       {
+
         addToList(q);
+
       });
     });
     socket.on('connectToRoom',function(data){

@@ -27,7 +27,10 @@
 }
 #createdRoom{
   z-index:50;
-  color:red;
+  float: left;
+  word-wrap: break-word;
+  max-width: 20%;
+  width: 20%;
 }
 
 #lagRom{
@@ -213,6 +216,9 @@ footer{
   color:white;
 
 }
+.p {
+  font-size: 24px;
+}
 
 .stud:hover{
   background-color: #4CAF50;
@@ -239,4 +245,48 @@ footer{
 
 #usernametaken{
   color:red;
+}
+
+
+
+
+
+.menyContainer{
+  display: flex;
+  margin: 0;
+
+}
+
+.menyContainer1{
+  width: 80%;
+}
+.yo{
+  width: inherit;
+
+  word-wrap: break-word;
+}
+
+.archive{
+
+  display: flex;
+  align-items: center;
+  margin: 1px;
+  background-color: rgba(0, 0,0, 0.1);
+  border-radius: 10%;
+
+}
+
+.room-archive{
+  display:flex;
+  align-items: center;
+  flex-direction: column;
+  padding-left: 0;
+  margin:10px;
+
+  font-size: 18px;
+}
+
+.recent{
+  width: 100%;
+  margin: 1px;
 }
