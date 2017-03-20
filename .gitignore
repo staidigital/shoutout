@@ -21,3 +21,5 @@ Thumbs.db
 *.exe
 *.o
 *.so
+
+node.modules/sqlite3/
