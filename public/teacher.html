@@ -62,8 +62,6 @@
                 + '</div>'
                 + '<div class="voteCount">'
                 + '<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>'
-
-
                 + '</div>'
                 + '</div>')
         );
@@ -73,11 +71,11 @@
     // gir svarfunksjon til knappen
     function buttonPressed(button, id){
       var answer = { 'id': id };
-      socket.emit('answer', JSON.stringify(answer));
       var myId = id;
-        $("button").click(function() {
+      $("button").click(function() {
             $(this).addClass('teach-clicked');
             $(this).html('DONE');
+            socket.emit('answer', JSON.stringify(answer));
         });
 
     };
@@ -100,7 +98,9 @@
       var questions = JSON.parse(questions);
       questions.forEach(function(q)
       {
+
         addToList(q);
+
       });
     });
     socket.on('connectToRoom',function(data){

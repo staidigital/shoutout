@@ -82,6 +82,7 @@ webSocket.on('connection',function(socket){
           UNIQUE (username)\
       )');
       newUser('admin','admin');
+      newUser('kuk','kuk');
     }
   });
 
@@ -111,7 +112,7 @@ webSocket.on('connection',function(socket){
   });
 
   app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
-                                                      failureRedirect: '/bad-login' }));
+                                                      failureRedirect: '/login.html' }));
   app.post('/signup', function(req, res){
     newUser(req.body.username, req.body.password, res);
     // need some way to check if db transaction went OK
