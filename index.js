@@ -82,7 +82,6 @@ webSocket.on('connection',function(socket){
           UNIQUE (username)\
       )');
       newUser('admin','admin');
-      newUser('kuk','kuk');
     }
   });
 
