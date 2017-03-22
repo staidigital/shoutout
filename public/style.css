@@ -1,4 +1,7 @@
 .container{
+  width: 90%;
+  margin:0;
+  padding: 0;
 }
 .containerLogin{
   justify-content: center;
@@ -36,8 +39,9 @@
 }
 .questioncontainer{
   display: flex;
-  margin-top: 50px;
+  margin-top: 3%;
   z-index: 0;
+  width: 100%;
 }
 
 .questions{
@@ -300,11 +304,52 @@ footer{
 }
 
 .jumbo{
-  margin-top: 5%;
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   width: inherit;
+  height: auto;
+
+}
+.jumboItem1{
 
 }
 .createdR{
   word-wrap: break-word;
 
+}
+
+.refreshButton{
+  display: flex;
+  width: 100%;
+  height: inherit;
+  justify-content: space-between  ;
+}
+
+#refreshButton{
+  font-size: 14px !important;´
+}
+
+
+.currentRoomButton {
+	background-color:transparent;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #4b8f29;
+	display:inline-block;
+	cursor:pointer;
+	color:#4b8f29;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 24px;
+	text-decoration:none;
+}
+.currentRoomButton:hover {
+	background-color:transparent;
+}
+.currentRoomButton:active {
+	position:relative;
+	top:1px;
 }

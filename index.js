@@ -22,6 +22,7 @@ var questions = [];
 var voteids = [];
 var id = 0;
 var rooms = [];
+var archives = [];
 var port = 3001;
 
 // konfigurering
@@ -234,6 +235,12 @@ webSocket.on('connection',function(socket){
     });
     console.log('sending vote');
     webSocket.emit('vote', JSON.stringify(q));
+  });
+
+  socket.on('archive', function(){
+
+
+
   });
 
 
