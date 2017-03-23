@@ -200,7 +200,7 @@ webSocket.on('connection',function(socket){
       return;
     }
     q.answered=true;
-    webSocket.emit('answered', JSON.stringify(q));
+    socket.emit('answered', JSON.stringify(q));
   });
 
   //ny stemme

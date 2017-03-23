@@ -128,7 +128,7 @@
       allquestions.push(q);
       if(allquestions.length > 1){
         allquestions.sort(function(a,b){
-          return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
+          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
         });
       }
       $('#questions').text('');
@@ -148,7 +148,7 @@
       }
       if(allquestions.length > 1){
         allquestions.sort(function(a,b){
-          return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
+          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
         });
       }
       $('#questions').text('');
@@ -157,6 +157,24 @@
         addToList(q);
       });
     });
+    socket.on('answered', function(q){
+      var q = JSON.parse(q);
+      for(i=0;i<allquestions.length;i++){
+        if(allquestions[i].id == q.id){
+          allquestions[i].answered = true;
+        }
+      }
+      if(allquestions.length > 1){
+        allquestions.sort(function(a,b){
+          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
+        });
+      }
+      $('#questions').text('');
+      allquestions.forEach(function(q)
+      {
+        addToList(q);
+      });
+    })
 
     // legger til allerede-eksisterende spørsmål til nye brukere
     socket.on('all questions', function(questions) {
@@ -168,7 +186,7 @@
       });
       if(allquestions.length > 1){
         questions.sort(function(a,b){
-          return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
+          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
         });
       }
     });
