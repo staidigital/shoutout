@@ -126,11 +126,7 @@
       var q = JSON.parse(question);
       console.log(q);
       allquestions.push(q);
-      if(allquestions.length > 1){
-        allquestions.sort(function(a,b){
-          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
-        });
-      }
+      listSort();
       $('#questions').text('');
       allquestions.forEach(function(q)
       {
@@ -146,11 +142,7 @@
           allquestions[i].votes++;
         }
       }
-      if(allquestions.length > 1){
-        allquestions.sort(function(a,b){
-          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
-        });
-      }
+      listSort();
       $('#questions').text('');
       allquestions.forEach(function(q)
       {
@@ -164,18 +156,25 @@
           allquestions[i].answered = true;
         }
       }
-      if(allquestions.length > 1){
-        allquestions.sort(function(a,b){
-          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
-        });
-      }
+      listSort();
       $('#questions').text('');
       allquestions.forEach(function(q)
       {
         addToList(q);
       });
     })
-
+    function listSort(){
+      if(allquestions.length > 1){
+        allquestions.sort(function(a,b){
+          return(a.votes < b.votes) ? -1 : (( b.votes < a.votes) ? 1 : 0);
+        });
+      }
+      if(allquestions.length > 1){
+        allquestions.sort(function(a,b){
+          return(a.answered == true) ? -1 : ((b.answered == true) ? 1 : 0);
+        });
+      }
+    }
     // legger til allerede-eksisterende spørsmål til nye brukere
     socket.on('all questions', function(questions) {
       var questions = JSON.parse(questions);
@@ -184,11 +183,7 @@
         addToList(q);
         allquestions.push(q);
       });
-      if(allquestions.length > 1){
-        questions.sort(function(a,b){
-          return(a.answered == true || a.votes < b.votes) ? -1 : ((b.answered == true || b.votes < a.votes) ? 1 : 0);
-        });
-      }
+      listSort();
     });
     socket.on('connectToRoom',function(data){
             console.log(data);
