@@ -54,7 +54,7 @@
       socket.emit('join room', $('#roomname').val());
       localStorage.setItem('roomname', $('#roomname').val());
       $('#createdRoom').text('');
-      $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
+      $('#createdRoom').append('<button class="currentRoomButtonStudent">'+ localStorage.roomname + '</button>');
       $('#roomname').val('');
       return false;
     }
@@ -62,7 +62,7 @@
       if(localStorage.roomname){
         socket.emit('join room', localStorage.roomname);
         $('#createdRoom').text('');
-        $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
+        $('#createdRoom').append('<button class="currentRoomButtonStudent">'+ localStorage.roomname + '</button>');
       }
       return false;
     });

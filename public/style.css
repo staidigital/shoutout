@@ -326,13 +326,13 @@ footer{
 }
 
 
-.currentRoomButton {
+.currentRoomButton{
 	background-color:transparent;
 	-moz-border-radius:6px;
 	-webkit-border-radius:6px;
 	border-radius:6px;
 	border:1px solid #4b8f29;
-	display:inline-block;
+	display: inline-block;
 	cursor:pointer;
 	color:#4b8f29;
 	font-family:Arial;
@@ -340,10 +340,37 @@ footer{
 	padding:6px 24px;
 	text-decoration:none;
 }
-.currentRoomButton:hover {
-	background-color:transparent;
+
+.currentRoomButton:before{
+  content: "";
 }
-.currentRoomButton:active {
-	position:relative;
-	top:1px;
+
+.currentRoomButton:hover:before{
+  display: inline-flex;
+  padding: 10px 30px;
+  content: 'Lagre';
+  transition-duration: 0.5s;
+
+}
+
+.currentRoomButton:hover:after{
+  padding:6px 24px;
+  transition-duration: 0.5s
+
+}
+
+
+.currentRoomButtonStudent{
+	background-color:transparent;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #4b8f29;
+	display: inline-block;
+	cursor:pointer;
+	color:#4b8f29;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 24px;
+	text-decoration:none;
 }
