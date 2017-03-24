@@ -172,14 +172,12 @@ footer{
 
 }
 
-
-
-
 .votespan{
   font-size: large;
   position: absolute;
   right: 0;
   bottom: 0;
+  margin-left: 10px;
 }
 
 .textBox{
@@ -234,11 +232,11 @@ footer{
 
 }
 
+
 .voteCount{
   position:relative;
   margin: 1%;
   flex-grow: 0.5;
-
 }
 
 .teach-clicked  {
