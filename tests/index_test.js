@@ -95,12 +95,7 @@ describe("http", function() {
     it("stemmefunksjon",function(done){
       client1={
         on:{
-          'vote ':function(data){
-            var votes=JSON.parse(data).votes;
-            console.log(votes);
-            expect(votes).to.equal(2)
-          },
-         'vote':socketTester.shouldBeCalledNTimes(1)
+       'vote':socketTester.shouldBeCalledNTimes(1)
        },
        emit:{
          'create room':'tdt4145'
