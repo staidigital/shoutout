@@ -1,6 +1,7 @@
 var expect = require("chai").expect;
 var request=require("request");
 var io     = require('socket.io-client');
+var app=require('./index')
 var SocketTester = require('socket-tester');
 var client1,client2,client3
 var socketUrl = 'http://localhost:3001';
