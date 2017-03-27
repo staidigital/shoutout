@@ -10,11 +10,14 @@ INSTALLATION
 ------------
 If you have a working web browser, there is no need to install anything.
 
+
 BROWSER COMPATIBILITY
 ---------------------
 Currently tested in Chrome 56 and Firefox 48
 
-USAGE
+=======
+
+
 ------
 The web application is split in two views; the teacher and the student. The
 teacher starts by making a new lecture with a name, e.g. TDT4140. The students
