@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">9.87% </span>
+        <span class="strong">21.71% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>15/152</span>
+        <span class='fraction'>33/152</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/23</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">10.27% </span>
+        <span class="strong">22.6% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>15/146</span>
+        <span class='fraction'>33/146</span>
       </div>
     </div>
   </div>
@@ -305,36 +305,36 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -552,28 +552,28 @@ var fs = require('fs');
 var file = 'db.sqlite3';
 var exists = fs.existsSync(file);
 var sqlite3 = require('sqlite3').verbose();
-<span class="cstat-no" title="statement not covered" >var crypto = require('crypto');</span>
-<span class="cstat-no" title="statement not covered" >var db = new sqlite3.Database(file);</span>
-<span class="cstat-no" title="statement not covered" >var passport = require('passport');</span>
-<span class="cstat-no" title="statement not covered" >var LocalStrategy = require('passport-local').Strategy;</span>
+var crypto = require('crypto');
+var db = new sqlite3.Database(file);
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >var questions = [];</span>
-<span class="cstat-no" title="statement not covered" >var voteids = [];</span>
-<span class="cstat-no" title="statement not covered" >var id = 0;</span>
-<span class="cstat-no" title="statement not covered" >var rooms = [];</span>
-<span class="cstat-no" title="statement not covered" >var archives = [];</span>
-<span class="cstat-no" title="statement not covered" >var port = 3001;</span>
+var questions = [];
+var voteids = [];
+var id = 0;
+var rooms = [];
+var archives = [];
+var port = 3001;
 &nbsp;
 // konfigurering
-<span class="cstat-no" title="statement not covered" >app.use('/', express.static(path.join(__dirname, 'public')));</span>
-<span class="cstat-no" title="statement not covered" >app.use(cookieParser());</span>
-<span class="cstat-no" title="statement not covered" >app.use(bodyParser.urlencoded({ extended: false}));</span>
-<span class="cstat-no" title="statement not covered" >app.use(expressSession({ secret: 'cat', resave: false, saveUninitialized: false }));</span>
-<span class="cstat-no" title="statement not covered" >app.use(passport.initialize());</span>
-<span class="cstat-no" title="statement not covered" >app.use(passport.session());</span>
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(expressSession({ secret: 'cat', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 &nbsp;
 // bestemmer port
-<span class="cstat-no" title="statement not covered" >http.listen(port,<span class="fstat-no" title="function not covered" >function(){</span></span>
+http.listen(port,<span class="fstat-no" title="function not covered" >function(){</span>
 <span class="cstat-no" title="statement not covered" >  console.log('Listening on '+port);</span>
 });
 &nbsp;
@@ -581,7 +581,7 @@ var sqlite3 = require('sqlite3').verbose();
 &nbsp;
 &nbsp;
 //når klient kobler seg på
-<span class="cstat-no" title="statement not covered" >webSocket.on('connection',<span class="fstat-no" title="function not covered" >function(socket){</span></span>
+webSocket.on('connection',<span class="fstat-no" title="function not covered" >function(socket){</span>
 <span class="cstat-no" title="statement not covered" >  var address = socket.handshake.address;</span>
 <span class="cstat-no" title="statement not covered" >  var myroom = null;</span>
 <span class="cstat-no" title="statement not covered" >  console.log('new connection');</span>
@@ -790,7 +790,7 @@ var sqlite3 = require('sqlite3').verbose();
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Mar 27 2017 11:49:04 GMT+0200 (Vest-Europa (sommertid))
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Mar 27 2017 11:52:05 GMT+0200 (Vest-Europa (sommertid))
 </div>
 </div>
 <script src="../prettify.js"></script>
