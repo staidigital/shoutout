@@ -3,7 +3,6 @@ var request=require("request");
 var io     = require('socket.io-client');
 var SocketTester = require('socket-tester');
 var client1,client2,client3
-var app = require('../index');
 var socketUrl = 'http://localhost:3001';
 
 
