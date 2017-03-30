@@ -58,7 +58,7 @@
       $('#roomname').val('');
       return false;
     }
-    $( document ).ready(function() {
+    $(document).ready(function() {
       if(localStorage.roomname){
         socket.emit('join room', localStorage.roomname);
         $('#createdRoom').text('');

@@ -66,7 +66,8 @@
       $('#createdRoom').text('');
       $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
     });
-    $( document ).ready(function() {
+
+    $(document).ready(function() {
       if(localStorage.roomname){
         socket.emit('join room', localStorage.roomname);
         $('#createdRoom').text('');

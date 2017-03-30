@@ -25,7 +25,7 @@ var rooms = [];
 var archives = [];
 var port = 3001;
 
-// konfigurering
+// konfigurering og shit
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -38,19 +38,16 @@ http.listen(port,function(){
   console.log('Listening on '+port);
 });
 
-// databasen
-
-
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
   var myroom = null;
   console.log('new connection');
+
   function hashPassword(password, salt) {
     var hash = crypto.createHash('sha256');
     hash.update(password);
     hash.update(salt);
-    console.log('inside hashing alg: ',password, salt);
     return hash.digest('hex');
   }
 
@@ -87,7 +84,7 @@ webSocket.on('connection',function(socket){
   });
 
   passport.use(new LocalStrategy(function(username, password, done) {
-    console.log('staretring localstrat: ', username, password);
+    console.log('staretring localstrat: ', username);
 
     db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
       if (!row) return done(null, false);
@@ -239,9 +236,6 @@ webSocket.on('connection',function(socket){
 
   socket.on('archive', function(){
 
-
-
   });
-
 
 });
