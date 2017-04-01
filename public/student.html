@@ -2,38 +2,49 @@
 <html>
 <head>
   <title>ShoutOut</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="styles/student.css">
   <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
   crossorigin="anonymous">
-
+  <meta name="viewport" content="width=decive-width, initial-scale=1.0">
 </head>
+
+
 <body>
+
   <div class="container">
+
+
+
     <div class="page-header">
       <h1><a href="./">ShoutOut</a></h1>
     </div>
+
     <div class="refreshButton">
-      <div class"RBUTT">
-      <button id="refreshButton" type="button" value="Refresh Page" onclick="window.location.reload()" href="" class="btn btn-info btn-lg">
-          <span class="glyphicon glyphicon-refresh"></span> Refresh the page
-        </button>
+
+      <div class="RBUTT">
+          <button id="refreshButton" type="button" value="Refresh Page" onclick="window.location.reload()" href="" class="btn btn-info btn-lg">
+            <span id="refreshSpan" class="glyphicon glyphicon-refresh"></span> Refresh
+          </button>
       </div>
+
           <div class="jumboItem1">
-          <input  id=roomname type=text placeholder="e.g. tdt4140"></input>
-          <button onclick="joinRoom()" class="btn btn-danger" role=button>Bli  med i rom</button>
-        </div>
-          <div id=createdRoom>
-            <p>Du er ikke i noe rom enda</p>
+              <input  id=roomname type=text placeholder="e.g. tdt4140"></input>
+              <button onclick="joinRoom()" class="btn btn-danger" role=button>Join</button>
           </div>
+
+          <div id=createdRoom>
+            <p>Ingen rom</p>
+          </div>
+
     </div>
-    <div>
-    </div>
+
     <div class="questioncontainer">
-      <ul class="questions" id=questions>
-      </ul>
+      <ul class="questions" id=questions></ul>
     </div>
+
+
   </div>
 
   <footer>

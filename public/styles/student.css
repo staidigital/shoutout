@@ -1,0 +1,168 @@
+footer{
+  width: 100%;
+  height: 15%;
+  text-align: center;
+  background: rgba(100, 100, 150, 1);
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  left: 0;
+}
+
+
+.container{
+  width: 90%;
+  margin:0;
+  padding: 0;
+}
+
+.page-header{
+  width: 100%;
+  z-index: 10;
+  left: 0;
+  text-align: center;
+  background-color:white;
+}
+
+.questioncontainer{
+  display: flex;
+  margin-top: 3%;
+  z-index: 0;
+  width: 100%;
+  padding: 0;
+}
+
+
+.questions{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding: 0;
+
+}
+
+#inputfield {
+  margin: 5px auto;
+  border-radius: 15px;
+}
+
+#inputform{
+  margin: 5px auto 5px auto;
+  width: 50%;
+}
+
+.box{
+  margin: 1%;
+  padding: 1%;
+  background-color: white;
+  display: flex;
+  align-content: space-between;
+  border: solid 2px rgba(100, 100, 150, 1);
+  border-radius: 10px;
+  max-width: 50%;
+  min-width: 50%;
+  max-height: inherit;
+}
+
+.buttonAndVoteContainer{
+  width: 100%;
+  height:  35px;
+  display: inline-flex;
+  float: left;
+  right: 0;
+  bottom: 0;
+
+
+}
+
+.plussButton{
+  position: relative;
+  flex-grow: 4;
+}
+
+.textBox{
+  margin: 5px !important;
+  height: inherit;
+  width: 70%;
+  max-width: 70%;
+  min-width: 70%;
+  word-wrap: break-word;
+}
+
+
+.votespan{
+  font-size: large;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.voteCount{
+  position:relative;
+  margin: 1%;
+  flex-grow: 0.5;
+
+}
+
+.jumboItem1{
+  align-self: center;
+
+}
+
+#refreshButton{
+  font-size: 14px !important;´
+}
+
+.currentRoomButtonStudent{
+	background-color:transparent;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #4b8f29;
+	display: inline-block;
+	cursor:pointer;
+	color:#4b8f29;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 24px;
+	text-decoration:none;
+}
+
+.refreshButton{
+  display: inline-flex;
+  width: 100%;
+  height: inherit;
+  justify-content: space-between ;
+}
+
+.stud{
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border-style: solid;
+  border-color: #4CAF50;
+  border-radius: 10%;
+  background-color: inherit;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  height: 35px;
+  width: 35px;
+  max-height: inherit;
+}
+
+.stud:hover{
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+
+@media screen and (max-width:800px){
+
+  #refreshButton{
+    font-size: 10px !important;
+  }
+
+}
