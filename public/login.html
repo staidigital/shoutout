@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>ShoutOut</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
   <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -18,13 +18,13 @@
     <div class="page-header">
       <h1><a href="./">ShoutOut</a></h1>
     </div>
-    <form action="/login" method="post">
-      <div class="loginBox">
+      <form action="/login" method="post">
+        <div class="loginBox">
         <div class="loginElements">
-      <div>
-          <label for="focusedInput" id="username">Username</label>
-          <input type="text" name="username" class="form-control" id="focusedInput"/>
-      </div>
+          <div>
+            <label for="focusedInput" id="username">Username</label>
+            <input type="text" name="username" class="form-control" id="focusedInput"/>
+          </div>
       <div>
           <label id="password">Password</label>
           <input id="passwordInput" class="form-control" type="password" name="password"/>
@@ -40,9 +40,7 @@
   </div>
   </div>
 
-  <footer>
-
-  </footer>
+  <footer></footer>
 
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
