@@ -9,11 +9,20 @@ footer{
   left: 0;
 }
 
+body{
+  display: flex;
+  max-height: 85%;
+  min-height: 85%;
+}
 
-.container{
-  width: 90%;
-  margin:0;
+
+#studentContainer{
+  width: 100%;
+  margin:2%;
   padding: 0;
+  max-height: 85% !important;
+  min-height: 85%;
+  padding-bottom: 10%;
 }
 
 .page-header{
@@ -30,6 +39,7 @@ footer{
   z-index: 0;
   width: 100%;
   padding: 0;
+  margin-bottom: 2%;
 }
 
 
@@ -157,12 +167,114 @@ footer{
   color: white;
 }
 
-
-
 @media screen and (max-width:800px){
 
   #refreshButton{
     font-size: 10px !important;
   }
+  .container{
+    width: 100%;
+    margin:0px;
+    padding: 0px;
+  }
+
+
+  .box{
+    margin: 1%;
+    padding: 1%;
+    background-color: white;
+    display: flex;
+    align-content: space-between;
+    border: solid 2px rgba(100, 100, 150, 1);
+    border-radius: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: inherit;
+  }
+
+  #roomname{
+    width: 70%;
+  }
+
+  .jumboItem1{
+    margin: 1%;
+    display: flex;
+    align-content: center;
+  }
+
+  .RBUTT{
+    margin: 1%;
+  }
+
+  #createdRoom{
+    margin: 1%;
+  }
+
+  .body {
+    -webkit-text-size-adjust: 100%;
+  }
+  #studentSendButton{
+    margin: 2%;
+    max-width: 20%;
+  }
+
+  .page-header{
+    margin: 3% !important;
+  }
+
+
+  #inputfield{
+    width: 90% !important;
+  }
+
+  #inputform{
+    display:flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 2%;
+    width: 100%;
+  }
+
+  #studentFooter{
+    width:100%;
+    min-height: 20%;
+    max-height: 20%;
+    text-align: center;
+    background: rgba(100, 100, 150, 1);
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    left: 0;
+
+  }
+
+  body{
+    max-height: 79%;
+    min-height: 79%;
+  }
+  .questioncontainer{
+    display: flex;
+    margin-top: 3%;
+    z-index: 0;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 2%;
+  }
+
+
+  #studentContainer{
+    width: 100%;
+    margin:2%;
+    padding: 0;
+    max-height: 85% !important;
+    min-height: 85%;
+    padding-bottom: 30%;
+  }
+
+
+
+
+
 
 }
