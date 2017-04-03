@@ -5,6 +5,7 @@ var app=require('./index')
 var SocketTester = require('socket-tester');
 var client1,client2,client3
 var socketUrl = 'http://localhost:3001';
+var superagent=require('superagent');
 
 
 
@@ -48,6 +49,17 @@ describe("http", function() {
     });
   });
 })
+
+describe("innloging",function(){
+     it("logger inn på admin",function(done){
+     superagent('http://localhost:3001/login.html')
+     .send({username: "admin", password: "admin"})
+     .end(function(err,res){
+       console.log(res.statusCode);
+       done();
+     });
+     });
+});
 
  describe("spørsmål",function(){
      it("sender spørsmål til et eksisterende rom",function(done){
