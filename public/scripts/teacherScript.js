@@ -19,11 +19,19 @@ $(document).ready(function() {
   if(localStorage.roomname){
     socket.emit('join room', localStorage.roomname);
     $('#createdRoom').text('');
-    $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>'
+    $('#createdRoom').append('<button id="currentRoomButton" class="currentRoomButton">'+ localStorage.roomname + '</button>'
   );
   }
   return false;
 });
+
+
+$(document).ready(function(){
+
+  $('#currentRoomButton').click(function(){
+    $('#room-archive').append('<li><button class="btn btn-danger">'+ $(this).text() +  '</button><li>');
+  });
+})
 
 // får nytt spørsmål fra serveren og legger til liste
 function addToList(question) {
@@ -89,6 +97,7 @@ socket.on('vote', function(q){
       allquestions[i].votes++;
     }
   }
+
   listSort();
   $('#questions').text('');
   allquestions.forEach(function(q)
@@ -96,6 +105,8 @@ socket.on('vote', function(q){
     addToList(q);
   });
 });
+
+
 socket.on('answered', function(q){
   var q = JSON.parse(q);
   for(i=0;i<allquestions.length;i++){

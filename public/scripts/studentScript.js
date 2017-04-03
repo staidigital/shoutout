@@ -4,11 +4,15 @@ function joinRoom(){
   if($('#roomname').val() === '') return false;
   socket.emit('join room', $('#roomname').val());
   localStorage.setItem('roomname', $('#roomname').val());
+
   $('#createdRoom').text('');
   $('#createdRoom').append('<button class="currentRoomButtonStudent">'+ localStorage.roomname + '</button>');
   $('#roomname').val('');
+  
   return false;
 }
+
+
 $(document).ready(function() {
   if(localStorage.roomname){
     socket.emit('join room', localStorage.roomname);
@@ -17,6 +21,8 @@ $(document).ready(function() {
   }
   return false;
 });
+
+
 // får nytt spørsmål fra serveren og legger til liste
 function addToList(question)
 {
