@@ -10,9 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "connect-redis": "^3.2.0",
     "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
     "express": "^4.15.0",
     "express-session": "^1.15.1",
+    "fs": "0.0.1-security",
     "lodash": "^4.17.4",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",

@@ -29,7 +29,10 @@ var port = 3001;
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false}));
-app.use(expressSession({ secret: 'cat', resave: false, saveUninitialized: false }));
+app.use(expressSession({
+  secret: 'cat',
+  resave: false,
+  saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -77,6 +80,7 @@ webSocket.on('connection',function(socket){
           "username" TEXT,\
           "hash" TEXT,\
           "salt" TEXT,\
+          "previousLectures" LONGTEXT,\
           UNIQUE (username)\
       )');
       newUser('admin','admin');

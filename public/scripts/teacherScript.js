@@ -9,6 +9,11 @@ function createRoom(){
   window.location.reload();
 }
 
+function saveRoom(){
+  console.log(res.body.username);
+  var saveallquestions = JSON.stringify(allquestions);
+  socket.emit('save questions', saveallquestions)
+}
 
 socket.on('created room', function(data){
   $('#createdRoom').text('');
