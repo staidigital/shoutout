@@ -32,6 +32,20 @@ In the students view of the lecture, questions also appear in real-time and
 students can vote on each other’s question by clicking the voting button. When
 the teacher answers a question, the question is marked "Answered".
 
+HOSTING A LOCAL Server
+----------------------
+Make sure you have node.js installed. You can find node.js at
+https://nodejs.org/en/ . enter "npm install" in terminal. to host the server,
+enter "node index" in terminal. 
+
+
+UNIT TESTING
+------------
+The unit test is in the test.js file. To be able to run the tests,
+you first need to be able to host a server. You also need to open
+node_modules/socket-tester/index.js in a text editor and change this.timeout
+from 25 to 250. To run the test, enter "npm test test" in the terminal.
+
 CONTRIBUTORS
 ------------
 Sondre Stai
