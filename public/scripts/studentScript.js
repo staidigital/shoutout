@@ -8,7 +8,7 @@ function joinRoom(){
   $('#createdRoom').text('');
   $('#createdRoom').append('<button class="currentRoomButtonStudent">'+ localStorage.roomname + '</button>');
   $('#roomname').val('');
-  
+  window.location.reload();
   return false;
 }
 

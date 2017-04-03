@@ -6,6 +6,7 @@ var allquestions = [];
 function createRoom(){
   localStorage.setItem('roomname', $('#fagkode').val());
   socket.emit('create room', $('#fagkode').val());
+  window.location.reload();
 }
 
 
