@@ -19,19 +19,12 @@ $(document).ready(function() {
   if(localStorage.roomname){
     socket.emit('join room', localStorage.roomname);
     $('#createdRoom').text('');
-    $('#createdRoom').append('<button id="currentRoomButton" class="currentRoomButton">'+ localStorage.roomname + '</button>'
+    $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>'
   );
   }
   return false;
 });
 
-
-$(document).ready(function(){
-
-  $('#currentRoomButton').click(function(){
-    $('#room-archive').append('<li><button class="btn btn-danger">'+ $(this).text() +  '</button><li>');
-  });
-})
 
 // får nytt spørsmål fra serveren og legger til liste
 function addToList(question) {
@@ -52,7 +45,7 @@ function addToList(question) {
         .append('<div class="textBox">' + question.text + '</div>'
             + '<div class="buttonAndVoteContainer">'
             + '<div class="plussButton">'
-            + '<button onclick="buttonPressed(this, ' + question.id + ')" class="teach" id=" '+ question.id +'" type=button >Answer</button>'
+            + '<button onclick="buttonPressed(this, ' + question.id + ')" id="teach" class="teach" id=" '+ question.id +'" type=button >Answer</button>'
             + '</div>'
             + '<div class="voteCount">'
             + '<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>'
@@ -68,7 +61,7 @@ function buttonPressed(button, id){
   var answer = { 'id': id, 'room': localStorage.roomname};
   console.log(answer.id);
   var myId = id;
-  $("button").click(function() {
+  $("#teach").click(function() {
         $(this).addClass('teach-clicked');
         $(this).html('DONE');
         socket.emit('answer', JSON.stringify(answer));
