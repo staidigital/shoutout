@@ -18,6 +18,9 @@
 
 }
 
+/*
+Big red buttons in the middle of the screen with Hover effects.
+*/
 .mybutton{
   display: inline-block;
   border-radius: 4px;
@@ -58,6 +61,11 @@
   opacity: 1;
   right: 0;
 }
+
+/*
+Footer, which covers 15% of the screen.
+*/
+
 
 footer{
   width: 100%;
