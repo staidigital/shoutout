@@ -77,47 +77,47 @@ function buttonPressed(button, id){
 
 // tar inn nytt spørsmål fra serveren
 socket.on('new question', function(question){
-  var q = JSON.parse(question);
-  console.log(q);
-  allquestions.push(q);
+  var question = JSON.parse(question);
+  console.log(question);
+  allquestions.push(question);
   listSort();
   $('#questions').text('');
-  allquestions.forEach(function(q)
+  allquestions.forEach(function(question)
   {
-    addToList(q);
+    addToList(question);
   });
 });
 
 // tar inn ny stemme fra serveren
-socket.on('vote', function(q){
-  var q = JSON.parse(q);
+socket.on('vote', function(question){
+  var question = JSON.parse(question);
   for(i=0;i<allquestions.length;i++){
-    if(allquestions[i].id == q.id){
+    if(allquestions[i].id == question.id){
       allquestions[i].votes++;
     }
   }
 
   listSort();
   $('#questions').text('');
-  allquestions.forEach(function(q)
+  allquestions.forEach(function(question)
   {
-    addToList(q);
+    addToList(question);
   });
 });
 
 
-socket.on('answered', function(q){
-  var q = JSON.parse(q);
+socket.on('answered', function(question){
+  var question = JSON.parse(question);
   for(i=0;i<allquestions.length;i++){
-    if(allquestions[i].id == q.id){
+    if(allquestions[i].id == question.id){
       allquestions[i].answered = true;
     }
   }
   listSort();
   $('#questions').text('');
-  allquestions.forEach(function(q)
+  allquestions.forEach(function(question)
   {
-    addToList(q);
+    addToList(question);
   });
 })
 
@@ -138,10 +138,10 @@ function listSort(){
 // legger til allerede-eksisterende spørsmål til nye brukere
 socket.on('all questions', function(questions) {
   var questions = JSON.parse(questions);
-  questions.forEach(function(q)
+  questions.forEach(function(question)
   {
-    addToList(q);
-    allquestions.push(q);
+    addToList(question);
+    allquestions.push(question);
   });
   listSort();
 });
