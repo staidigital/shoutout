@@ -8,6 +8,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
+var RedisStore = require('connect-redis')(expressSession);
 
 var fs = require('fs');
 var file = 'db.sqlite3';
@@ -32,6 +33,8 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(expressSession({
   secret: 'cat',
   resave: false,
+  store: new RedisStore,
+  cookie: {secure: false, maxAge: 86400000},
   saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -67,7 +70,7 @@ webSocket.on('connection',function(socket){
           if(res) res.sendFile(path.join(__dirname, './public', 'usernametaken.html'));
         }
       } else {
-        if(res) res.send('got');
+        if(res) res.sendFile(path.join(__dirname, './public', 'teacher.html'));
       }
     });
     newUserStatement.finalize();
