@@ -28,6 +28,6 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
-    "socket-tester": "^1.2.1",
+    "socket-tester": "^1.2.1"
   }
 }
