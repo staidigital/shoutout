@@ -234,22 +234,23 @@ body{
 
 
   #inputfield{
-    width: 90% !important;
+    width: 68% !important;
+    margin: 1% !important;
   }
 
   #inputform{
     display:flex;
     align-content: center;
     align-items: center;
-    flex-direction: column;
-    margin: 2%;
+    flex-direction: row;
+    margin: 1%;
     width: 100%;
   }
 
   #studentFooter{
     width:100%;
-    min-height: 20%;
-    max-height: 20%;
+    min-height: 15%;
+    max-height: 15%;
     text-align: center;
     background: rgba(100, 100, 150, 1);
     position: fixed;
@@ -286,7 +287,7 @@ body{
     font-size: 14px;
     max-height: 40px;
     max-width: 70%;
-    margin: 1%;
+    float:left;
   }
 
 
