@@ -65,12 +65,39 @@ describe("http", function() {
    });
 })
 
+describe("rom",function(){
+it("lager et rom",function(done){
+  client1={
+    on:{
+      'created room':socketTester.shouldBeCalledNTimes(1)
+    },
+    emit:{
+      'create room':'tdt4202'
+    }
+  };
+    socketTester.run([client1],done);
+  });
+
+  it("joiner rommet",function(done){
+    client1={
+      on:{
+        'connectToRoom':socketTeseter.shouldBeCalledNTimes(1)
+      },
+      emit:{'join room':'tdt4202'}
+    };
+    socketTester.run([client1],done)
+});
+
+
+});
+
+
  describe("spørsmål",function(){
      it("sender spørsmål til et eksisterende rom",function(done){
     client1={
          on:{'new question':socketTester.shouldBeCalledNTimes(1)},
        emit: {
-         'create room':'tdt4145',
+         'create room':'tdt4143',
        }
      };
  client2={
@@ -81,7 +108,7 @@ describe("http", function() {
   }
 },
        emit:{
-       'join room' :'tdt4145',
+       'join room' :'tdt4143',
        'new question':'Why should we use SCRUM?'
      }
   };
