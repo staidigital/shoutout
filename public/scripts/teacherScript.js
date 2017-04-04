@@ -20,6 +20,12 @@ socket.on('created room', function(data){
   $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
 });
 
+function addToArchive(){
+  const data = {username: 'admin', questions: allquestions, roomname: localStorage.roomname};  
+  socket.emit('add to archive', JSON.stringify(data));
+
+}
+
 
 $(document).ready(function() {
   if(localStorage.roomname){

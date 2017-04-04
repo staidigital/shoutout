@@ -56,9 +56,9 @@ function hashPassword(password, salt) {
 const newUser = function(username, password, res) {
   const salt = crypto.randomBytes(64).toString('base64');
   const hash = hashPassword(password, salt);
-  const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt) VALUES(?,?,?)');
+  const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt, previousLectures) VALUES(?,?,?, ?)');
 
-  newUserStatement.run(username, hash, salt, function(err) {
+  newUserStatement.run(username, hash, salt, '[]', function(err) {
     if(err) {
       if(err.code === 'SQLITE_CONSTRAINT') {
         console.log('username taken');
@@ -135,6 +135,19 @@ app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.h
 app.post('/signup', function(req, res){
   newUser(req.body.username, req.body.password, res);
 });
+
+function addToArchive(data){
+  var previousLectures = null;
+  db.get('SELECT previousLectures FROM users WHERE username = ?', data.username, function(err, row){
+    if(row){
+      previousLectures = JSON.parse(row.previousLectures);
+      var lecture = { roomname: data.roomname, questions: data.questions };
+      previousLectures.push(lecture);
+      db.run('UPDATE users SET previousLectures = ? WHERE username = ? ', data.username, JSON.stringify(previousLectures));
+      console.log(previousLectures);
+    }
+  });
+}
 
 //når klient kobler seg på
 webSocket.on('connection',function(socket){
@@ -267,8 +280,13 @@ webSocket.on('connection',function(socket){
     webSocket.emit('vote', JSON.stringify(question));
   });
 
-  socket.on('archive', function(){
-
+  socket.on('add to archive', function(data){
+    var jsondata = JSON.parse(data);
+    console.log(jsondata);
+    //vil sjekke innlogging TOdoo
+    if(jsondata.questions && jsondata.username){
+      addToArchive(jsondata);
+    }
   });
 
 });
