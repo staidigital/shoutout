@@ -8,6 +8,11 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
+var redis = require('redis');
+var redisClient = redis.createClient();
+redisClient.on('error', function(err){
+  console.log('redis error', err);
+});
 var RedisStore = require('connect-redis')(expressSession);
 
 var fs = require('fs');
@@ -33,15 +38,102 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(expressSession({
   secret: 'cat',
   resave: false,
-  store: new RedisStore,
+  store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 300}),
   cookie: {secure: false, maxAge: 86400000},
   saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// bestemmer port
-http.listen(port,function(){
-  console.log('Listening on '+port);
+//funksjon for hashing av passpord med salt
+function hashPassword(password, salt) {
+  var hash = crypto.createHash('sha256');
+  hash.update(password);
+  hash.update(salt);
+  return hash.digest('hex');
+}
+
+//opprettelsen av ny bruker
+const newUser = function(username, password, res) {
+  const salt = crypto.randomBytes(64).toString('base64');
+  const hash = hashPassword(password, salt);
+  const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt) VALUES(?,?,?)');
+
+  newUserStatement.run(username, hash, salt, function(err) {
+    if(err) {
+      if(err.code === 'SQLITE_CONSTRAINT') {
+        console.log('username taken');
+        socket.emit('username taken', true);
+        if(res) res.sendFile(path.join(__dirname, './public', 'usernametaken.html'));
+      }
+    } else {
+      if(res) res.sendFile(path.join(__dirname, './public', 'login.html'));
+    }
+  });
+  newUserStatement.finalize();
+}
+
+//lager ny database om den ikke eksisterer og en admin-bruker
+db.serialize(function(){
+  if(!exists){
+    db.run('CREATE TABLE "users" (\
+        "id" INTEGER PRIMARY KEY AUTOINCREMENT,\
+        "username" TEXT,\
+        "hash" TEXT,\
+        "salt" TEXT,\
+        "previousLectures" LONGTEXT,\
+        UNIQUE (username)\
+    )');
+    newUser('admin','admin');
+  }
+});
+
+//definerer innloggingsstrategi (brukernavn og passord)
+passport.use(new LocalStrategy(function(username, password, done) {
+  console.log('stareting localstrat: ', username, password);
+
+  db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
+    console.log(row);
+    if (!row) return done(null, false);
+    var hash = hashPassword(password, row.salt);
+    console.log('row: ', row);
+    db.get('SELECT username, id FROM users WHERE username = ? AND hash = ?', username, hash, function(err, row) {
+      if (!row) return done(null, false);
+      return done(null, row);
+    });
+  });
+}));
+
+passport.serializeUser(function(user, done) {
+  return done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  db.get('SELECT id, username FROM users WHERE id = ?', id, function(err, row) {
+    if (!row) return done(null, false);
+    return done(null, row);
+  });
+});
+
+//sjekker om bruker er innlogget
+const check_login = function(req, res, next) {
+  console.log(req.user);
+  if (req.user) {
+    console.log('ape');
+    next();
+  } else {
+    console.log(req.user);
+    res.send('bar');
+  }
+}
+app.get('/foo', check_login, function(req, res, next){
+  res.send('string');
+})
+//login- og signup-funksjoner med redirect
+app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
+  failureRedirect: '/login.html' }));
+
+app.post('/signup', function(req, res){
+  newUser(req.body.username, req.body.password, res);
 });
 
 //når klient kobler seg på
@@ -49,93 +141,6 @@ webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
   var myroom = null;
   console.log('new connection');
-
-  //funksjon for hashing av passpord med salt
-  function hashPassword(password, salt) {
-    var hash = crypto.createHash('sha256');
-    hash.update(password);
-    hash.update(salt);
-    return hash.digest('hex');
-  }
-
-  //opprettelsen av ny bruker
-  const newUser = function(username, password, res) {
-    const salt = crypto.randomBytes(64).toString('base64');
-    const hash = hashPassword(password, salt);
-    const newUserStatement = db.prepare('INSERT INTO users(username, hash, salt) VALUES(?,?,?)');
-
-    newUserStatement.run(username, hash, salt, function(err) {
-      if(err) {
-        if(err.code === 'SQLITE_CONSTRAINT') {
-          console.log('username taken');
-          socket.emit('username taken', true);
-          if(res) res.sendFile(path.join(__dirname, './public', 'usernametaken.html'));
-        }
-      } else {
-        if(res) res.sendFile(path.join(__dirname, './public', 'login.html'));
-      }
-    });
-    newUserStatement.finalize();
-  }
-
-  //lager ny database om den ikke eksisterer og en admin-bruker
-  db.serialize(function(){
-    if(!exists){
-      db.run('CREATE TABLE "users" (\
-          "id" INTEGER PRIMARY KEY AUTOINCREMENT,\
-          "username" TEXT,\
-          "hash" TEXT,\
-          "salt" TEXT,\
-          "previousLectures" LONGTEXT,\
-          UNIQUE (username)\
-      )');
-      newUser('admin','admin');
-    }
-  });
-
-  //definerer innloggingsstrategi (brukernavn og passord)
-  passport.use(new LocalStrategy(function(username, password, done) {
-    console.log('staretring localstrat: ', username);
-
-    db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
-      if (!row) return done(null, false);
-      var hash = hashPassword(password, row.salt);
-      console.log('row: ', row);
-      db.get('SELECT username, id FROM users WHERE username = ? AND hash = ?', username, hash, function(err, row) {
-        if (!row) return done(null, false);
-        return done(null, row);
-      });
-    });
-  }));
-
-  passport.serializeUser(function(user, done) {
-    return done(null, user.id);
-  });
-
-  passport.deserializeUser(function(id, done) {
-    db.get('SELECT id, username FROM users WHERE id = ?', id, function(err, row) {
-      if (!row) return done(null, false);
-      return done(null, row);
-    });
-  });
-
-  const check_login = function(req, res, next) {
-    if (req.user) {
-      next();
-    } else {
-      res.sendFile(path.join(__dirname, './public', 'login.html'));
-    }
-  }
-  app.get('/foo', check_login, function(req, res, next){
-    res.send('string');
-  })
-  //login- og signup-funksjoner med redirect
-  app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
-    failureRedirect: '/login.html' }));
-
-  app.post('/signup', function(req, res){
-    newUser(req.body.username, req.body.password, res);
-  });
 
   //lager nytt rom i.h.t. forespørsel
   socket.on('create room', function(data){
@@ -278,3 +283,8 @@ process.exit();
 process.on('SIGTERM', shutdown);
 process.on('SIGINT', shutdown);
 // shutdown hook //
+
+// bestemmer port
+http.listen(port,function(){
+  console.log('Listening on '+port);
+});
