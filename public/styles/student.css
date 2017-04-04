@@ -91,18 +91,22 @@ body{
 
 .buttonAndVoteContainer{
   width: 100%;
-  height:  35px;
+  height: 35px;
   display: inline-flex;
-  float: left;
-  right: 0;
-  bottom: 0;
 
 
 }
 
 .plussButton{
+  width: 70%;
+  height: 35px;
+}
+
+#voteButton{
   position: relative;
-  flex-grow: 4;
+  float: right;
+
+
 }
 
 .textBox{
@@ -123,9 +127,10 @@ body{
 }
 
 .voteCount{
-  position:relative;
-  margin: 1%;
-  flex-grow: 0.5;
+  width: 35px;
+  height: 35px;
+  position: relative;
+  float:right;
 
 }
 

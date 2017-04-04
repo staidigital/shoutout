@@ -151,8 +151,8 @@ footer{
   align-content: space-between;
   border: solid 2px rgba(100, 100, 150, 1);
   border-radius: 10px;
-  max-width: 50%;
-  min-width: 50%;
+  max-width: 80%;
+  min-width: 80%;
   max-height: inherit;
 
 }

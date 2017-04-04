@@ -30,7 +30,7 @@ function addToList(question)
       .append('<div class="textBox">' + question.text + '</div>'
               + '<div class="buttonAndVoteContainer">'
               + '<div class="plussButton">'
-              + '<button onclick="buttonPressed(this, ' + question.id + ')" class="stud" role=button >+</button>'
+              + '<button id="voteButton" onclick="buttonPressed(this, ' + question.id + ')" class="stud" role=button >+</button>'
               + '</div>'
               + '<div class="voteCount">'
               + '<span class="votespan" id="vote' + question.id + '" >' + question.votes + ' </span>'
