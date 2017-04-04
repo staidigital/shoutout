@@ -25,7 +25,7 @@ var rooms = [];
 var archives = [];
 var port = 3001;
 
-// konfigurering og shit
+// initializing http, passport and parsers
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false}));
@@ -239,6 +239,7 @@ webSocket.on('connection',function(socket){
   });
 
   socket.on('archive', function(){
+
 
   });
 
