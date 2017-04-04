@@ -169,7 +169,7 @@ webSocket.on('connection',function(socket){
     if(myroom == null){
       return;
     }
-    var q =
+    var question =
     {
       'text': question,
       'id': id,
@@ -180,12 +180,12 @@ webSocket.on('connection',function(socket){
 
     for(var i = 0; i<rooms.length;i++){
       if(rooms[i].name == myroom){
-        rooms[i].questions.push(q);
+        rooms[i].questions.push(question);
       }
     };
-    console.log(q.id);
+    console.log(question.id);
     console.log('newquestioninroom', myroom);
-    webSocket.sockets.in(myroom).emit('new question', JSON.stringify(q));
+    webSocket.sockets.in(myroom).emit('new question', JSON.stringify(question));
   });
 
   //når foreleseren svarer på et spørsmål
@@ -195,18 +195,18 @@ webSocket.on('connection',function(socket){
     console.log(answer);
     for(var i = 0; i<rooms.length;i++){
       if(rooms[i].name == answer.room){
-        var q =_.find(rooms[i].questions,function(q){
-          return q.id==answer.id;
+        var question =_.find(rooms[i].questions,function(question){
+          return question.id==answer.id;
         });
       }
     };
 
-    if(q==null){
+    if(question==null){
       console.log('question not found');
       return;
     }
-    q.answered=true;
-    socket.emit('answered', JSON.stringify(q));
+    question.answered=true;
+    socket.emit('answered', JSON.stringify(question));
   });
 
   //ny stemme
@@ -217,14 +217,15 @@ webSocket.on('connection',function(socket){
       return rom.name == myroom;
     });
 
-    var q = null;
+    var questions = null;
+
     for(var i = 0; i<rom.questions.length;i++){
       if(rom.questions[i].id == vote.id){
-        q = rom.questions[i];
+        question = rom.questions[i];
       }
     }
 
-    if(q == null) {
+    if(question == null) {
       console.log('question not found');
       return;
     }
@@ -241,13 +242,14 @@ webSocket.on('connection',function(socket){
     var addressobj = {'address' : address, 'voteid' : vote.id};
     voteids.push(addressobj);
 
-    if (vote.vote=='plus')q.votes++;
+    if (vote.vote=='plus')question.votes++;
+
     rom.questions.sort(function(a,b){
       return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
     });
 
     console.log('sending vote');
-    webSocket.emit('vote', JSON.stringify(q));
+    webSocket.emit('vote', JSON.stringify(question));
   });
 
   socket.on('archive', function(){

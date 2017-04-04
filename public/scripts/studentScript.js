@@ -59,25 +59,25 @@ $('form').submit(function(){
 });
 
 // tar inn nytt spørsmål fra serveren
-socket.on('new question', function(q){
-  var q = JSON.parse(q);
-  console.log(q.id);
-  addToList(q);
+socket.on('new question', function(question){
+  var question = JSON.parse(question);
+  console.log(question.id);
+  addToList(question);
 });
 
 // tar inn ny stemme fra serveren
-socket.on('vote', function(q){
-  var q = JSON.parse(q);
-   $('#vote' + q.id).text(q.votes);
+socket.on('vote', function(question){
+  var question = JSON.parse(question);
+   $('#vote' + question.id).text(question.votes);
 });
 
 // legger til allerede-eksisterende spørsmål til nye brukere
 socket.on('all questions', function(questions)
 {
   var questions = JSON.parse(questions);
-  questions.forEach(function(q)
+  questions.forEach(function(question)
   {
-    addToList(q);
+    addToList(question);
   });
 });
 socket.on('connectToRoom',function(data){
