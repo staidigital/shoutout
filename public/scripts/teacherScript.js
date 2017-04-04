@@ -25,12 +25,10 @@ $(document).ready(function() {
   if(localStorage.roomname){
     socket.emit('join room', localStorage.roomname);
     $('#createdRoom').text('');
-    $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>'
-  );
+    $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
   }
   return false;
 });
-
 
 // får nytt spørsmål fra serveren og legger til liste
 function addToList(question) {

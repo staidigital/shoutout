@@ -50,6 +50,7 @@ webSocket.on('connection',function(socket){
   var myroom = null;
   console.log('new connection');
 
+  //funksjon for hashing av passpord med salt
   function hashPassword(password, salt) {
     var hash = crypto.createHash('sha256');
     hash.update(password);
@@ -57,6 +58,7 @@ webSocket.on('connection',function(socket){
     return hash.digest('hex');
   }
 
+  //opprettelsen av ny bruker
   const newUser = function(username, password, res) {
     const salt = crypto.randomBytes(64).toString('base64');
     const hash = hashPassword(password, salt);
@@ -76,6 +78,7 @@ webSocket.on('connection',function(socket){
     newUserStatement.finalize();
   }
 
+  //lager ny database om den ikke eksisterer og en admin-bruker
   db.serialize(function(){
     if(!exists){
       db.run('CREATE TABLE "users" (\
@@ -90,6 +93,7 @@ webSocket.on('connection',function(socket){
     }
   });
 
+  //definerer innloggingsstrategi (brukernavn og passord)
   passport.use(new LocalStrategy(function(username, password, done) {
     console.log('staretring localstrat: ', username);
 
@@ -115,15 +119,15 @@ webSocket.on('connection',function(socket){
     });
   });
 
+  //login- og signup-funksjoner med redirect
   app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
-                                                      failureRedirect: '/login.html' }));
+    failureRedirect: '/login.html' }));
+
   app.post('/signup', function(req, res){
     newUser(req.body.username, req.body.password, res);
-    // need some way to check if db transaction went OK
-
   });
-  //laste inn tidligere stilte spørsmål
 
+  //lager nytt rom i.h.t. forespørsel
   socket.on('create room', function(data){
     console.log('room created');
     var roomobj = {'name' : data, 'questions':[]};
@@ -135,6 +139,7 @@ webSocket.on('connection',function(socket){
     socket.emit('created room', roomobj.room);
   });
 
+  //bli med i et rom
   socket.on('join room', function(data){
     var checkRoom = null;
     var checkRoom = _.find(rooms,{'name':data});
@@ -145,23 +150,20 @@ webSocket.on('connection',function(socket){
       socket.join(data);
       console.log('room joined', data);
       myroom = data;
-      //webSocket.sockets.in(data).emit('connectToRoom', 'Du er nå i'+myroom);
       socket.emit('connectToRoom', 'Du er nå i'+myroom);
       socket.emit('all questions', JSON.stringify(checkRoom.questions));
     }
-
-    // send ERROR
-    // socket.emit.
   });
 
+  //function for å alle spørsmålene til et gitt rom
   function emitAllQuestions(){
     for(var i=0;i<rooms.length;i++){
       if(rooms[i].name === myroom){
         webSocket.sockets.in(myroom).emit('all questions', JSON.stringify(rooms[i].questions));
       }
     }
-
   }
+
   //når det kommer et nytt spørsmål fra klient
   socket.on('new question', function(question){
     if(myroom == null){
@@ -214,35 +216,41 @@ webSocket.on('connection',function(socket){
     var rom = _.find(rooms, function(rom){
       return rom.name == myroom;
     });
+
     var q = null;
     for(var i = 0; i<rom.questions.length;i++){
       if(rom.questions[i].id == vote.id){
         q = rom.questions[i];
       }
     }
+
     if(q == null) {
       console.log('question not found');
       return;
     }
+
     var addressCheck = _.find(voteids, {
       'address' : address,
       'voteid' : vote.id
     });
+
     if(addressCheck != null) {
       return;
     }
+
     var addressobj = {'address' : address, 'voteid' : vote.id};
     voteids.push(addressobj);
+
     if (vote.vote=='plus')q.votes++;
     rom.questions.sort(function(a,b){
       return(a.votes < b.votes) ? -1 : ((b.votes < a.votes) ? 1 : 0);
     });
+
     console.log('sending vote');
     webSocket.emit('vote', JSON.stringify(q));
   });
 
   socket.on('archive', function(){
-
 
   });
 
