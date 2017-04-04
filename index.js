@@ -72,7 +72,7 @@ webSocket.on('connection',function(socket){
           if(res) res.sendFile(path.join(__dirname, './public', 'usernametaken.html'));
         }
       } else {
-        if(res) res.sendFile(path.join(__dirname, './public', 'teacher.html'));
+        if(res) res.sendFile(path.join(__dirname, './public', 'login.html'));
       }
     });
     newUserStatement.finalize();
@@ -119,6 +119,16 @@ webSocket.on('connection',function(socket){
     });
   });
 
+  const check_login = function(req, res, next) {
+    if (req.user) {
+      next();
+    } else {
+      res.sendFile(path.join(__dirname, './public', 'login.html'));
+    }
+  }
+  app.get('/foo', check_login, function(req, res, next){
+    res.send('string');
+  })
   //login- og signup-funksjoner med redirect
   app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
     failureRedirect: '/login.html' }));
@@ -257,3 +267,14 @@ webSocket.on('connection',function(socket){
   });
 
 });
+
+// shutdown hook //
+const shutdown = function() {
+console.log("Shutting down ...");
+db.close();
+process.exit();
+};
+
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
+// shutdown hook //
