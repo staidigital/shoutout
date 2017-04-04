@@ -3,7 +3,7 @@ var request=require("request");
 var io     = require('socket.io-client');
 var app=require('./index')
 var SocketTester = require('socket-tester');
-var client1,client2,client3
+var client1,client2,client3,url
 var socketUrl = 'http://localhost:3001';
 
 
@@ -25,7 +25,7 @@ describe("http", function() {
     });
   });
   it("åpner en side som ikke finnes",function(done){
-    var url="http://localhost:3001/thispagedoesnotexist.html"
+    url="http://localhost:3001/thispagedoesnotexist.html";
     request(url,function(error,response,body){
          expect(response.statusCode).to.equal(404);
          done();
@@ -33,7 +33,7 @@ describe("http", function() {
   });
 
   it("åpner studentsiden",function(done){
-    var url="http://localhost:3001/student.html"
+    url="http://localhost:3001/student.html";
     request(url,function(error,response,body){
          expect(response.statusCode).to.equal(200);
          done();
@@ -41,12 +41,28 @@ describe("http", function() {
   });
 
   it("åpner lærersiden",function(done){
-    var url="http://localhost:3001/teacher.html"
+    url="http://localhost:3001/teacher.html";
     request(url,function(error,response,body){
          expect(response.statusCode).to.equal(200);
          done();
     });
   });
+
+  it("åpner innloginssiden",function(done){
+  url="http://localhost:3001/login.html";
+  request(url,function(error,response,body){
+       expect(response.statusCode).to.equal(200);
+       done();
+  });
+});
+
+   it("åpner signup siden",function(done){
+     url="http://localhost:3001/signup.html";
+     request(url,function(error,response,body){
+          expect(response.statusCode).to.equal(200);
+          done();
+     });
+   });
 })
 
  describe("spørsmål",function(){
