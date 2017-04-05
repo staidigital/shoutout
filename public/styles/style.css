@@ -298,6 +298,17 @@ footer{
   width: 100%;
 }
 
+#backToRoomButton{
+
+}
+
+.currentUsername{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1%;
+}
+
 .recent{
   width: 100%;
   margin: 1px;

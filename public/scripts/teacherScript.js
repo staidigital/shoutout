@@ -4,18 +4,27 @@ var myroom = '';
 var allquestions = [];
 var roomlist = null;
 
+//Funksjon for å laste inn siden på nytt
+function refreshPage(){
+  window.location.reload();
+};
+
+//funksjon for å lage nytt rom
 function createRoom(){
   localStorage.setItem('roomname', $('#fagkode').val());
   socket.emit('create room', $('#fagkode').val());
   window.location.reload();
 }
 
+
+//funksjon for å lagre rommet du er i
 function saveRoom(){
   console.log(res.body.username);
   var saveallquestions = JSON.stringify(allquestions);
   socket.emit('save questions', saveallquestions)
 }
 
+//tar i mot en emit fra serveren, og endrer currentRoomButton
 socket.on('created room', function(data){
   $('#createdRoom').text('');
   $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
@@ -59,7 +68,7 @@ $(document).ready(function() {
 
   if(localStorage.getItem('username') !== null){
       console.log(localStorage.getItem('username'));
-      $('#currentUsername').append('<h4>Hei, ' + localStorage.getItem('username') + '!</h4>');
+      $('#currentUsername').prepend('<h4>Hei, ' + localStorage.getItem('username') + '!</h4>');
   }
 
   return false;
