@@ -27,9 +27,43 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.2.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nyc": "^10.1.2",
     "socket-tester": "^1.2.1"
-  }
+  },
+  "eslintConfig": {
+        "extends": "standard",
+        "plugins": [
+            "standard",
+            "promise"
+          ],
+        "env": {
+            "browser": true,
+            "node": true
+        },
+        "rules": {
+            "indent": [
+              2,
+              "tab"
+            ],
+            "quotes": [
+              2,
+              "single"
+            ],
+            "linebreak-style": [
+              2,
+              "unix"
+            ],
+            "semi": [
+              2,
+              "always"
+            ]
+        }
+    }
 }
