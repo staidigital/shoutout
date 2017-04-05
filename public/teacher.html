@@ -13,38 +13,40 @@
 </head>
 <body>
   <div class="container">
+    <!-- page header with link to homepage -->
     <div class="page-header">
       <h1><a href="./">ShoutOut</a></h1>
     </div>
-    <h1><a href="/foo">FOO</a></h1>
     <div class="loginAs">
     </div>
+
+    <!-- menyContainer that contains all the other containers -->
     <div class="menyContainer">
       <div class="menyContainer2">
         <div class="meny">
-      <div class="buttonMeny">
-        <div>
-          <input class="form-control" type="text" id ="fagkode" placeholder="e.g. tdt4140"></input>
-          <button id="lagRom" onclick="createRoom()" class="btn btn-danger" role=button>Lag et nytt rom</button>
-          <button class="btn btn-danger" role=button onclick="addToArchive()">Lagre forelesning</button>
+          <!-- buttonMeny container which has inputfield, create room button and Save lecture button -->
+          <div class="buttonMeny">
+            <div>
+              <input class="form-control" type="text" id ="fagkode" placeholder="e.g. tdt4140"></input>
+              <button id="lagRom" onclick="createRoom()" class="btn btn-danger" role=button>Lag et nytt rom</button>
+              <button class="btn btn-danger" role=button onclick="addToArchive()">Lagre forelesning</button>
+            </div>
+          </div>
+          <!-- jumbo container which has a button that show which room you're in -->
+          <div class="jumbo">
+            <div id=createdRoom class="createdR">
+            </div>
+          </div>
         </div>
-    </div>
-
-    <div class="jumbo">
-      <div id=createdRoom class="createdR">
       </div>
-    </div>
-
-    </div>
-
-      </div>
-      <div class="menyContainer1">
-    <div class="questioncontainer">
-      <ul class="questions" id=questions>
-      </ul>
-    </div>
-  </div>
-
+      <!-- QuestionContainer where all the questions show up -->
+        <div class="menyContainer1">
+          <div class="questioncontainer">
+            <ul class="questions" id=questions>
+            </ul>
+          </div>
+        </div>
+        <!-- right side where Archived lectures will show up -->
     <div class="archive">
       <ul class="room-archive" id=room-archive>Archived lectures
       </ul>

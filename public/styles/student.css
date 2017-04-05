@@ -93,6 +93,7 @@ body{
   width: 100%;
   height: 35px;
   display: inline-flex;
+  flex-direction: row;
 
 
 }
@@ -127,14 +128,14 @@ body{
 }
 
 .voteCount{
-  width: 35px;
+  width: 30px;
   height: 35px;
   position: relative;
   float:right;
 
 }
 
-.jumboItem1{
+.roomNameContainer{
   align-self: center;
 
 }

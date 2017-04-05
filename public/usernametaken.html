@@ -14,36 +14,38 @@
 
 </head>
 <body>
+  <!-- main container where everythis is -->
   <div class="containerLogin">
+      <!-- page header with link to homepage -->
     <div class="page-header">
       <a href="index.html"><h1>ShoutOut</h1></a>
     </div>
+    <!-- signup form, with login and password fields, and a comment that says "username taken".
+    this is getting redirected from signup.html if password is wrong -->
     <form action="/signup" method="post">
       <div class="loginBox">
         <div class="loginElements">
-      <div>
-          <label for="focusedInput" id="username">Username</label>
-          <input type="text" name="username" class="form-control" id="focusedInput"/>
-      </div>
-      <div id="usernametaken">
-        <p>Username taken</p>
-      </div>
-      <div>
-          <label id="password">Password</label>
-          <input id="passwordInput" class="form-control" type="password" name="password"/>
-      </div>
-      <div>
-          <input class="form-control" type="submit" value="Create User"/>
-      </div>
-    </form>
-  </div>
-  </div>
+          <div>
+            <label for="focusedInput" id="username">Username</label>
+            <input type="text" name="username" class="form-control" id="focusedInput"/>
+          </div>
+          <div id="usernametaken">
+            <p>Username taken</p>
+          </div>
+          <div>
+            <label id="password">Password</label>
+            <input id="passwordInput" class="form-control" type="password" name="password"/>
+          </div>
+          <div>
+            <input class="form-control" type="submit" value="Create User"/>
+          </div>
+      </form>
+    </div>
+    </div>
   </div>
 
-  <footer>
-
-  </footer>
-
+  <footer></footer>
+  <!-- Scripts for socket io and jquery -->
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
