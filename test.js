@@ -81,7 +81,7 @@ it("lager et rom",function(done){
   it("joiner rommet",function(done){
     client1={
       on:{
-        'connectToRoom':socketTeseter.shouldBeCalledNTimes(1)
+        'connectToRoom':socketTester.shouldBeCalledNTimes(1)
       },
       emit:{'join room':'tdt4202'}
     };
