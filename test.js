@@ -18,12 +18,14 @@ var socketTester = new SocketTester(io, socketUrl, options);
 
 
 describe("http", function() {
+
     it("åpner nettsiden", function(done) {
       request(socketUrl, function(error, response, body) {
           expect(response.statusCode).to.equal(200);
           done();
     });
   });
+
   it("åpner en side som ikke finnes",function(done){
     url="http://localhost:3001/thispagedoesnotexist.html";
     request(url,function(error,response,body){
@@ -63,7 +65,42 @@ describe("http", function() {
           done();
      });
    });
-})
+
+});
+
+describe("spørsmålsattributer",function(done){
+    it("stemmefunksjon",function(done){
+        client1={
+            on:{
+            'vote':socketTester.shouldBeCalledNTimes(1)
+            },
+            emit:{
+            'create room':'tdt4145'
+            }
+         };
+
+  client2={
+           on:{
+           'vote':function(data){
+            var votes=JSON.parse(data).votes;
+            expect(votes).to.equal(1);
+          }
+    },
+    emit:{
+      'join room':'tdt4145',
+      'new question':'Why is software architecture so important?',
+      'vote':JSON.stringify({"id":0,"vote":"plus"}),
+      'vote':JSON.stringify({"id":0,"vote":"plus"}),
+      'vote':JSON.stringify({"id":0,"vote":"plus"}),
+      'vote':JSON.stringify({"id":0,"vote":"plus"})
+    }
+  };
+
+  socketTester.run([client1,client2],done);
+});
+
+});
+
 
 describe("rom",function(){
 it("lager et rom",function(done){
@@ -88,9 +125,7 @@ it("lager et rom",function(done){
     socketTester.run([client1],done)
 });
 
-
 });
-
 
  describe("spørsmål",function(){
      it("sender spørsmål til et eksisterende rom",function(done){
@@ -100,14 +135,15 @@ it("lager et rom",function(done){
          'create room':'tdt4143',
        }
      };
+
  client2={
    on:{
-     'new question':function(data){
-    var text=JSON.parse(data).text;
-    expect(text).to.equal("Why should we use SCRUM?")
-  }
-},
-       emit:{
+       'new question':function(data){
+       var text=JSON.parse(data).text;
+       expect(text).to.equal("Why should we use SCRUM?")
+    }
+  },
+    emit:{
        'join room' :'tdt4143',
        'new question':'Why should we use SCRUM?'
      }
@@ -133,35 +169,4 @@ it("lager et rom",function(done){
         };
     socketTester.run([client1,client2],done);
        });
-    })
-    describe("spørsmålsattributer",function(done){
-    it("stemmefunksjon",function(done){
-      client1={
-        on:{
-       'vote':socketTester.shouldBeCalledNTimes(1)
-       },
-       emit:{
-         'create room':'tdt4145'
-       }
-     };
-      client2={
-        on:{
-          'vote':function(data){
-            var votes=JSON.parse(data).votes;
-            expect(votes).to.equal(1);
-          }
-        },
-        emit:{
-          'join room':'tdt4145',
-          'new question':'Why is software architecture so important?',
-          'vote':JSON.stringify({"id":0,"vote":"plus"}),
-          'vote':JSON.stringify({"id":0,"vote":"plus"}),
-          'vote':JSON.stringify({"id":0,"vote":"plus"}),
-          'vote':JSON.stringify({"id":0,"vote":"plus"})
-        }
-      };
-
-      socketTester.run([client1,client2],done);
     });
-
-    })
