@@ -2,6 +2,7 @@
 var socket = io();
 var myroom = '';
 var allquestions = [];
+var roomlist = null;
 
 function createRoom(){
   localStorage.setItem('roomname', $('#fagkode').val());
@@ -29,7 +30,24 @@ socket.emit('ready for archive', localStorage.username);
 
 socket.on('load archive', function(data){
   console.log(data);
+  roomlist = JSON.parse(data);
+  for (var i = 0; i<roomlist.length;i++){
+    $('#room-archive').append('<li><button class="btn btn-primary" \
+    onclick="showquestions('+i+')">' + roomlist[i].roomname + '</button></li>');
+  }
 });
+
+function showquestions(data){
+  $('#questions').text('');
+  for(var i = 0; i<roomlist.length;i++){
+    if(i == data){
+      roomlist[i].questions.forEach(function(question)
+      {
+        addToList(question);
+      });
+    }
+  }
+}
 
 $(document).ready(function() {
   if(localStorage.roomname){
