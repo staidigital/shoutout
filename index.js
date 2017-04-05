@@ -143,7 +143,7 @@ function addToArchive(data){
       previousLectures = JSON.parse(row.previousLectures);
       var lecture = { roomname: data.roomname, questions: data.questions };
       previousLectures.push(lecture);
-      db.run('UPDATE users SET previousLectures = ? WHERE username = ? ', data.username, JSON.stringify(previousLectures));
+      db.run('UPDATE users SET previousLectures = ? WHERE username = ? ',JSON.stringify(previousLectures), data.username);
       console.log(previousLectures);
     }
   });
@@ -156,8 +156,16 @@ webSocket.on('connection',function(socket){
   console.log('new connection');
 
   socket.on('ready for archive', function(data){
+    console.log('ready for archive', data);
     if(data){
+      db.get('SELECT previousLectures FROM users WHERE username = ?', data, function(err, row){
+        if(row){
+          var previousLectures = row.previousLectures;
+          console.log(previousLectures);
 
+          socket.emit('load archive', previousLectures);
+        }
+      });
     }
   });
 

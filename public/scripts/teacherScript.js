@@ -25,8 +25,11 @@ function addToArchive(){
   socket.emit('add to archive', JSON.stringify(data));
 }
 
-socket.emmit('ready for archive', true);
+socket.emit('ready for archive', localStorage.username);
 
+socket.on('load archive', function(data){
+  console.log(data);
+});
 
 $(document).ready(function() {
   if(localStorage.roomname){
