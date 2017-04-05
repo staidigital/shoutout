@@ -345,25 +345,6 @@ footer{
 	text-decoration:none;
 }
 
-.currentRoomButton:before{
-  content: "";
-}
-
-.currentRoomButton:hover:before{
-  display: inline-flex;
-  padding: 10px 30px;
-  content: 'Lagre';
-  transition-duration: 0.5s;
-
-}
-
-.currentRoomButton:hover:after{
-  padding:6px 24px;
-  transition-duration: 0.5s
-
-}
-
-
 .currentRoomButtonStudent{
 	background-color:transparent;
 	-moz-border-radius:6px;

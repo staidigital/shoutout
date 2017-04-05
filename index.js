@@ -258,6 +258,7 @@ webSocket.on('connection',function(socket){
       return;
     }
 
+
     var addressCheck = _.find(voteids, {
       'address' : address,
       'voteid' : vote.id
@@ -267,8 +268,10 @@ webSocket.on('connection',function(socket){
       return;
     }
 
+
     var addressobj = {'address' : address, 'voteid' : vote.id};
     voteids.push(addressobj);
+
 
     if (vote.vote=='plus')question.votes++;
 
