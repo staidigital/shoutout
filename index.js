@@ -306,7 +306,6 @@ webSocket.on('connection',function(socket){
       addToArchive(jsondata);
     }
   });
-
 });
 
 // shutdown hook //

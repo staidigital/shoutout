@@ -33,6 +33,7 @@ socket.on('created room', function(data){
 function addToArchive(){
   const data = {username: localStorage.username, questions: allquestions, roomname: localStorage.roomname};
   socket.emit('add to archive', JSON.stringify(data));
+  window.location.reload();
 }
 
 socket.emit('ready for archive', localStorage.username);
