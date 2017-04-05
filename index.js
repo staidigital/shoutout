@@ -155,6 +155,12 @@ webSocket.on('connection',function(socket){
   var myroom = null;
   console.log('new connection');
 
+  socket.on('ready for archive', function(data){
+    if(data){
+
+    }
+  });
+
   //lager nytt rom i.h.t. forespørsel
   socket.on('create room', function(data){
     console.log('room created');

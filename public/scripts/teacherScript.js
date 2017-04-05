@@ -21,10 +21,11 @@ socket.on('created room', function(data){
 });
 
 function addToArchive(){
-  const data = {username: 'admin', questions: allquestions, roomname: localStorage.roomname};  
+  const data = {username: localStorage.username, questions: allquestions, roomname: localStorage.roomname};
   socket.emit('add to archive', JSON.stringify(data));
-
 }
+
+socket.emmit('ready for archive', true);
 
 
 $(document).ready(function() {
