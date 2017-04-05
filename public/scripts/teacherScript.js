@@ -37,6 +37,12 @@ $(document).ready(function() {
     $('#createdRoom').text('');
     $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
   }
+  console.log(localStorage.getItem('username'));
+  $('#currentUsername').append('<h4>Hei, ' + localStorage.getItem('username') + '!</h4>');
+  /*
+
+    $('#currentUsername').html() = '<h3>'+ localStorage.getItem('username') + '</h3>';
+    */
   return false;
 });
 
