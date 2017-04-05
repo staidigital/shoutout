@@ -1,7 +1,7 @@
 var socket = io();
 
 function joinRoom(){
-  if($('#roomname').val() === '') return false;
+  if($('#roomname').val() === ''){return false};
   socket.emit('join room', $('#roomname').val());
   localStorage.setItem('roomname', $('#roomname').val());
 
@@ -83,3 +83,7 @@ socket.on('all questions', function(questions)
 socket.on('connectToRoom',function(data){
         console.log(data);
     });
+
+socket.on('already in room', function(){
+  $('#roomname').attr("placeholder","FEIL ROM!");
+});

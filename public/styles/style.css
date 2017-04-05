@@ -286,9 +286,16 @@ footer{
 .room-archive{
   display:flex;
   flex-direction: column;
+  align-content: flex-end;
   padding-left: 0;
   margin:10px;
   font-size: 18px;
+}
+
+#archivedRoom{
+  float: left;
+  margin: 1%;
+  width: 100%;
 }
 
 .recent{

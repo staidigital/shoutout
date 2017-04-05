@@ -32,7 +32,7 @@ socket.on('load archive', function(data){
   console.log(data);
   roomlist = JSON.parse(data);
   for (var i = 0; i<roomlist.length;i++){
-    $('#room-archive').append('<li><button class="btn btn-primary" \
+    $('#room-archive').append('<li><button id="archivedRoom" class="btn btn-primary" \
     onclick="showquestions('+i+')">' + roomlist[i].roomname + '</button></li>');
   }
 });
@@ -61,10 +61,7 @@ $(document).ready(function() {
       console.log(localStorage.getItem('username'));
       $('#currentUsername').append('<h4>Hei, ' + localStorage.getItem('username') + '!</h4>');
   }
-  /*
 
-    $('#currentUsername').html() = '<h3>'+ localStorage.getItem('username') + '</h3>';
-    */
   return false;
 });
 

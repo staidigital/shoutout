@@ -185,6 +185,7 @@ webSocket.on('connection',function(socket){
   socket.on('join room', function(data){
     var checkRoom = null;
     var checkRoom = _.find(rooms,{'name':data});
+
     if(myroom == data){
       console.log('already in'+myroom);
     }
