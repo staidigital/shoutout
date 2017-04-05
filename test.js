@@ -81,12 +81,12 @@ describe("spørsmålsattributer",function(done){
 
   client2={
            on:{
-           'vote':function(data){
-            var votes=JSON.parse(data).votes;
-            expect(votes).to.equal(1);
-          }
-    },
-    emit:{
+             'vote':function(data){
+              var votes=JSON.parse(data).votes;
+              expect(votes).to.equal(1);
+              }
+           },
+           emit:{
       'join room':'tdt4145',
       'new question':'Why is software architecture so important?',
       'vote':JSON.stringify({"id":0,"vote":"plus"}),
@@ -98,6 +98,32 @@ describe("spørsmålsattributer",function(done){
 
   socketTester.run([client1,client2],done);
 });
+
+   it("svarfunksjon",function(done){
+   client1={
+     on:{
+       'answered':function(data){
+       var answered=JSON.parse(data).answered;
+        expect(answered).to.equal(true);
+       }
+     },
+      emit:{
+        'create room':'tdt4100',
+        'new question':'what is the meaning of life',
+        'answer':JSON.stringify({id:1,room:'tdt4145'})
+      }
+    };
+    client2={
+      on:{
+        'answered':socketTester.shouldBeCalledNTimes(1)
+      },
+      emit:{
+        'join room':'tdt4100'
+      }
+    };
+    socketTester.run([client1,client2],done)
+
+   });
 
 });
 
