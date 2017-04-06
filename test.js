@@ -5,6 +5,7 @@ var app=require('./index')
 var SocketTester = require('socket-tester');
 var client1,client2,client3,url
 var socketUrl = 'http://localhost:3001';
+var wasCalled=false;
 
 
 
@@ -102,27 +103,15 @@ describe("spørsmålsattributer",function(done){
    it("svarfunksjon",function(done){
    client1={
      on:{
-       'answered':function(data){
-       var answered=JSON.parse(data).answered;
-        expect(answered).to.equal(true);
-       }
+       'answered':socketTester.shouldBeCalledNTimes(1)
      },
       emit:{
         'create room':'tdt4100',
         'new question':'what is the meaning of life',
-        'answer':JSON.stringify({id:1,room:'tdt4145'})
+        'answer':JSON.stringify({id:1,room:'tdt4100'})
       }
     };
-    client2={
-      on:{
-        'answered':socketTester.shouldBeCalledNTimes(1)
-      },
-      emit:{
-        'join room':'tdt4100'
-      }
-    };
-    socketTester.run([client1,client2],done)
-
+    socketTester.run([client1],done)
    });
 
 });
