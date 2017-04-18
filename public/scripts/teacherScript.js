@@ -11,8 +11,8 @@ function refreshPage(){
 
 //funksjon for å lage nytt rom
 function createRoom(){
-  localStorage.setItem('roomname', $('#fagkode').val());
-  socket.emit('create room', $('#fagkode').val());
+  localStorage.setItem('roomname', $('#fagkode').val().toLowerCase());
+  socket.emit('create room', $('#fagkode').val().toLowerCase());
   window.location.reload();
 }
 

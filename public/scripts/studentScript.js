@@ -4,8 +4,8 @@ function joinRoom(){
   if($('#roomname').val() === ''){
     return false
   };
-  socket.emit('join room', $('#roomname').val());
-  localStorage.setItem('roomname', $('#roomname').val());
+  socket.emit('join room', $('#roomname').val().toLowerCase());
+  localStorage.setItem('roomname', $('#roomname').val().toLowerCase());
 
   $('#createdRoom').text('');
   $('#createdRoom').append('<button class="currentRoomButtonStudent">'+ localStorage.roomname + '</button>');
