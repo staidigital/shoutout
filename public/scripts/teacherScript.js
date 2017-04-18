@@ -80,6 +80,7 @@ function addToList(question) {
   if(question.answered == true){
     $('#questions').prepend($('<div class="box" id="' + question.id + '">')
         .append('<div class="textBox">' + question.text + '</div>'
+            + '<div class="dateDiv">' + question.date + '</div>'
             + '<div class="buttonAndVoteContainer">'
             + '<div class="plussButton">'
             + '<button onclick="buttonPressed(this, ' + question.id + ')" class="teach teach-clicked" id=" '+ question.id +'" type=button >DONE</button>'
@@ -92,6 +93,7 @@ function addToList(question) {
   }else{
     $('#questions').prepend($('<div class="box" id="' + question.id + '">')
         .append('<div class="textBox">' + question.text + '</div>'
+            + '<div class="dateDiv">' + question.date + '</div>'
             + '<div class="buttonAndVoteContainer">'
             + '<div class="plussButton">'
             + '<button onclick="buttonPressed(this, ' + question.id + ')" id="teach" class="teach" id=" '+ question.id +'" type=button >Answer</button>'
