@@ -1,14 +1,25 @@
+var app=require('./index')
+var socketUrl='http://localhost:3001';
+
 var expect = require("chai").expect;
 var request=require("request");
-var io     = require('socket.io-client');
-var app=require('./index')
-var SocketTester = require('socket-tester');
+
+
+//lokale variabler
 var client1,client2,client3,url
-var socketUrl = 'http://localhost:3001';
-var wasCalled=false;
 
 
+//databasen
+var fs = require('fs');
+var file = 'db.sqlite3';
+var exists = fs.existsSync(file);
+var sqlite3=require('sqlite3').verbose();
+var db=new sqlite3.Database(file);
 
+
+//sockettester
+var io=require('socket.io-client');
+var SocketTester = require('socket-tester');
 var options = {
   transports: ['websocket'],
   'force new connection': true
@@ -185,3 +196,12 @@ it("lager et rom",function(done){
     socketTester.run([client1,client2],done);
        });
     });
+   describe("databasen",function(){
+     it("databasen har admin-bruker",function(){
+       db.get("SELECT username FROM users", function(err, row) {
+      console.log(row);
+        });
+      //ikke ferdig implementert
+      expect(true).to.equal(false);
+     });
+   });
