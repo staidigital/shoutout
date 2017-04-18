@@ -219,7 +219,7 @@ webSocket.on('connection',function(socket){
       'id': id,
       'votes': 0,
       'answered': false,
-      'date': date.getHours() + ':' + date.getMinutes()
+      'date': date.getHours() + ':' + (date.getMinutes()<10?'0':'') + date.getMinutes()
     }
     id++;
 
