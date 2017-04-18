@@ -29,7 +29,7 @@ $(document).ready(function() {
 function addToList(question)
 {
   $('#questions').prepend($('<div class="box" id="' + question.id + '">')
-      .append('<div class="textBox">' + question.text + '</div>'
+      .append('<div class="textBox">' + question.text + question.date + '</div>'
               + '<div class="buttonAndVoteContainer">'
               + '<div class="plussButton">'
               + '<button id="voteButton" onclick="buttonPressed(this, ' + question.id + ')" class="stud" role=button >+</button>'

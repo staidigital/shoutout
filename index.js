@@ -212,12 +212,14 @@ webSocket.on('connection',function(socket){
     if(myroom == null){
       return;
     }
+    var date = new Date();
     var question =
     {
       'text': question,
       'id': id,
       'votes': 0,
-      'answered': false
+      'answered': false,
+      'date': date.getHours() + ':' + date.getMinutes()
     }
     id++;
 
