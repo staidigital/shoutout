@@ -5,9 +5,10 @@ var expect = require("chai").expect;
 var request=require("request");
 
 
-//lokale variabler
+//hjelpevariabler
 var client1,client2,client3,url
-
+//globale variabler
+var users
 
 //databasen
 var fs = require('fs');
@@ -16,6 +17,10 @@ var exists = fs.existsSync(file);
 var sqlite3=require('sqlite3').verbose();
 var db=new sqlite3.Database(file);
 
+
+db.all('SELECT username FROM users',function(err,row){
+  users=row
+});
 
 //sockettester
 var io=require('socket.io-client');
@@ -198,10 +203,12 @@ it("lager et rom",function(done){
     });
    describe("databasen",function(){
      it("databasen har admin-bruker",function(){
-       db.get("SELECT username FROM users", function(err, row) {
-      console.log(row);
-        });
-      //ikke ferdig implementert
-      expect(true).to.equal(false);
+      var adminFound=false;
+      for (var i = 0; i < users.length; i++) {
+       if(users[i].username=='admin'){
+         adminFound=true;
+       }
+     }
+     expect(adminFound).to.equal(true);
      });
    });
