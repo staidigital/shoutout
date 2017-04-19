@@ -10,6 +10,11 @@ var client1,client2,client3,url
 //globale variabler
 var users
 
+//hjelpefunksjon
+function isArray(obj){
+    return !!obj && obj.constructor === Array;
+}
+
 //databasen
 var fs = require('fs');
 var file = 'db.sqlite3';
@@ -202,13 +207,38 @@ it("lager et rom",function(done){
        });
     });
    describe("databasen",function(){
-     it("databasen har admin-bruker",function(){
+     it("har admin-bruker",function(){
       var adminFound=false;
+      if (isArray(users)){
       for (var i = 0; i < users.length; i++) {
        if(users[i].username=='admin'){
          adminFound=true;
        }
      }
      expect(adminFound).to.equal(true);
+   }
+   else{
+     expect(users.usernam).to.equal('admin');
+   }
+     });
+     it("arkiverer spørsmål,",function(done){
+       client1={
+         emit:{
+           'add to archive':JSON.stringify({username:'admin',questions:[
+             {text:'who are you?',id:0,votes:5,answered:false,date:'10:17'},
+             {text:'what is the meaning of life?',id:1,votes:0, answered:true, date :'10:45'}],
+             roomname:'tdt4001'})
+         }
+       };
+       client2={
+      on:{
+        'load archive':socketTester.shouldBeCalledNTimes(1)
+      },
+      emit:{
+        'ready for archive':'admin'
+      }
+       }
+       socketTester.run([client1,client2],done);
+
      });
    });
