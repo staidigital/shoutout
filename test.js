@@ -23,11 +23,11 @@ var exists = fs.existsSync(file);
 var sqlite3=require('sqlite3').verbose();
 var db=new sqlite3.Database(file);
 
-
+setTimeout(function (){
 db.all('SELECT username FROM users',function(err,row){
   users=row
 });
-
+}, 100);
 //sockettester
 var io=require('socket.io-client');
 var SocketTester = require('socket-tester');
