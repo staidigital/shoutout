@@ -36,7 +36,7 @@ HOSTING A LOCAL Server
 ----------------------
 Make sure you have node.js installed. You can find node.js at
 https://nodejs.org/en/ . enter "npm install" in terminal. to host the server,
-enter "node index" in terminal. 
+enter "node index" in terminal.
 
 
 UNIT TESTING
@@ -44,7 +44,8 @@ UNIT TESTING
 The unit test is in the test.js file. To be able to run the tests,
 you first need to be able to host a server. You also need to open
 node_modules/socket-tester/index.js in a text editor and change this.timeout
-from 25 to 250. To run the test, enter "npm test test" in the terminal.
+from 25 to 250. Delete the database file "db.sqlite3" every time before running
+the test. To run the test, enter "npm test test" in the terminal.
 
 CONTRIBUTORS
 ------------

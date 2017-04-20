@@ -5,6 +5,7 @@ var expect = require("chai").expect;
 var request=require("request");
 
 
+
 //hjelpevariabler
 var client1,client2,client3,url
 //globale variabler
@@ -218,7 +219,7 @@ it("lager et rom",function(done){
      expect(adminFound).to.equal(true);
    }
    else{
-     expect(users.usernam).to.equal('admin');
+     expect(users.username).to.equal('admin');
    }
      });
      it("arkiverer spørsmål,",function(done){
