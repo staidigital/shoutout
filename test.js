@@ -23,7 +23,7 @@ setTimeout(function (){
 db.all('SELECT username FROM users',function(err,row){
   users=row
 });
-}, 100);
+}, 250);
 
 //sockettester
 var io=require('socket.io-client');
