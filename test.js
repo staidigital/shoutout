@@ -4,10 +4,6 @@ var socketUrl='http://localhost:3001';
 var expect = require("chai").expect;
 var request=require("request");
 
-
-
-//hjelpevariabler
-var client1,client2,client3,url
 //globale variabler
 var users
 
@@ -40,49 +36,49 @@ var socketTester = new SocketTester(io, socketUrl, options);
 
 
 
-describe("http", function() {
+describe("Client requests", function() {
 
-    it("åpner nettsiden", function(done) {
+    it("opens the main page", function(done) {
       request(socketUrl, function(error, response, body) {
           expect(response.statusCode).to.equal(200);
           done();
     });
   });
 
-  it("åpner en side som ikke finnes",function(done){
-    url="http://localhost:3001/thispagedoesnotexist.html";
+  it("opens a non-existing page",function(done){
+    var url="http://localhost:3001/thispagedoesnotexist.html";
     request(url,function(error,response,body){
          expect(response.statusCode).to.equal(404);
          done();
     });
   });
 
-  it("åpner studentsiden",function(done){
-    url="http://localhost:3001/student.html";
+  it("opens student site",function(done){
+    var url="http://localhost:3001/student.html";
     request(url,function(error,response,body){
          expect(response.statusCode).to.equal(200);
          done();
     });
   });
 
-  it("åpner lærersiden",function(done){
-    url="http://localhost:3001/teacher.html";
+  it("opens teacher site",function(done){
+    var url="http://localhost:3001/teacher.html";
     request(url,function(error,response,body){
          expect(response.statusCode).to.equal(200);
          done();
     });
   });
 
-  it("åpner innloginssiden",function(done){
-  url="http://localhost:3001/login.html";
+  it("opens login site",function(done){
+  var url="http://localhost:3001/login.html";
   request(url,function(error,response,body){
        expect(response.statusCode).to.equal(200);
        done();
   });
 });
 
-   it("åpner signup siden",function(done){
-     url="http://localhost:3001/signup.html";
+   it("opens signup site",function(done){
+     var url="http://localhost:3001/signup.html";
      request(url,function(error,response,body){
           expect(response.statusCode).to.equal(200);
           done();
@@ -91,9 +87,9 @@ describe("http", function() {
 
 });
 
-describe("spørsmålsattributer",function(done){
-    it("stemmefunksjon",function(done){
-        client1={
+describe("Question attribiutes",function(done){
+    it("testing the vote function",function(done){
+        var client1={
             on:{
             'vote':socketTester.shouldBeCalledNTimes(1)
             },
@@ -102,7 +98,7 @@ describe("spørsmålsattributer",function(done){
             }
          };
 
-  client2={
+var client2={
            on:{
              'vote':function(data){
               var votes=JSON.parse(data).votes;
@@ -122,8 +118,8 @@ describe("spørsmålsattributer",function(done){
   socketTester.run([client1,client2],done);
 });
 
-   it("svarfunksjon",function(done){
-   client1={
+   it("answered function",function(done){
+   var client1={
      on:{
        'answered':socketTester.shouldBeCalledNTimes(1)
      },
@@ -139,9 +135,9 @@ describe("spørsmålsattributer",function(done){
 });
 
 
-describe("rom",function(){
-it("lager et rom",function(done){
-  client1={
+describe("Rooms",function(){
+it("creates a new room",function(done){
+  var client1={
     on:{
       'created room':socketTester.shouldBeCalledNTimes(1)
     },
@@ -152,8 +148,8 @@ it("lager et rom",function(done){
     socketTester.run([client1],done);
   });
 
-  it("joiner rommet",function(done){
-    client1={
+  it("joins room",function(done){
+    var client1={
       on:{
         'connectToRoom':socketTester.shouldBeCalledNTimes(1)
       },
@@ -162,10 +158,19 @@ it("lager et rom",function(done){
     socketTester.run([client1],done)
 });
 
+  it('joins non-existing room',function(done){
+    var client1={
+      on:{
+        'connectToRoom':socketTester.shouldNotBeCalled()
+      },
+      emit:{'join room':'tdt666'}
+    };
+    socketTester.run([client1],done)
+  });
 });
 
- describe("spørsmål",function(){
-     it("sender spørsmål til et eksisterende rom",function(done){
+ describe("Qusestions",function(){
+     it("Sends questions to a room",function(done){
     client1={
          on:{'new question':socketTester.shouldBeCalledNTimes(1)},
        emit: {
@@ -189,8 +194,8 @@ it("lager et rom",function(done){
     socketTester.run([client1,client2],done);
      });
 
-   it("sender spørsmål til et ikke-eksisterende rom",function(done){
-     client1={
+   it("client from different room doesn't recieve the question",function(done){
+     var client1={
           on:{
             'new question':socketTester.shouldNotBeCalled()
           },
@@ -198,17 +203,24 @@ it("lager et rom",function(done){
           'create room':'tdt4145',
         }
       };
-      client2={
+      var client2={
+        emit:{
+          'create room':'tdt4105'
+        }
+      };
+      var client3={
             emit:{
             'join room' :'tdt4105',
             'new question':'Why should we use SCRUM?'
           }
         };
-    socketTester.run([client1,client2],done);
+    socketTester.run([client1,client2,client3],done);
        });
     });
-   describe("databasen",function(){
-     it("har admin-bruker",function(){
+
+
+   describe("Database testing",function(){
+     it("has admin user",function(){
       var adminFound=false;
       if (isArray(users)){
       for (var i = 0; i < users.length; i++) {
@@ -222,7 +234,21 @@ it("lager et rom",function(done){
      expect(users.username).to.equal('admin');
    }
      });
-     it("arkiverer spørsmål,",function(done){
+
+    it("loads previous questions",function(done){
+      client1={
+     on:{
+       'load archive':socketTester.shouldBeCalledNTimes(1)
+     },
+     emit:{
+       'ready for archive':'admin'
+     }
+   };
+   socketTester.run([client1],done)
+    });
+
+
+     it("archives questions,",function(done){
        client1={
          emit:{
            'add to archive':JSON.stringify({username:'admin',questions:[
@@ -233,13 +259,17 @@ it("lager et rom",function(done){
        };
        client2={
       on:{
-        'load archive':socketTester.shouldBeCalledNTimes(1)
+        'load archive':function(data){
+          data=JSON.parse(data);
+          //assuming you started with an empty database
+          var text=data[0].questions[0].text;
+          expect(text).to.equal('who are you?')
+        }
       },
       emit:{
         'ready for archive':'admin'
       }
-       }
+    };
        socketTester.run([client1,client2],done);
-
      });
    });
