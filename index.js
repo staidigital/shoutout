@@ -129,7 +129,7 @@ const check_login = function(req, res, next) {
 app.get('/foo', check_login, function(req, res, next){
   res.send('string');
 })
-//login- og signup-function with redirect
+//login- and signup -function with redirect
 app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
   failureRedirect: '/login.html' }));
 
@@ -208,7 +208,7 @@ webSocket.on('connection',function(socket){
     }
   }
 
-  //When it arrives a new question from a client
+  //When a student asks a question
   socket.on('new question', function(question){
     if(myroom == null){
       return;
