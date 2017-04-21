@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc mocha --timeout=3000 "
   },
-  "author": "Sondre Stai",
+  "author": "Shoutout team",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
