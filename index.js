@@ -44,7 +44,7 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//funksjon for hashing av passpord med salt
+//function for hashing passwords with salt
 function hashPassword(password, salt) {
   var hash = crypto.createHash('sha256');
   hash.update(password);
@@ -52,7 +52,7 @@ function hashPassword(password, salt) {
   return hash.digest('hex');
 }
 
-//opprettelsen av ny bruker
+//Creating a new user
 const newUser = function(username, password, res) {
   const salt = crypto.randomBytes(64).toString('base64');
   const hash = hashPassword(password, salt);
@@ -72,7 +72,8 @@ const newUser = function(username, password, res) {
   newUserStatement.finalize();
 }
 
-//lager ny database om den ikke eksisterer og en admin-bruker
+
+// Creates a new databse if it doesnt excist and a new admin-user
 db.serialize(function(){
   if(!exists){
     db.run('CREATE TABLE "users" (\
@@ -87,7 +88,7 @@ db.serialize(function(){
   }
 });
 
-//definerer innloggingsstrategi (brukernavn og passord)
+// Defines loginstrategy (Username and password)
 passport.use(new LocalStrategy(function(username, password, done) {
   console.log('stareting localstrat: ', username, password);
 
@@ -114,7 +115,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-//sjekker om bruker er innlogget
+//Checks if user is already logged in
 const check_login = function(req, res, next) {
   console.log(req.user);
   if (req.user) {
@@ -128,7 +129,7 @@ const check_login = function(req, res, next) {
 app.get('/foo', check_login, function(req, res, next){
   res.send('string');
 })
-//login- og signup-funksjoner med redirect
+//login- og signup-function with redirect
 app.post('/login', passport.authenticate('local', { successRedirect: '/teacher.html',
   failureRedirect: '/login.html' }));
 
@@ -149,7 +150,7 @@ function addToArchive(data){
   });
 }
 
-//når klient kobler seg på
+//When a client connects
 webSocket.on('connection',function(socket){
   var address = socket.handshake.address;
   var myroom = null;
@@ -169,7 +170,7 @@ webSocket.on('connection',function(socket){
     }
   });
 
-  //lager nytt rom i.h.t. forespørsel
+  //Creates a new room with regards to request
   socket.on('create room', function(data){
     console.log('room created');
     var roomobj = {'name' : data, 'questions':[]};
@@ -181,7 +182,7 @@ webSocket.on('connection',function(socket){
     socket.emit('created room', roomobj.room);
   });
 
-  //bli med i et rom
+  // join a room
   socket.on('join room', function(data){
     var checkRoom = null;
     var checkRoom = _.find(rooms,{'name':data});
@@ -198,7 +199,7 @@ webSocket.on('connection',function(socket){
     }
   });
 
-  //function for å alle spørsmålene til et gitt rom
+  //Function to load every question to a given room
   function emitAllQuestions(){
     for(var i=0;i<rooms.length;i++){
       if(rooms[i].name === myroom){
@@ -207,7 +208,7 @@ webSocket.on('connection',function(socket){
     }
   }
 
-  //når det kommer et nytt spørsmål fra klient
+  //When it arrives a new question from a client
   socket.on('new question', function(question){
     if(myroom == null){
       return;
@@ -233,7 +234,7 @@ webSocket.on('connection',function(socket){
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(question));
   });
 
-  //når foreleseren svarer på et spørsmål
+  //When the lecturer answers a question
   socket.on('answer',function(answer){
     console.log('question answered');
     var answer=JSON.parse(answer);
@@ -254,7 +255,8 @@ webSocket.on('connection',function(socket){
     socket.emit('answered', JSON.stringify(question));
   });
 
-  //ny stemme
+
+  //New vote
   socket.on('vote', function(vote){
     console.log('vote received');
     var vote = JSON.parse(vote);
@@ -303,7 +305,7 @@ webSocket.on('connection',function(socket){
   socket.on('add to archive', function(data){
     var jsondata = JSON.parse(data);
     console.log(jsondata);
-    //vil sjekke innlogging TOdoo
+    //Want to check login TOdoo
     if(jsondata.questions && jsondata.username){
       addToArchive(jsondata);
     }
@@ -321,7 +323,7 @@ process.on('SIGTERM', shutdown);
 process.on('SIGINT', shutdown);
 // shutdown hook //
 
-// bestemmer port
+// Deciding which port
 http.listen(port,function(){
   console.log('Listening on '+port);
 });

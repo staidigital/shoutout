@@ -1,30 +1,34 @@
-// Dette er koblingen til serveren
+
+// This is the connection to the server
 var socket = io();
 var myroom = '';
 var allquestions = [];
 var roomlist = null;
 
-//Funksjon for å laste inn siden på nytt
+
+// A function to refresh the page
 function refreshPage(){
   window.location.reload();
 };
 
-//funksjon for å lage nytt rom
+
+//Function to create a new room
 function createRoom(){
-  localStorage.setItem('roomname', $('#fagkode').val().toLowerCase());
-  socket.emit('create room', $('#fagkode').val().toLowerCase());
+  localStorage.setItem('roomname', $('#subjectCode').val().toLowerCase());
+  socket.emit('create room', $('#subjectCode').val().toLowerCase());
   window.location.reload();
 }
 
 
-//funksjon for å lagre rommet du er i
+// Function to save the room that you're in
 function saveRoom(){
   console.log(res.body.username);
   var saveallquestions = JSON.stringify(allquestions);
   socket.emit('save questions', saveallquestions)
 }
 
-//tar i mot en emit fra serveren, og endrer currentRoomButton
+
+//Recieves an emit from the server and changes currentRoomButton
 socket.on('created room', function(data){
   $('#createdRoom').text('');
   $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
@@ -65,17 +69,19 @@ $(document).ready(function() {
     $('#createdRoom').text('');
     $('#createdRoom').append('<button class="currentRoomButton">'+ localStorage.roomname + '</button>');
   }
-  //sjekker om LocalStorage er tom, hvis ikke, add h4 tag til currentUsername <div>
+
+  //Check if LocalStorage is empty, if not, add an h4 tag to currentUsername div
 
   if(localStorage.getItem('username') !== null){
       console.log(localStorage.getItem('username'));
-      $('#currentUsername').prepend('<h4>Hei, ' + localStorage.getItem('username') + '!</h4>');
+      $('#currentUsername').prepend('<h4>Hello, ' + localStorage.getItem('username') + '!</h4>');
   }
 
   return false;
 });
 
-// får nytt spørsmål fra serveren og legger til liste
+
+// Recieves a new question from the server and adds to questions list
 function addToList(question) {
   if(question.answered == true){
     $('#questions').prepend($('<div class="box" id="' + question.id + '">')
@@ -107,7 +113,8 @@ function addToList(question) {
 }
 
 
-// gir svarfunksjon til knappen
+
+//Gives a answer function to the button
 function buttonPressed(button, id){
   var answer = { 'id': id, 'room': localStorage.roomname};
   console.log(answer.id);
@@ -120,7 +127,8 @@ function buttonPressed(button, id){
 
 };
 
-// tar inn nytt spørsmål fra serveren
+
+// takes in a new question from the server
 socket.on('new question', function(question){
   var question = JSON.parse(question);
   console.log(question);
@@ -133,7 +141,8 @@ socket.on('new question', function(question){
   });
 });
 
-// tar inn ny stemme fra serveren
+
+// takes in a new vote from the server
 socket.on('vote', function(question){
   var question = JSON.parse(question);
   for(i=0;i<allquestions.length;i++){
@@ -180,7 +189,7 @@ function listSort(){
   }
 }
 
-// legger til allerede-eksisterende spørsmål til nye brukere
+// adds an excisting question to new users
 socket.on('all questions', function(questions) {
   var questions = JSON.parse(questions);
   questions.forEach(function(question)

@@ -25,7 +25,7 @@ $(document).ready(function() {
 });
 
 
-// får nytt spørsmål fra serveren og legger til liste
+// Recieves a new question from the server and adds to the question list
 function addToList(question)
 {
   $('#questions').prepend($('<div class="box" id="' + question.id + '">')
@@ -46,14 +46,15 @@ function addToList(question)
   );
 }
 
-// gir stemmefunksjonalitet til knappene
+
+// gives votingfunctionality to the buttons
 function buttonPressed(button, id){
   var vote = { 'id': id };
   vote.vote = 'plus';
   socket.emit('vote', JSON.stringify(vote));
 }
 
-// skrive inn nytt spørsmål og sende til serveren
+// Write a new question and sends to the server
 $('form').submit(function(){
   if($('#inputfield').val() === '') return false;
   socket.emit('new question', $('#inputfield').val()); //sender til serveren, type action og action-data
@@ -61,20 +62,22 @@ $('form').submit(function(){
   return false;
 });
 
-// tar inn nytt spørsmål fra serveren
+
+// takes in a new question from the server
 socket.on('new question', function(question){
   var question = JSON.parse(question);
   console.log(question.id);
   addToList(question);
 });
 
-// tar inn ny stemme fra serveren
+
+// takes in a new vote from the server
 socket.on('vote', function(question){
   var question = JSON.parse(question);
    $('#vote' + question.id).text(question.votes);
 });
 
-// legger til allerede-eksisterende spørsmål til nye brukere
+// adds an excisting question to new users
 socket.on('all questions', function(questions)
 {
   var questions = JSON.parse(questions);
