@@ -44,8 +44,10 @@ UNIT TESTING
 The unit test is in the test.js file. To be able to run the tests,
 you first need to be able to host a server. You also need to open
 node_modules/socket-tester/index.js in a text editor and change this.timeout
-from 25 to 150. Delete the database file "db.sqlite3" every time before running
-the test. To run the test, enter "npm test test" in the terminal.
+from 25 to 150 set timeout to higher if you have a slow performing computer.
+Delete the database file "db.sqlite3" at the root of the project folder
+every time before running the test.  enter "npm test test" in the terminal to
+run the test.
 
 CONTRIBUTORS
 ------------
