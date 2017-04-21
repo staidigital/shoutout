@@ -4,26 +4,27 @@ var socketUrl='http://localhost:3001';
 var expect = require("chai").expect;
 var request=require("request");
 
-//globale variabler
 var users
 
-//hjelpefunksjon
+//auxilary function
 function isArray(obj){
     return !!obj && obj.constructor === Array;
 }
 
-//databasen
+//importing the database
 var fs = require('fs');
 var file = 'db.sqlite3';
 var exists = fs.existsSync(file);
 var sqlite3=require('sqlite3').verbose();
 var db=new sqlite3.Database(file);
 
+//wait for server to create the database
 setTimeout(function (){
 db.all('SELECT username FROM users',function(err,row){
   users=row
 });
 }, 100);
+
 //sockettester
 var io=require('socket.io-client');
 var SocketTester = require('socket-tester');
@@ -33,8 +34,6 @@ var options = {
 };
 
 var socketTester = new SocketTester(io, socketUrl, options);
-
-
 
 describe("Client requests", function() {
 
@@ -84,10 +83,11 @@ describe("Client requests", function() {
           done();
      });
    });
-
 });
 
+
 describe("Question attribiutes",function(done){
+
     it("testing the vote function",function(done){
         var client1={
             on:{
@@ -98,7 +98,7 @@ describe("Question attribiutes",function(done){
             }
          };
 
-var client2={
+        var client2={
            on:{
              'vote':function(data){
               var votes=JSON.parse(data).votes;
@@ -118,7 +118,7 @@ var client2={
   socketTester.run([client1,client2],done);
 });
 
-   it("answered function",function(done){
+   it("answered function was called",function(done){
    var client1={
      on:{
        'answered':socketTester.shouldBeCalledNTimes(1)
@@ -130,12 +130,30 @@ var client2={
       }
     };
     socketTester.run([client1],done)
+  });
+
+   it('answered function answers question',function(done){
+    var client1={
+      on:{
+        'answered':function(data){
+          data=JSON.parse(data);
+          expect(data.answered).to.equal(true);
+        }
+      },
+      emit:{
+        'create room':'tdt4111',
+        'new question':'what is the meaning of computer science',
+        'answer':JSON.stringify({id:2,room:'tdt4111'})
+      }
+    };
+    socketTester.run([client1],done)
    });
 
 });
 
 
 describe("Rooms",function(){
+
 it("creates a new room",function(done){
   var client1={
     on:{
@@ -169,7 +187,9 @@ it("creates a new room",function(done){
   });
 });
 
+
  describe("Qusestions",function(){
+
      it("Sends questions to a room",function(done){
     client1={
          on:{'new question':socketTester.shouldBeCalledNTimes(1)},
@@ -220,6 +240,7 @@ it("creates a new room",function(done){
 
 
    describe("Database testing",function(){
+
      it("has admin user",function(){
       var adminFound=false;
       if (isArray(users)){
@@ -246,7 +267,6 @@ it("creates a new room",function(done){
    };
    socketTester.run([client1],done)
     });
-
 
      it("archives questions,",function(done){
        client1={
