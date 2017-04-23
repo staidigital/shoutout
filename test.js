@@ -258,6 +258,14 @@ it("creates a new room",function(done){
 
     it("loads previous questions",function(done){
       client1={
+        emit:{
+          'add to archive':JSON.stringify({username:'admin',questions:[
+            {text:'who are you?',id:0,votes:5,answered:false,date:'10:17'},
+            {text:'what is the meaning of life?',id:1,votes:0, answered:true, date :'10:45'}],
+            roomname:'tdt4001'})
+        }
+      };
+      client2={
      on:{
        'load archive':socketTester.shouldBeCalledNTimes(1)
      },
@@ -265,19 +273,11 @@ it("creates a new room",function(done){
        'ready for archive':'admin'
      }
    };
-   socketTester.run([client1],done)
+   socketTester.run([client1,client2],done)
     });
 
      it("archives questions,",function(done){
        client1={
-         emit:{
-           'add to archive':JSON.stringify({username:'admin',questions:[
-             {text:'who are you?',id:0,votes:5,answered:false,date:'10:17'},
-             {text:'what is the meaning of life?',id:1,votes:0, answered:true, date :'10:45'}],
-             roomname:'tdt4001'})
-         }
-       };
-       client2={
       on:{
         'load archive':function(data){
           data=JSON.parse(data);
@@ -290,6 +290,6 @@ it("creates a new room",function(done){
         'ready for archive':'admin'
       }
     };
-       socketTester.run([client1,client2],done);
+       socketTester.run([client1],done);
      });
    });
