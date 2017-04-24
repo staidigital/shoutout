@@ -35,8 +35,6 @@ the teacher answers a question, the question is marked "Answered".
 HOSTING A LOCAL Server
 ----------------------
 Make sure you have node.js installed. You can find node.js at
-https://nodejs.org/en/ . enter "npm install" in terminal. to host the server,
-enter "node index" in terminal.
 
 
 UNIT TESTING
