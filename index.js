@@ -62,7 +62,6 @@ const newUser = function(username, password, res) {
     if(err) {
       if(err.code === 'SQLITE_CONSTRAINT') {
         console.log('username taken');
-        socket.emit('username taken', true);
         if(res) res.sendFile(path.join(__dirname, './public', 'usernametaken.html'));
       }
     } else {
