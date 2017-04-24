@@ -89,13 +89,10 @@ db.serialize(function(){
 
 // Defines loginstrategy (Username and password)
 passport.use(new LocalStrategy(function(username, password, done) {
-  console.log('stareting localstrat: ', username, password);
 
   db.get('SELECT salt FROM users WHERE username = ?', username, function(err, row) {
-    console.log(row);
     if (!row) return done(null, false);
     var hash = hashPassword(password, row.salt);
-    console.log('row: ', row);
     db.get('SELECT username, id FROM users WHERE username = ? AND hash = ?', username, hash, function(err, row) {
       if (!row) return done(null, false);
       return done(null, row);
@@ -116,12 +113,9 @@ passport.deserializeUser(function(id, done) {
 
 //Checks if user is already logged in
 const check_login = function(req, res, next) {
-  console.log(req.user);
   if (req.user) {
-    console.log('ape');
     next();
   } else {
-    console.log(req.user);
     res.send('bar');
   }
 }
@@ -144,7 +138,6 @@ function addToArchive(data){
       var lecture = { roomname: data.roomname, questions: data.questions };
       previousLectures.push(lecture);
       db.run('UPDATE users SET previousLectures = ? WHERE username = ? ',JSON.stringify(previousLectures), data.username);
-      console.log(previousLectures);
     }
   });
 }
@@ -161,7 +154,6 @@ webSocket.on('connection',function(socket){
       db.get('SELECT previousLectures FROM users WHERE username = ?', data, function(err, row){
         if(row){
           var previousLectures = row.previousLectures;
-          console.log(previousLectures);
 
           socket.emit('load archive', previousLectures);
         }
@@ -228,7 +220,6 @@ webSocket.on('connection',function(socket){
         rooms[i].questions.push(question);
       }
     };
-    console.log(question.id);
     console.log('newquestioninroom', myroom);
     webSocket.sockets.in(myroom).emit('new question', JSON.stringify(question));
   });
@@ -237,7 +228,6 @@ webSocket.on('connection',function(socket){
   socket.on('answer',function(answer){
     console.log('question answered');
     var answer=JSON.parse(answer);
-    console.log(answer);
     for(var i = 0; i<rooms.length;i++){
       if(rooms[i].name == answer.room){
         var question =_.find(rooms[i].questions,function(question){
@@ -303,7 +293,6 @@ webSocket.on('connection',function(socket){
 
   socket.on('add to archive', function(data){
     var jsondata = JSON.parse(data);
-    console.log(jsondata);
     //Want to check login TOdoo
     if(jsondata.questions && jsondata.username){
       addToArchive(jsondata);
