@@ -34,11 +34,11 @@ var port = 3001;
 // initializing http, passport and parsers
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(expressSession({
   secret: 'cat',
   resave: false,
-  store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 300}),
+  store: new RedisStore({host: 'localhost', port: 6379, client: redisClient, ttl: 300}),
   cookie: {secure: false, maxAge: 86400000},
   saveUninitialized: false }));
 app.use(passport.initialize());

@@ -108,7 +108,7 @@ function addToList (question) {
 
 // Gives a answer function to the button
 function buttonPressed (button, id) {
-  var answer = { 'id': id, 'room': localStorage.roomname};
+  var answer = {'id': id, 'room': localStorage.roomname};
   console.log(answer.id);
   var myId = id;
   $('#teach').click(function () {
