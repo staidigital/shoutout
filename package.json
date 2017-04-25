@@ -41,11 +41,15 @@
         "extends": "standard",
         "plugins": [
             "standard",
-            "promise"
+            "promise",
+            "node",
+            "import"
           ],
         "env": {
             "browser": true,
-            "node": true
+            "node": true,
+            "mocha": true,
+            "jquery": true
         },
         "rules": {
             "indent": [
