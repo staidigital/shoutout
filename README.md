@@ -1,15 +1,10 @@
-#ShoutOut Version 1.0.0 02/03/17
+#ShoutOut Version 1.5.6 25/04/2017
 
 GENERAL INFORMATION
 -------------------
 ShoutOut is a web application that aims to solve the problem of asking
 anonymous questions in lectures. To make it fast and easy to use there is no
 need for either the teacher or the student to sign up.
-
-INSTALLATION
-------------
-If you have a working web browser, there is no need to install anything.
-
 
 BROWSER COMPATIBILITY
 ---------------------
@@ -25,8 +20,8 @@ join the lecture by writing in the name.
 
 In the teachers view of the lecture, questions appear in real-time when the
 students publish them and the teacher can also see the number of votes cast by
-other students on each question. If the teacher answers the question, they can
-remove it from their view.
+other students on each question. If the teacher answers the question, the
+question gets automaticly placed at the bottom of the page.
 
 In the students view of the lecture, questions also appear in real-time and
 students can vote on each other’s question by clicking the voting button. When
@@ -34,11 +29,17 @@ the teacher answers a question, the question is marked "Answered".
 
 HOSTING A LOCAL Server
 ----------------------
-Make sure you have node.js installed. You can find node.js at
-https://nodejs.org/en/. Make sure you are  connected to your local network
+Make sure you are  connected to your local network. Install node.js and
+redis.js
+https://nodejs.org/en/
+https://github.com/MSOpenTech/redis/releases
 before running the server. Enter "npm install" in terminal to host the server,
 then enter "node index" in terminal.
 
+OPENING THE APPLICATION FROM A Client
+-------------------------------------
+In your web browser, type host's ip adress followed by a colon followed by the port number
+(3001 on default). Example: 10.0.0.2:3001. 
 
 UNIT TESTING
 ------------
