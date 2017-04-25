@@ -21,11 +21,10 @@ join the lecture by writing in the name.
 In the teachers view of the lecture, questions appear in real-time when the
 students publish them and the teacher can also see the number of votes cast by
 other students on each question. If the teacher answers the question, the
-question gets automaticly placed at the bottom of the page.
+question gets automatically  placed at the bottom of the page.
 
 In the students view of the lecture, questions also appear in real-time and
-students can vote on each other’s question by clicking the voting button. When
-the teacher answers a question, the question is marked "Answered".
+students can vote on each other’s question by clicking the voting button.
 
 HOSTING A LOCAL Server
 ----------------------
@@ -39,7 +38,7 @@ then enter "node index" in terminal.
 OPENING THE APPLICATION FROM A Client
 -------------------------------------
 In your web browser, type host's ip adress followed by a colon followed by the port number
-(3001 on default). Example: 10.0.0.2:3001. 
+(3001 on default). Example: 10.0.0.2:3001.
 
 UNIT TESTING
 ------------
