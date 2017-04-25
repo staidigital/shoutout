@@ -1,3 +1,3 @@
-function saveUsername(){
+function saveUsername () {
   localStorage.setItem('username', $('#focusedInput').val());
 }
