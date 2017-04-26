@@ -33,7 +33,16 @@ redis.js
 https://nodejs.org/en/
 https://github.com/MSOpenTech/redis/releases
 before running the server. Enter "npm install" in terminal to host the server,
-then enter "node index" in terminal.
+then enter "node index" in the terminal.
+
+For Mac and Linux systems, download redis from https://redis.io/ and follow instructions.
+Then start the server by running the "redis-server" command. You might have to
+change directory to you redis folder.
+
+On windows systems, download the lates realse from https://github.com/MSOpenTech/redis/releases.
+The change directory to your Redis folder and run "redis-server redis.windows.config".
+
+NB! Remember to initiate the Redis server before the Node server. 
 
 OPENING THE APPLICATION FROM A Client
 -------------------------------------
