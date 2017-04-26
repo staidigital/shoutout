@@ -1,0 +1,467 @@
+.container{
+  width: 90%;
+  margin:0;
+  padding: 0;
+}
+.containerLogin{
+  justify-content: center;
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+
+}
+.form-control{
+  margin-bottom: 5px;
+}
+
+.buttonMeny{
+  display: flex;
+  justify-content: center;
+}
+
+.page-header{
+  width: 100%;
+  z-index: 10;
+  left: 0;
+  text-align: center;
+  background-color:white;
+}
+
+#createdRoom{
+  z-index:50;
+  float: left;
+  word-wrap: break-word;
+}
+
+#lagRom{
+  margin-left: inherit;
+  margin: 1%;
+}
+
+#avsluttRom{
+  margin: 1%;
+}
+.questioncontainer{
+  display: flex;
+  margin-top: 3%;
+  z-index: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.questions{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding: 0;
+
+}
+
+
+.mybutton{
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 24px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+
+}
+
+.mybutton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.mybutton span:after {
+  content: '\00bb';
+  font-size: 26px;
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.mybutton:hover span {
+  padding-right: 25px;
+}
+
+.mybutton:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+li{
+
+  align-self: stretch;
+  list-style-type: none;
+  text-align: center;
+}
+
+#inputfield {
+  margin: 5px auto;
+  border-radius: 15px;
+}
+#inputform{
+  margin: 5px auto 5px auto;
+  width: 50%;
+}
+
+footer{
+  width: 100%;
+  height: 15%;
+  text-align: center;
+  background: rgba(100, 100, 150, 1);
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  left: 0;
+}
+
+
+.loginBox{
+  margin:0;
+  display: flex;
+  justify-content: center;
+
+}
+
+.loginElements{
+}
+
+
+.box{
+  margin: 1%;
+  padding: 1%;
+  background-color: white;
+  display: flex;
+  align-content: space-between;
+  border: solid 2px rgba(100, 100, 150, 1);
+  border-radius: 10px;
+  max-width: 80%;
+  min-width: 80%;
+  max-height: inherit;
+
+}
+
+
+
+
+.buttonAndVoteContainer{
+  width: 100%;
+  height:  35px;
+  display: inline-flex;
+  float: left;
+  right: 0;
+  bottom: 0;
+
+
+}
+
+.plussButton{
+  position: relative;
+  flex-grow: 4;
+
+
+}
+
+.votespan{
+  font-size: large;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-left: 10px;
+}
+
+.textBox{
+  margin: 5px !important;
+  height: inherit;
+  width: 70%;
+  max-width: 70%;
+  min-width: 70%;
+  word-wrap: break-word;
+}
+
+.stud{
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border-style: solid;
+  border-color: #4CAF50;
+  border-radius: 10%;
+  background-color: inherit;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  height: 35px;
+  width: 35px;
+  max-height: inherit;
+}
+
+.teach{
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border-style: solid;
+  border-color: #4CAF50;
+  border-radius: 10%;
+  background-color: #4CAF50;
+  height: 35px;
+  width: 60px;
+  max-height: inherit;
+  color:white;
+
+}
+.p {
+  font-size: 24px;
+}
+
+.stud:hover{
+  background-color: #4CAF50;
+  color: white;
+}
+
+.teach:hover{
+
+
+}
+
+
+.voteCount{
+  position:relative;
+  margin: 1%;
+  flex-grow: 0.5;
+}
+
+.teach-clicked  {
+  background: red;
+  color: white;
+  border-color: red;
+}
+
+#usernametaken{
+  color:red;
+}
+
+
+
+
+
+.menyContainer{
+  display: flex;
+  margin: 0;
+
+}
+
+.menyContainer1{
+  width: 80%;
+  align-items: center;
+}
+.yo{
+  width: inherit;
+
+  word-wrap: break-word;
+}
+
+.archive{
+
+  display: flex;
+  margin: 1px;
+  border-radius: 10px;
+  height: inherit;
+}
+
+.room-archive{
+  display:flex;
+  flex-direction: column;
+  align-content: flex-end;
+  padding-left: 0;
+  margin:10px;
+  font-size: 18px;
+}
+
+#archivedRoom{
+  float: left;
+  margin: 1%;
+  width: 100%;
+}
+
+#backToRoomButton{
+
+}
+
+.currentUsername{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1%;
+}
+
+.recent{
+  width: 100%;
+  margin: 1px;
+}
+
+
+.meny{
+  display: flex;
+  flex-direction: column;
+}
+
+.jumbo{
+  margin-top: 4%;
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+  height: auto;
+
+}
+.jumboItem1{
+
+}
+.createdR{
+  word-wrap: break-word;
+
+}
+
+.refreshButton{
+  display: flex;
+  width: 100%;
+  height: inherit;
+  justify-content: space-between  ;
+}
+
+#refreshButton{
+  font-size: 14px !important;´
+}
+
+
+.currentRoomButton{
+	background-color:transparent;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #4b8f29;
+	display: inline-block;
+	cursor:pointer;
+	color:#4b8f29;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 24px;
+	text-decoration:none;
+}
+
+
+
+.currentRoomButtonStudent{
+	background-color:transparent;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #4b8f29;
+	display: inline-block;
+	cursor:pointer;
+	color:#4b8f29;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 24px;
+	text-decoration:none;
+}
+
+.dateDiv{
+  font-size: 12px;
+  color: grey;
+  width: 32px;
+  height: 35px;
+}
+
+
+/* Media queries to change size of the app for mobile devices
+*/
+
+
+@media screen and (max-width:800px){
+
+
+  .container{
+    width: 100%;
+    margin:0;
+    padding: 0;
+  }
+
+  .page-header{
+    width: 100%;
+    z-index: 10;
+    left: 0;
+    text-align: center;
+    background-color:white;
+  }
+
+  .buttonContainer{
+    display: flex;
+    justify-content: center;
+
+  }
+
+  .insideButtons{
+    display:inline-flex;
+    justify-content: center;
+    flex-direction: column;
+
+  }
+
+  .mybutton{
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 24px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+
+  }
+
+  .mybutton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+
+  .mybutton span:after {
+    content: '\00bb';
+    font-size: 26px;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  .mybutton:hover span {
+    padding-right: 25px;
+  }
+
+  .mybutton:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+
+
+}

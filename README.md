@@ -1,15 +1,10 @@
-#ShoutOut Version 1.0.0 02/03/17
+#ShoutOut Version 1.5.6 25/04/2017
 
 GENERAL INFORMATION
 -------------------
 ShoutOut is a web application that aims to solve the problem of asking
 anonymous questions in lectures. To make it fast and easy to use there is no
 need for either the teacher or the student to sign up.
-
-INSTALLATION
-------------
-If you have a working web browser, there is no need to install anything.
-
 
 BROWSER COMPATIBILITY
 ---------------------
@@ -25,12 +20,44 @@ join the lecture by writing in the name.
 
 In the teachers view of the lecture, questions appear in real-time when the
 students publish them and the teacher can also see the number of votes cast by
-other students on each question. If the teacher answers the question, they can
-remove it from their view.
+other students on each question. If the teacher answers the question, the
+question gets automatically  placed at the bottom of the page.
 
 In the students view of the lecture, questions also appear in real-time and
-students can vote on each other’s question by clicking the voting button. When
-the teacher answers a question, the question is marked "Answered".
+students can vote on each other’s question by clicking the voting button.
+
+HOSTING A LOCAL Server
+----------------------
+Make sure you are  connected to your local network. Install node.js and
+redis.js
+https://nodejs.org/en/
+https://github.com/MSOpenTech/redis/releases
+before running the server. Enter "npm install" in terminal to host the server,
+then enter "node index" in the terminal.
+
+For Mac and Linux systems, download redis from https://redis.io/ and follow instructions.
+Then start the server by running the "redis-server" command. You might have to
+change directory to you redis folder.
+
+On windows systems, download the lates realse from https://github.com/MSOpenTech/redis/releases.
+The change directory to your Redis folder and run "redis-server redis.windows.config".
+
+NB! Remember to initiate the Redis server before the Node server. 
+
+OPENING THE APPLICATION FROM A Client
+-------------------------------------
+In your web browser, type host's ip adress followed by a colon followed by the port number
+(3001 on default). Example: 10.0.0.2:3001.
+
+UNIT TESTING
+------------
+The unit test is in the test.js file. To be able to run the tests,
+you first need to be able to host a server. You also need to open
+node_modules/socket-tester/index.js in a text editor and change this.timeout
+from 25 to 150 set timeout to higher if you have a slow performing computer.
+Delete the database file "db.sqlite3" at the root of the project folder
+every time before running the test.  enter "npm test test" in the terminal to
+run the test.
 
 CONTRIBUTORS
 ------------

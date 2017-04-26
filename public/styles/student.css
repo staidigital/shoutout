@@ -1,0 +1,319 @@
+
+/*
+Footer
+*/
+footer{
+  width: 100%;
+  height: 15%;
+  text-align: center;
+  background: rgba(100, 100, 150, 1);
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+  left: 0;
+}
+
+body{
+  display: flex;
+  max-height: 85%;
+  min-height: 85%;
+}
+
+
+#studentSendButton{
+  font-size: 16px;
+  max-height: 40px;
+  max-width: 70%;
+  margin: 1%;
+}
+
+
+#studentContainer{
+  width: 100%;
+  margin:2%;
+  padding: 0;
+  max-height: 85% !important;
+  min-height: 85%;
+  padding-bottom: 10%;
+}
+
+.page-header{
+  width: 100%;
+  z-index: 10;
+  left: 0;
+  text-align: center;
+  background-color:white;
+}
+
+.questioncontainer{
+  display: flex;
+  margin-top: 3%;
+  z-index: 0;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 2%;
+}
+
+
+.questions{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  padding: 0;
+
+}
+
+#inputfield {
+  margin: 5px auto;
+  border-radius: 15px;
+}
+
+#inputform{
+  display: flex;
+  margin: 5px auto 5px auto;
+  width: 50%;
+}
+
+.box{
+  margin: 1%;
+  padding: 1%;
+  background-color: white;
+  display: flex;
+  align-content: space-between;
+  border: solid 2px rgba(100, 100, 150, 1);
+  border-radius: 10px;
+  max-width: 50%;
+  min-width: 50%;
+  max-height: inherit;
+}
+
+.buttonAndVoteContainer{
+  width: 100%;
+  height: 35px;
+  display: inline-flex;
+  flex-direction: row;
+
+
+}
+
+.plussButton{
+  width: 70%;
+  height: 35px;
+}
+
+#voteButton{
+  position: relative;
+  float: right;
+
+
+}
+
+.textBox{
+  margin: 5px !important;
+  height: inherit;
+  width: 70%;
+  max-width: 70%;
+  min-width: 70%;
+  word-wrap: break-word;
+}
+
+
+.votespan{
+  font-size: large;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.voteCount{
+  width: 35px;
+  height: 35px;
+  position: relative;
+  float:right;
+
+}
+
+.roomNameContainer{
+  align-self: center;
+
+}
+
+#refreshButton{
+  font-size: 14px !important;´
+}
+
+.currentRoomButtonStudent{
+	background-color:transparent;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #4b8f29;
+	display: inline-block;
+	cursor:pointer;
+	color:#4b8f29;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 24px;
+	text-decoration:none;
+}
+
+.refreshButton{
+  display: inline-flex;
+  width: 100%;
+  height: inherit;
+  justify-content: space-between ;
+}
+
+.stud{
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border-style: solid;
+  border-color: #4CAF50;
+  border-radius: 10%;
+  background-color: inherit;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  height: 35px;
+  width: 35px;
+  max-height: inherit;
+}
+
+.stud:hover{
+  background-color: #4CAF50;
+  color: white;
+}
+
+.dateDiv{
+  font-size: 12px;
+  color: grey;
+  width: 32px;
+  height: 35px;
+}
+
+/*
+Media queries to change the size of the app for different devices
+
+*/
+
+@media screen and (max-width:800px){
+
+  #refreshButton{
+    font-size: 10px !important;
+  }
+  .container{
+    width: 100%;
+    margin:0px;
+    padding: 0px;
+  }
+
+
+  .box{
+    margin: 1%;
+    padding: 1%;
+    background-color: white;
+    display: flex;
+    align-content: space-between;
+    border: solid 2px rgba(100, 100, 150, 1);
+    border-radius: 10px;
+    max-width: 100%;
+    min-width: 100%;
+    max-height: inherit;
+  }
+
+  #roomname{
+    width: 70%;
+  }
+
+  .jumboItem1{
+    margin: 1%;
+    display: flex;
+    align-content: center;
+  }
+
+  .RBUTT{
+    margin: 1%;
+  }
+
+  #createdRoom{
+    margin: 1%;
+  }
+
+  .body {
+    -webkit-text-size-adjust: 100%;
+  }
+  #studentSendButton{
+    margin: 2%;
+    max-width: 20%;
+  }
+
+  .page-header{
+    margin: 3% !important;
+  }
+
+
+  #inputfield{
+    width: 68% !important;
+    margin: 1% !important;
+  }
+
+  #inputform{
+    display:flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin: 1%;
+    width: 100%;
+  }
+
+  #studentFooter{
+    width:100%;
+    min-height: 15%;
+    max-height: 15%;
+    text-align: center;
+    background: rgba(100, 100, 150, 1);
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    left: 0;
+
+  }
+
+  body{
+    max-height: 79%;
+    min-height: 79%;
+  }
+  .questioncontainer{
+    display: flex;
+    margin-top: 3%;
+    z-index: 0;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 2%;
+  }
+
+
+  #studentContainer{
+    width: 100%;
+    margin:2%;
+    padding: 0;
+    max-height: 85% !important;
+    min-height: 85%;
+    padding-bottom: 30%;
+  }
+
+  #studentSendButton{
+    font-size: 14px;
+    max-height: 40px;
+    max-width: 70%;
+    float:left;
+  }
+
+
+
+
+
+
+}
