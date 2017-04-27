@@ -4,17 +4,58 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --reporter spec"
+    "test": "nyc mocha --timeout=3000 "
   },
-  "author": "Sondre Stai",
+  "author": "Shoutout team",
   "license": "ISC",
   "dependencies": {
-    "chai": "^3.5.0",
+    "body-parser": "^1.17.1",
+    "connect-redis": "^3.2.0",
+    "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
     "express": "^4.15.0",
-    "loadash": "0.0.1",
+    "express-session": "^1.15.1",
+    "fs": "0.0.1-security",
     "lodash": "^4.17.4",
-    "mocha": "^3.2.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "redis": "^2.7.1",
     "request": "^2.80.0",
-    "socket.io": "^1.7.2"
-  }
+    "socket.io": "^1.7.2",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^2.2.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "socket-tester": "^1.2.1"
+  },
+  "eslintConfig": {
+        "extends": "standard",
+        "plugins": [
+            "standard",
+            "promise",
+            "node",
+            "import"
+          ],
+        "env": {
+            "browser": true,
+            "node": true,
+            "mocha": true,
+            "jquery": true
+        },
+        "rules": {
+            "semi": [
+              2,
+              "always"
+            ]
+        }
+    }
 }

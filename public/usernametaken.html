@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ShoutOut</title>
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+  crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+  <!-- main container where everythis is -->
+  <div class="containerLogin">
+      <!-- page header with link to homepage -->
+    <div class="page-header">
+      <a href="index.html"><h1>ShoutOut</h1></a>
+    </div>
+    <!-- signup form, with login and password fields, and a comment that says "username taken".
+    this is getting redirected from signup.html if password is wrong -->
+    <form action="/signup" method="post">
+      <div class="loginBox">
+        <div class="loginElements">
+          <div>
+            <label for="focusedInput" id="username">Username</label>
+            <input type="text" name="username" class="form-control" id="focusedInput"/>
+          </div>
+          <div id="usernametaken">
+            <p>Username taken</p>
+          </div>
+          <div>
+            <label id="password">Password</label>
+            <input id="passwordInput" class="form-control" type="password" name="password"/>
+          </div>
+          <div>
+            <input class="form-control" type="submit" value="Create User"/>
+          </div>
+      </form>
+    </div>
+    </div>
+  </div>
+
+  <footer></footer>
+  <!-- Scripts for socket io and jquery -->
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+  integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+  crossorigin="anonymous"></script>
+</body>
+</html>

@@ -2,28 +2,35 @@
 <html>
 <head>
   <title>ShoutOut</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="styles/index.css">
   <link rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
   integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
   crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
 
 </head>
 <body>
   <div class="container">
+    <!-- Header with title -->
     <div class="page-header">
       <h1>ShoutOut</h1>
     </div>
-      <a href="student.html"><button onclick="joinRoom()" class="btn btn-danger" role=button>Bli  med i rom</button></a>
-      <a href="teacher.html"><button onclick="createRoom()" class="btn btn-danger" role=button>Lag et nytt room</button></a>
+    <!-- button container that contains the two big red buttons which redirects you to STUDENT page or Teacher page -->
+      <div class="buttonContainer">
+        <div class="insideButtons">
+        <a href="student.html"><button class="mybutton" role=button style="vertical-align: middle"><span>Student</span></button></a>
+        <a href="login.html"><button class="mybutton" role=button style="vertical-align: middle"><span>Teacher</span></button></a>
+      </div>
+    </div>
   </div>
 
-  </div>
-
-  <footer>
-
-  </footer>
-
+  <footer></footer>
+  
+  <!-- Jquery script, socket connection and boostrap -->
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
